@@ -1,0 +1,35 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+
+dan:
+  id: 1
+  first_name: Daniel
+  last_name: Collis-Puro
+  work_url: http://cyber.law.harvard.edu/
+  personal_url: http://www.kookdujour.com/
+  street1: 17 Wardwell Ave
+  street2: 
+  city: Lynn
+  state: MA
+  zip: 01902
+  country: US
+  phone: 781-477-1875
+
+dan2:
+  id: 2
+  first_name: Daniel2
+  last_name: Collis-Puro2
+  work_url: http://cyber.law.harvard.edu/
+  personal_url: http://www.kookdujour.com/
+  street1: 17 Wardwell Ave
+  street2: 
+  city: Lynn
+  state: MA
+  zip: 01902
+  country: US
+  phone: 781-477-1875

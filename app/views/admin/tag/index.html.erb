@@ -1,0 +1,7 @@
+<h1>Tags</h1>
+<div id="admin-list">
+  <%= display_tree_recursive(@tree,nil) {|node| render :partial => '/shared/tag_line', :object => node } %>
+</div>
+<div class="new-object">
+  <%= link_to(icon(:add) + ' New tag', :action => :edit) %>
+</div>

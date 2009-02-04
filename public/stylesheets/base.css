@@ -1,0 +1,58 @@
+/* Base css file. */
+table, tr, td, div, h1, h2, h3, h4, h5, input, form, select, option{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#notice, #error{
+  color: green;
+  border: 1px solid green;
+  background: #efefef;
+  padding: 4px;
+}
+
+#error{
+  color: red;
+}
+
+img{
+  border: 0px;
+}
+
+div.icon-spacer{
+  width: 16px;
+  height: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#header, #content, #footer{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  width: 90%;
+  padding: 5px;
+  border: 1px black;
+}
+
+#header{
+  border-style: solid solid none solid;
+}
+
+#content{
+  border-style: none solid none solid;
+}
+
+#footer{
+  border-style: none solid solid solid;
+}
+
+#admin-list ul, #admin-list ol{
+  list-style-type: none;
+}
+

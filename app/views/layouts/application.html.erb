@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title><%= @html_title || controller.controller_path.to_s.gsub!('/',' ').titleize %></title>
+    <%= javascript_include_tag :all, :cache => true %>
+    <%= stylesheet_link_tag :all, :cache => true %>
+    <% if @use_fckeditor %>
+      <%= javascript_include_tag "fckeditor/fckeditor" %>
+    <% end %>
+  </head>
+  <body>
+    <div id="wrapper">
+
+      <div id="header">
+      </div><!-- /#header -->
+
+      <div id="content">
+      <%= render :partial => '/shared/messages', :object => 'error' %>
+      <%= render :partial => '/shared/messages', :object => 'notice' %>
+      <%= yield %>
+      </div><!-- /#content -->
+
+      <div id="footer">
+      </div><!-- /#footer -->
+
+    </div><!-- /#wrapper -->
+  </body>
+</html>

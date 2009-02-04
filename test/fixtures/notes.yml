@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+note1:
+  id: 1
+  user_id: 1
+  contact_id: 1
+  position: 1
+  note: You are a very odd person.
+
+note2:
+  id: 2
+  user_id: 1
+  contact_id: 1
+  position: 2
+  note: Woggle flip.
+
+note3:
+  id: 3
+  user_id: 1
+  contact_id: 2
+  position: 1
+  note: Woggle flip again.

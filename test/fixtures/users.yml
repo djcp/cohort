@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+djcp:
+  id: 1
+  username: djcp
+  superadmin: true
+
+djcp-2:
+  id: 2
+  username: djcp2
+  superadmin: false

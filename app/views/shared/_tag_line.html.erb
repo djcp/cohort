@@ -1,0 +1,4 @@
+<%= link_to(icon(:cross), {:action => :destroy, :id => tag_line}, {:method => :post, :confirm => 'Are you sure?'}) -%>
+<% unless tag_line.first? %><%= link_to icon(:arrow_up), :action => :move_higher, :id => tag_line %><% else %><%= image_tag 'transparent-icon.png' %><% end -%>
+<% unless tag_line.last? %><%= link_to icon(:arrow_down), :action => :move_lower, :id => tag_line %><% else %><%= image_tag 'transparent-icon.png' %><% end -%>
+<%= link_to tag_line.tag, :action => :edit, :id => tag_line -%>
