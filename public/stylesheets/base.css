@@ -36,7 +36,7 @@ h3 {
 #page {
   margin-left: auto;
   margin-right: auto;
-  width: 950px;
+  width: 1200px;
   text-align: left;
 }
 
@@ -52,7 +52,7 @@ h3 {
 
 #content-wrapper {
   float: left;
-  width: 650px;
+  width: 800px;
   border: 1px solid black;
 }
 

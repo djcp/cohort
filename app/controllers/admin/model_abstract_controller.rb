@@ -36,9 +36,6 @@ class Admin::ModelAbstractController < Admin::BaseController
     # objects. We need to protect methods if we're going to expose
     # objects to editing by non-admin users.
     if request.post?
-      if @object.respond_to?('move_higher')
-        @object['original_parent_id'] = @object.parent_id
-      end
       @object.attributes = params[@object.class.name.downcase]
       if @object.save
         redirect_to :action => :index and return
