@@ -1,0 +1,12 @@
+<h1>Contacts</h1>
+<% unless @contacts.blank? %>
+<div id="admin-list">
+  
+</div>
+<% else %>
+  <h2>None!</h2>
+<% end %>
+
+<div class="new-object">
+  <%= link_to(icon(:add) + ' New contact', :action => :edit) %>
+</div>

@@ -1,27 +1,34 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <title><%= @html_title || controller.controller_path.to_s.gsub!('/',' ').titleize %></title>
     <%= javascript_include_tag :all, :cache => true %>
     <%= stylesheet_link_tag :all, :cache => true %>
-    <% if @use_fckeditor %>
-      <%= javascript_include_tag "fckeditor/fckeditor" %>
-    <% end %>
+    <%= javascript_include_tag "fckeditor/fckeditor" %>
   </head>
   <body>
-    <div id="wrapper">
-
+    <div id="page">
       <div id="header">
+        <h1>Cohort</h1>
       </div><!-- /#header -->
 
-      <div id="content">
-      <%= render :partial => '/shared/messages', :object => 'error' %>
-      <%= render :partial => '/shared/messages', :object => 'notice' %>
-      <%= yield %>
-      </div><!-- /#content -->
+      <div id="main-wrapper">
+      <div id="main">
+       <% if @session_user %>
+         <%= render :partial => '/shared/admin_bar' %>
+       <% end %>
+       <div id="content-wrapper">
+          <div id="content">
+          <%= render :partial => '/shared/messages', :object => 'error' %>
+          <%= render :partial => '/shared/messages', :object => 'notice' %>
+          <%= yield %>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div id="footer">footer</div><!-- /#footer -->
+      </div><!-- /#main -->
+      </div><!-- /#main-wrapper -->
 
-      <div id="footer">
-      </div><!-- /#footer -->
-
-    </div><!-- /#wrapper -->
+    </div><!-- /#page -->
   </body>
 </html>
