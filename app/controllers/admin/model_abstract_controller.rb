@@ -1,11 +1,11 @@
 class Admin::ModelAbstractController < Admin::BaseController
 
   def move_higher
-    move('move_higher')
+    invoke('move_higher')
   end
 
   def move_lower
-    move('move_lower')
+    invoke('move_lower')
   end
 
   def destroy
@@ -48,18 +48,18 @@ class Admin::ModelAbstractController < Admin::BaseController
 
   protected
 
-  def move(move_method = 'move_higher')
+  def invoke(to_invoke = 'move_higher', error_context_message = 'move')
     begin
       @object = self.model.find(params[:id])
-      unless @object.respond_to?(move_method)
-        raise "You can't move this kind of object" 
+      unless @object.respond_to?(to_invoke)
+        raise "You can't #{error_context_message} this kind of object" 
       end
-      @object.send(move_method)
+      @object.send(to_invoke)
       @object.reload
       flash[:notice] = 'Moved!'
     rescue Exception => exc
       logger.error "Move failed #{exc.message}"
-      flash[:error] = 'There was an error moving that item. Sorry!'
+      flash[:error] = "There was an error when I attempted to #{error_context_message} that item. Sorry!"
     end
     redirect_to :action => :index and return
   end
