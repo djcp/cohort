@@ -74,13 +74,17 @@ CREATE OR REPLACE FUNCTION parent_checks() RETURNS trigger AS $$
 BEGIN
   if NEW.parent_id = NEW.id THEN
     -- Big fat negative - you can't be your own parent. Except maybe in Kentucky.
-    RAISE EXCEPTION 'Can\'t be your own parent!';
+    RAISE EXCEPTION 'Can not be your own parent!';
   END IF;
+  -- TO DO: Check to ensure a node can't be set as a child of one of its children.
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER position_fixes_on_insert BEFORE INSERT tags
+CREATE TRIGGER parent_checks BEFORE UPDATE ON tags
+FOR EACH ROW EXECUTE PROCEDURE parent_checks();
+
+CREATE TRIGGER position_fixes_on_insert BEFORE INSERT ON tags
 FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_insert();
 
 CREATE TRIGGER position_fixes_on_update BEFORE UPDATE ON tags
@@ -103,6 +107,8 @@ FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_update();
   def self.down
     execute 'drop trigger position_fixes_on_update on tags'
     execute 'drop trigger position_fixes_on_insert on tags'
+    execute 'drop trigger parent_checks on tags'
+    execute 'drop function parent_checks()'
     execute 'drop function position_fixes_on_update()'
     execute 'drop function position_fixes_on_insert()'
     drop_table :contacts_tags
