@@ -17,6 +17,14 @@ function deal_with_flyouts(){
       el.observe('click',function(){
         target = $(el.id + '-actions');
         target.toggle();
+	if(target.visible()){
+		el.removeClassName('hidden');
+		el.addClassName('shown');
+	}
+	else {
+		el.addClassName('hidden');
+		el.removeClassName('shown');
+	}
       }
       );
     }

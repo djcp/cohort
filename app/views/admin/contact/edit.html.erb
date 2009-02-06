@@ -1,20 +1,36 @@
 <%= render :partial => '/shared/form_header' %>
   <% form_for :contact do|f| %>
 
-    <h2 id="flyout-contact-personal-info" class="toggle">Personal Info</h2>
+    <h2 id="flyout-contact-personal-info" class="toggle shown">Personal Info</h2>
     <div id="flyout-contact-personal-info-actions" class="toggle-target defaultopen">
-      <% %W|first_name last_name work_url personal_url|.each do|field| %>
-      <p class="field"><label for="contact_<%= field %>"><%= field.humanize %></label>
+      <% %W|first_name last_name|.each do|field| %>
+      <p class="field"><label for="contact_<%= field %>"><%= field.humanize %>:</label>
         <%= f.text_field field.to_sym %>
       </p>
     <% end %>
     </div>
 
-    <h2 id="flyout-contact-address-info" class="toggle">Address Info</h2>
+    <h2 id="flyout-contact-address-info" class="toggle shown">Address Info</h2>
     <div id="flyout-contact-address-info-actions" class="toggle-target defaultopen">
     <p class="field"><label for="contact_street1">Address Line 1:</label>
         <%= f.text_field :street1 %>
     </p>
+    <p class="field"><label for="contact_street2">Address Line 2:</label>
+        <%= f.text_field :street2 %>
+    </p>
+    <p class="field"><label for="contact_city">City:</label><%= f.text_field :city, :size => 20 %> <label for="contact_state">State: </label><%= f.text_field :state, :size => 3 %> <label for="contact_zip">Zip: </label><%= f.text_field :zip, :size => 15 %> <label for="contact_country">Country: </label><%= f.text_field :country, :size => 2 %>
+    </p>
+    </div>
+    <h2 id="flyout-contact-contact-info" class="toggle shown">Contact Info</h2>
+    <div id="flyout-contact-contact-info-actions" class="toggle-target defaultopen">
+    <p class="field"><label for="contact_phone">Phone:</label>
+        <%= f.text_field :phone, :size => 15 %>
+    </p>
+      <% %W|work_url personal_url|.each do|field| %>
+      <p class="field"><label for="contact_<%= field %>"><%= field.humanize %>:</label>
+        <%= f.text_field field.to_sym %>
+      </p>
+    <% end %>
     </div>
     <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
   <% end %>

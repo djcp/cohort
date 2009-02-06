@@ -21,14 +21,21 @@ h2 {
   font-size: 220%;
 }
 
+.shown{
+	padding-left: 20px;
+	background: url('/icons/arrow_down.png') left center no-repeat; 
+}
+
+.hidden{
+	padding-left: 20px;
+	background: url('/icons/arrow_right.png') left center no-repeat; 
+}
+
 h3 {
   font-size: 180%;
   font-weight: normal;
 }
 
-.hidden {
-  display: none;
-}
 .clear {
   clear: both;
 }
