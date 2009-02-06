@@ -11,6 +11,12 @@ class Tag < ActiveRecord::Base
     return options
   end
 
+  def my_parents
+    parents = []
+    recurse_for_parents(self,parents)
+    parents && parents.reverse    
+  end
+
   def get_all_children
     children = []
     recurse_for_children(self.children,children)
@@ -27,6 +33,14 @@ class Tag < ActiveRecord::Base
         end
     end
   end
+
+  def recurse_for_parents(node,parents = [])
+    unless node.parent == nil
+      parents << node.parent
+      recurse_for_parents(node.parent,parents)
+    end
+  end
+
 
   def self.recurse_for_select_options(tree,parent_id,depth,options)
     if parent_id == nil

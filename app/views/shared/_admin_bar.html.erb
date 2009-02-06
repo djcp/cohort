@@ -1,12 +1,12 @@
-<div id="left-column-wrapper">
-  <div id="left-column">
-    <h1 id="flyout-tags" class="toggle hidden">Tags</h1>
-    <div id="flyout-tags-actions" class="toggle-target">
-      <%= link_to 'Edit tag hierarchy', :controller => '/admin/tag' %>
-    </div>
-    <h1 id="flyout-contacts" class="toggle hidden">Contacts</h1>
-    <div id="flyout-contacts-actions" class="toggle-target">
-      <%= link_to 'Manage Contacts', :controller => '/admin/contact' %>
-    </div>
+<div id="admin-bar">
+  <h1 id="flyout-tags" class="toggle hidden">Tags</h1>
+  <div id="flyout-tags-actions" class="toggle-target">
+    <%= link_to 'Edit tag hierarchy', :controller => '/admin/tag' %>
+    <%= link_to 'Add tag', :controller => '/admin/tag', :action => :edit %>
+  </div>
+  <h1 id="flyout-contacts" class="toggle hidden">Contacts</h1>
+  <div id="flyout-contacts-actions" class="toggle-target">
+    <%= link_to 'Manage Contacts', :controller => '/admin/contact' %>
+    <%= link_to 'Add Contact', :controller => '/admin/contact', :action => :edit %>
   </div>
 </div>

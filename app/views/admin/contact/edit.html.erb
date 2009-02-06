@@ -31,7 +31,19 @@
         <%= f.text_field field.to_sym %>
       </p>
     <% end %>
+      <p class="field"><label for="contact_tags">Add Tags:</label>
+        <%= text_field_tag 'new_tags' %>
+      </p>
     </div>
     <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
   <% end %>
 <%= render :partial => '/shared/form_footer' %>
+
+<script type="text/javascript">
+document.observe('dom:loaded',function(){
+ac = new UI.AutoComplete('new_tags',{ shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
+  .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
+});
+</script>
+

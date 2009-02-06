@@ -14,9 +14,13 @@
 
       <div id="main-wrapper">
       <div id="main">
+        <div id="left-column-wrapper">
+          <div id="left-column">
        <% if @session_user %>
          <%= render :partial => '/shared/admin_bar' %>
        <% end %>
+          </div>
+        </div>
        <div id="content-wrapper">
           <div id="content">
           <%= render :partial => '/shared/messages', :object => 'error' %>

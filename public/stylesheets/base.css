@@ -78,6 +78,17 @@ h3 {
   font-size: 90%;
 }
 
+#admin-bar a{
+  display: block;
+  text-decoration: none;
+  padding: 3px;
+}
+
+#admin-bar a:hover{
+  text-decoration: underline;
+  background-color: #eeeeee;
+}
+
 #right-column-wrapper {
   float: right;
   width: 209px;
