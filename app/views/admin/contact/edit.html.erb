@@ -41,7 +41,7 @@
 
 <script type="text/javascript">
 document.observe('dom:loaded',function(){
-ac = new UI.AutoComplete('new_tags',{ shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+ac = new UI.AutoComplete('new_tags',{unique:false, shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
 ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
   .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
 });

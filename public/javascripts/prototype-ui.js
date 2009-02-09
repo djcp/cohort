@@ -4581,7 +4581,6 @@ UI.AutoComplete = Class.create(UI.Options, {
 
   add: function(text, value, options) {
     // No more than max
-    alert('value: ' + value);
     if (!this.canAddMoreItems())
       return;
 
@@ -4593,9 +4592,11 @@ UI.AutoComplete = Class.create(UI.Options, {
 
     // Close button
     var close = new Element('a', {'href': '#', 'class': 'closebutton'});
-    li.insert(new Element("span").update(text).insert(close));
-    if (value)
+    li.insert(new Element("span").update(text + value).insert(close));
+    if (value){
+	alert('writing value: ' + value);
       li.writeAttribute("pui-autocomplete:value", value);
+	}
 
     close.observe("click", this.remove.bind(this, li));
 
