@@ -24,14 +24,14 @@ class CreateContacts < ActiveRecord::Migration
       t.references :contact, :null => false, :on_update => :cascade, :on_delete => :cascade
       t.column :email, :string, :limit => 200, :null => false
       t.column :email_type, :string, :limit => 100
-      t.column :primary, :boolean, :default => false
+      t.column :is_primary, :boolean, :default => false
       t.timestamps
     end
     execute "ALTER TABLE contact_emails 
           ADD CONSTRAINT contact_emails_email_type_check
           CHECK (email_type IN ('personal', 'work','unknown'))"
 
-    %W|email email_type primary|.each do|column|
+    %W|email email_type is_primary|.each do|column|
       add_index :contact_emails, column
     end
     add_index :contact_emails, ['contact_id','email'], :unique => true

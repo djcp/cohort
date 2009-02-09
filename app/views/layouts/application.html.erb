@@ -2,9 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <title><%= @html_title || controller.controller_path.to_s.gsub!('/',' ').titleize %></title>
-    <%= javascript_include_tag :all, :cache => true %>
-    <%= stylesheet_link_tag :all, :cache => true %>
-    <%= javascript_include_tag "fckeditor/fckeditor" %>
+    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'prototype-ui' %>
+
+    <%= stylesheet_link_tag :all %>
+
+    <% if @use_fckeditor %>
+      <%= javascript_include_tag "fckeditor/fckeditor" %>
+    <% end %>
+
   </head>
   <body>
     <div id="page">

@@ -1,0 +1,11 @@
+<tr id="<%= contact_email_edit.id %>">
+  <%= hidden_field_tag 'contact_email_ids[]', contact_email_edit.id %>
+  <td>Email: <%= text_field_tag 'contact_email[' + contact_email_edit.id.to_s + '][email]', contact_email_edit.email %></td>
+  <td>
+    <select name="contact_email[<%= contact_email_edit.id %>][email_type]">
+    <%= options_for_select(ContactEmail.options_for_select,contact_email_edit.email_type) %>
+    </select>
+    </td>
+  <td><%= radio_button_tag 'contact_email[is_primary]', contact_email_edit.id, contact_email_edit.is_primary %><label for="contact_email_is_primary_<%= contact_email_edit.id %>">primary address</label></td>
+  <td><%= check_box_tag 'contact_email[' + contact_email_edit.id.to_s + '][delete]' %><label for="contact_email_<%= contact_email_edit.id %>_delete">delete</label></td>
+</tr>

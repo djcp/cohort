@@ -1,7 +1,14 @@
 <h1>Contacts</h1>
 <% unless @contacts.blank? %>
 <div id="admin-list">
-  
+  <table border="0">
+    <tr>
+      <th>Name:</th>
+      <th>Email:</th>
+      <th>Actions:</th>
+    </tr>
+  <%= render :partial => 'shared/contact_line', :collection => @contacts %>  
+  </table>
 </div>
 <% else %>
   <h2>None!</h2>

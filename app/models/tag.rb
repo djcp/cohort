@@ -11,6 +11,10 @@ class Tag < ActiveRecord::Base
     return options
   end
 
+  def hierarchical_title
+    [self.my_parents.collect{|p| p.tag},self.tag].flatten.join(' -> ')
+  end
+
   def my_parents
     parents = []
     recurse_for_parents(self,parents)

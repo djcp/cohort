@@ -7,7 +7,7 @@ class Admin::TagController < Admin::ModelAbstractController
 
   def json_tags
     tags = Tag.find(:all, :conditions => ["lower(tag) like lower(?)", '%' + params[:search] + '%'], :limit => params[:max] || 20)
-    render  :json => tags.collect{|t| {'text' => ([t.my_parents.collect{|p| p.tag},t.tag].flatten.join(' -> ')), 'value' => t['id']}}.to_json 
+    render  :json => tags.collect{|t| {'text' => t.hierarchical_title , 'value' => t['id']}}.to_json 
   end
 
   protected

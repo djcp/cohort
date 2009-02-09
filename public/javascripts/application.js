@@ -30,7 +30,18 @@ var Cookie = {
 
 document.observe("dom:loaded", function() {
   deal_with_flyouts();
+  init_tag_controls();
 });
+
+function init_tag_controls(){
+  $('existing-tags') && $('existing-tags').select('[id*=remove-tag]').each(function(oEl){
+    oEl.observe('click',function(el){
+      var target = el.target;
+      var id = target.id.split('-').last();
+      $('tag-' + id).remove();
+    })
+  });
+}
 
 function deal_with_flyouts(){
   // find all elements with an ID that contains 'flyout'

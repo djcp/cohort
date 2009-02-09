@@ -1,0 +1,10 @@
+<tr id="row-<%= new_email %>">
+<%= hidden_field_tag 'new_emails[]', new_email %>
+<td><label for="new_email_<%= new_email %>_email">Email: </label> <%= text_field_tag 'new_email[' + new_email.to_s + '][email]' %></td>
+<td>
+<select name="new_email[<%= new_email %>][email_type]">
+<%= options_for_select(ContactEmail.options_for_select) %>
+</select>
+</td>
+<td><%= radio_button_tag 'new_email[is_primary]', new_email %><label for="new_email_is_primary_<%= new_email %>">primary address</label></td>
+</tr>

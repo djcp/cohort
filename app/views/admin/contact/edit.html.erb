@@ -18,7 +18,10 @@
     <p class="field"><label for="contact_street2">Address Line 2:</label>
         <%= f.text_field :street2 %>
     </p>
-    <p class="field"><label for="contact_city">City:</label><%= f.text_field :city, :size => 20 %> <label for="contact_state">State: </label><%= f.text_field :state, :size => 3 %> <label for="contact_zip">Zip: </label><%= f.text_field :zip, :size => 15 %> <label for="contact_country">Country: </label><%= f.text_field :country, :size => 2 %>
+    <p class="field"><label for="contact_city">City:</label><%= f.text_field :city, :size => 20 %>
+      <label for="contact_state">State: </label><%= f.text_field :state, :size => 3 %> 
+      <label for="contact_zip">Zip: </label><%= f.text_field :zip, :size => 15 %>
+      <label for="contact_country">Country: </label><%= f.text_field :country, :size => 2 %>
     </p>
     </div>
     <h2 id="flyout-contact-contact-info" class="toggle shown">Contact Info</h2>
@@ -31,7 +34,32 @@
         <%= f.text_field field.to_sym %>
       </p>
     <% end %>
-      <p class="field"><label for="contact_tags">Add Tags:</label>
+    <% unless @contact.new_record? %>
+    <p class="field" id="contact-emails">
+      <h3>Existing Email Addresses</h3>
+      <table border="0">
+      <%= render :partial => 'shared/contact_email_edit', :collection => @contact.contact_emails %>
+      </table>
+    </p>
+    <% end %>
+    <p class="field" id="new-emails">
+      <h3>Add Email Addresses</h3>
+      <table border="0">
+        <%= render :partial => 'shared/new_email', :collection => [1,2,3] %>
+      </table>
+    </p>
+    </div>
+
+    <h2 id="flyout-contact-tagging-info" class="toggle shown">Tags</h2>
+    <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen">
+    <% unless @contact.new_record? %>
+      <p class="field">Existing Tags:<br/>
+        <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags">
+          <%= render :partial => 'shared/existing_tags', :collection => @contact.tags %>
+        </ul>
+      </p>
+    <% end %>
+      <p class="field"><label for="contact_tags">Add Tags to this contact:</label>
         <%= text_field_tag 'new_tags' %>
       </p>
     </div>
@@ -41,7 +69,7 @@
 
 <script type="text/javascript">
 document.observe('dom:loaded',function(){
-ac = new UI.AutoComplete('new_tags',{unique:false, shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+ac = new UI.AutoComplete('new_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
 ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
   .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
 });
