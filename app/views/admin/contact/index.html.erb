@@ -1,10 +1,11 @@
 <h1>Contacts</h1>
 <% unless @contacts.blank? %>
 <div id="admin-list">
-  <table border="0">
+  <table border="0" width="100%">
     <tr>
       <th>Name:</th>
-      <th>Email:</th>
+      <th>Emails:</th>
+      <th>Notes:</th>
       <th>Actions:</th>
     </tr>
   <%= render :partial => 'shared/contact_line', :collection => @contacts %>  

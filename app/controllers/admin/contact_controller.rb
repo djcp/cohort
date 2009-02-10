@@ -13,25 +13,35 @@ class Admin::ContactController < Admin::ModelAbstractController
 
       new_tags = []
       deal_with_new_tags(params[:new_tags],new_tags)
-
       emails = deal_with_email @object
-	unless emails.blank?
-		logger.warn('Emails: ' + emails.inspect); 
-      		@object.contact_emails = emails
-	end
+      deal_with_notes @object
 
-      deduped_tags = [new_tags,current_tags].flatten.uniq
-      logger.warn(deduped_tags.inspect)
+      deduped_tags = [
+        (new_tags and new_tags.collect{|t|t.to_i}),
+        (current_tags and current_tags.collect{|t|t.to_i})
+      ].flatten.uniq
+
       @object.tag_ids = deduped_tags || []
 
-      if @object.save
+      if flash[:ceerror].blank? and @object.save
+        unless emails.blank?
+          emails.each{|em|
+            unless @object.contact_emails.exists?(em)
+              @object.contact_emails << em
+            end
+          }
+        end
+        @existing_emails_to_destroy.each{|e|e.destroy}
+        @object.contact_emails.each{|ce|
+          ce.save
+        }
         redirect_to :action => :index and return
       end
     end
   end
 
   def index
-      @contacts = Contact.find :all 
+    @contacts = Contact.find :all 
   end
 
   protected
@@ -39,47 +49,80 @@ class Admin::ContactController < Admin::ModelAbstractController
     Contact
   end
 
+  def deal_with_notes(object)
+
+  end
+
   def deal_with_email(object)
+    flash[:ceerror] = nil
     number_new_emails = params[:new_emails]
     existing_emails = params[:contact_email_ids]
-	new_emails = []
-	existing_emails = []
-	existing_emails_to_destroy = []
-	deduped_emails = []
+    new_emails = []
+    existing_emails = []
+    @existing_emails_to_destroy = []
+    deduped_emails = []
 
     #so we need to:
     # Delete existing emails that've been checked as needing deletion
     # Add the new addresses, with some error checking.
     # Ensure that only one address is a primary, across both the new and old addresses.
-	object.contact_emails.each{|ce|
-		if params[:contact_email][ce.id.to_s][:delete].to_i == 1
-			existing_emails_to_destroy << ce
-		else
-			existing_emails << ce
-			ce.email = params[:contact_email][ce.id.to_s][:email]
-			ce.email_type = params[:contact_email][ce.id.to_s][:email_type]
-			# TO FIX: ce.is_primary = params[:contact_email][ce.id.to_s][:is_primary]
-		end
-	}
-	deduped_emails << existing_emails
-	number_new_emails.each{|i|
-		unless params[:new_email][i][:email].blank?
-			new_emails << {:email => params[:new_email][i][:email],
-				:email_type => params[:new_email][i][:email_type],
-				# TO FIX: :is_primary => (params[:new_email][:is_primary].to_i == i) ? true : false,
-				:contact_id => object.id
-				}
-		end
-	}
-	new_emails.each{|email|
-		ce = ContactEmail.new(email)
-		if ! ce.valid? 
-			flash[:error] = ce.errors.each{|attr,msg| "#{attr} - #{msg}<br/>"}
-		else
-			deduped_emails << ce
-		end
-	}
-	return deduped_emails.flatten
+    # I suspect this will be much easier in rails 2.3 because of the :autosave association attribute.
+    # 
+    new_email_is_primary = nil
+
+    number_new_emails.each{|i|
+      unless params[:new_email][i][:email].blank?
+        new_email = {
+          :email => params[:new_email][i][:email],
+          :email_type => params[:new_email][i][:email_type],
+          :is_primary => ((params[:new_email][:is_primary] == i) ? true : false),
+          :contact_id => object.id
+        }
+        logger.warn(new_email.inspect + "\n")
+        ce = ContactEmail.new(new_email)
+        if ! ce.valid? 
+          object.errors.add_to_base(ce.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>'))
+          flash[:ceerror] = (flash[:ceerror].blank? ? '' : flash[:ceerror]) + ce.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>')
+        else
+          if ce.is_primary
+            new_email_is_primary = true
+          end
+          deduped_emails << ce
+        end
+      end
+    }
+
+    existing_email_is_primary = nil
+    object.contact_emails.each{|ce|
+      if params[:contact_email][ce.id.to_s][:delete].to_i == 1
+        @existing_emails_to_destroy << ce
+      else
+        ce.email = params[:contact_email][ce.id.to_s][:email]
+        ce.email_type = params[:contact_email][ce.id.to_s][:email_type]
+
+        if new_email_is_primary
+          ce.is_primary = false
+        else
+          ce.is_primary = ((params[:contact_email][:is_primary].to_i == ce.id) ? true : false)
+        end
+
+        if ! ce.valid?
+          object.errors.add_to_base(ce.errors.collect{|attribute,msg| "#{attribute}  #{msg}"}.join('<br/>'))
+          flash[:error] = (flash[:ceerror].blank? ? '' : flash[:ceerror]) + ce.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>')
+        end
+        existing_emails << ce
+      end
+    }
+    deduped_emails << existing_emails
+    deduped_emails.flatten!
+
+    has_primary = false
+    deduped_emails.collect{|ce| has_primary = ce.is_primary}
+    unless has_primary
+      deduped_emails && deduped_emails.first.is_primary = true
+    end
+    return deduped_emails
+
   end
 
   def deal_with_new_tags(new_tags_string,new_tags)
@@ -94,7 +137,7 @@ class Admin::ContactController < Admin::ModelAbstractController
             new_tags << nt.id
           end
         rescue Exception => exc
-          flash[:error] = "There was an error creating that tag: #{exc.message}"
+          flash[:ceerror] = "There was an error creating that tag: #{exc.message}"
         end
       end
     }

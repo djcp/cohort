@@ -47,22 +47,38 @@
       <table border="0">
         <%= render :partial => 'shared/new_email', :collection => [1,2,3] %>
       </table>
+      <span class="note">If you select a new email address as the primary address, it will take precedence over any existing primary addresses.</span>
     </p>
     </div>
 
     <h2 id="flyout-contact-tagging-info" class="toggle shown">Tags</h2>
     <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen">
     <% unless @contact.new_record? %>
-      <p class="field">Existing Tags:<br/>
+      <h3>Existing Tags:</h3>
         <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags">
           <%= render :partial => 'shared/existing_tags', :collection => @contact.tags %>
         </ul>
       </p>
     <% end %>
-      <p class="field"><label for="contact_tags">Add Tags to this contact:</label>
-        <%= text_field_tag 'new_tags' %>
-      </p>
+      <h3>Add tags to this contact:</h3>
+      <p class="field"><%= text_field_tag 'new_tags' %></p>
     </div>
+
+    <h2 id="flyout-contact-notes" class="toggle shown">Notes</h2>
+    <div id="flyout-contact-notes-actions" class="toggle-target defaultopen">
+    <% unless @contact.new_record? %>
+      <h3>Existing Notes:<h3>
+          <div id="existing-notes"> 
+            <%= render :partial => 'shared/enote', :collection => @contact.notes %>
+          </div>
+      <p class="field">
+      <h3>New Note:</h3>
+          <%= render :partial => 'shared/new_note' %>
+      </p>
+    <% end %>
+
+    </div>
+
     <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
   <% end %>
 <%= render :partial => '/shared/form_footer' %>

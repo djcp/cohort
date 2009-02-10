@@ -3,7 +3,11 @@ class Tag < ActiveRecord::Base
   acts_as_list :scope => :parent_id
   acts_as_tree :order => :position
   has_and_belongs_to_many :contacts
-  
+
+  def name_for_display
+    self.hierarchical_title
+  end
+
   def self.select_options
     tree = Tag.find(:all, :include => [ :children ], :order => :position)
     options = [['-- root tag--',nil]]

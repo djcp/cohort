@@ -1,5 +1,15 @@
 <tr>
-  <td class="name"><%= contact_line.name_for_display %></td>
-  <td><%= contact_line.primary_email %></td>
-  <td><%= link_to 'edit', :action => :edit, :id => contact_line %></td>
+  <td class="name">
+    <%= contact_line.name_for_display %>
+  </td>
+  <td>
+    <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.count - 1 )).to_s + ' others') %>
+  </td>
+  <td>
+    <%= contact_line.notes && contact_line.notes.count %> notes
+  </td>
+  <td>
+    <%= link_to 'edit', :action => :edit, :id => contact_line %><br/>
+    <%= link_to 'delete', {:action => :destroy, :id => contact_line}, {:method => :post, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
+  </td>
 </tr>
