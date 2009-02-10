@@ -11,4 +11,5 @@ class ContactEmail < ActiveRecord::Base
     }
     return options
   end
+
 end
