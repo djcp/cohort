@@ -14,7 +14,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       new_tags = []
       deal_with_new_tags(params[:new_tags],new_tags)
       emails = deal_with_email @object
-      deal_with_notes @object
+      new_notes = deal_with_notes @object
 
       deduped_tags = [
         (new_tags and new_tags.collect{|t|t.to_i}),
@@ -22,6 +22,8 @@ class Admin::ContactController < Admin::ModelAbstractController
       ].flatten.uniq
 
       @object.tag_ids = deduped_tags || []
+
+      @object.notes << new_notes
 
       if flash[:ceerror].blank? and @object.save
         unless emails.blank?
@@ -50,7 +52,18 @@ class Admin::ContactController < Admin::ModelAbstractController
   end
 
   def deal_with_notes(object)
-
+    notes = params[:note][:note]
+    notes_to_add = []
+    notes.each{|note|
+      begin
+        unless note.blank?
+          notes_to_add << Note.new(:note => note, :user => @session_user, :contact => object)
+        end
+      rescue Exception => exc
+        flash[:ceerror] = "There was an error creating that tag: #{exc.message}"
+      end
+    }
+    return notes_to_add
   end
 
   def deal_with_email(object)
@@ -76,7 +89,7 @@ class Admin::ContactController < Admin::ModelAbstractController
           :email => params[:new_email][i][:email],
           :email_type => params[:new_email][i][:email_type],
           :is_primary => ((params[:new_email][:is_primary] == i) ? true : false),
-          :contact_id => object.id
+          :contact => object
         }
         logger.warn(new_email.inspect + "\n")
         ce = ContactEmail.new(new_email)
@@ -119,7 +132,9 @@ class Admin::ContactController < Admin::ModelAbstractController
     has_primary = false
     deduped_emails.collect{|ce| has_primary = ce.is_primary}
     unless has_primary
-      deduped_emails && deduped_emails.first.is_primary = true
+      unless deduped_emails.blank?
+        deduped_emails.first.is_primary = true
+      end
     end
     return deduped_emails
 

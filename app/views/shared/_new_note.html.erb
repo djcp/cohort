@@ -3,5 +3,9 @@
 <p class="field"><label for="note[note]">Note:</label> 
 <%= text_area_tag 'note[note]', '', :size => '40x4' %><br/>
 <%= submit_to_remote('create_note', 'Add Note', :url => {:controller => '/admin/note', :action => 'edit'},
-  :update => {:success => 'existing-notes', :failure => 'existing-notes'}) %>
+                     :update => {
+                        :success => 'existing-notes', 
+                        :failure => 'existing-notes-error'
+}
+                    ) %>
 </p>

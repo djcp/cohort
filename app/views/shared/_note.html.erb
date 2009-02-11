@@ -1,4 +1,8 @@
-<div class="note">
-  <div class="text"><%= note.note %></div>
-  <div class="meta"><%= note.created_at %></div>
+<div class="note" id="note-<%= note.id %>">
+  <div class="text"><%= link_to_remote(icon(:cross), {:update => 'existing-notes', :url => {:controller => 'admin/note', :action => :destroy, :id => note}, :method => :post, :confirm => 'Are you sure?'}) -%>
+    <%= note.note %></div>
+  <div class="meta"><strong>Added at:</strong> <%= note.created_at %> <strong>By:</strong> <%= note.user.username %></strong></div>
 </div>
+<% if new_object_id == note.id %>
+  <%= javascript_tag visual_effect :pulsate, 'note-' + note.id.to_s %>
+<% end %>

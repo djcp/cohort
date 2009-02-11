@@ -1,93 +1,99 @@
 <%= render :partial => '/shared/form_header' %>
-  <% form_for :contact do|f| %>
+<% form_for :contact do|f| %>
 
-    <h2 id="flyout-contact-personal-info" class="toggle shown">Personal Info</h2>
-    <div id="flyout-contact-personal-info-actions" class="toggle-target defaultopen">
-      <% %W|first_name last_name|.each do|field| %>
+  <h2 id="flyout-contact-personal-info" class="toggle shown">Personal Info</h2>
+  <div id="flyout-contact-personal-info-actions" class="toggle-target defaultopen">
+    <% %W|first_name last_name|.each do|field| %>
       <p class="field"><label for="contact_<%= field %>"><%= field.humanize %>:</label>
-        <%= f.text_field field.to_sym %>
+      <%= f.text_field field.to_sym %>
       </p>
     <% end %>
-    </div>
+  </div>
 
-    <h2 id="flyout-contact-address-info" class="toggle shown">Address Info</h2>
-    <div id="flyout-contact-address-info-actions" class="toggle-target defaultopen">
+  <h2 id="flyout-contact-address-info" class="toggle shown">Address Info</h2>
+  <div id="flyout-contact-address-info-actions" class="toggle-target defaultopen">
     <p class="field"><label for="contact_street1">Address Line 1:</label>
-        <%= f.text_field :street1 %>
+    <%= f.text_field :street1 %>
     </p>
     <p class="field"><label for="contact_street2">Address Line 2:</label>
-        <%= f.text_field :street2 %>
+    <%= f.text_field :street2 %>
     </p>
     <p class="field"><label for="contact_city">City:</label><%= f.text_field :city, :size => 20 %>
-      <label for="contact_state">State: </label><%= f.text_field :state, :size => 3 %> 
-      <label for="contact_zip">Zip: </label><%= f.text_field :zip, :size => 15 %>
-      <label for="contact_country">Country: </label><%= f.text_field :country, :size => 2 %>
+    <label for="contact_state">State: </label><%= f.text_field :state, :size => 3 %> 
+    <label for="contact_zip">Zip: </label><%= f.text_field :zip, :size => 15 %>
+    <label for="contact_country">Country: </label><%= f.text_field :country, :size => 2 %>
     </p>
-    </div>
-    <h2 id="flyout-contact-contact-info" class="toggle shown">Contact Info</h2>
-    <div id="flyout-contact-contact-info-actions" class="toggle-target defaultopen">
+  </div>
+  <h2 id="flyout-contact-contact-info" class="toggle shown">Contact Info</h2>
+  <div id="flyout-contact-contact-info-actions" class="toggle-target defaultopen">
     <p class="field"><label for="contact_phone">Phone:</label>
-        <%= f.text_field :phone, :size => 15 %>
+    <%= f.text_field :phone, :size => 15 %>
     </p>
-      <% %W|work_url personal_url|.each do|field| %>
+    <% %W|work_url personal_url|.each do|field| %>
       <p class="field"><label for="contact_<%= field %>"><%= field.humanize %>:</label>
-        <%= f.text_field field.to_sym %>
+      <%= f.text_field field.to_sym %>
       </p>
     <% end %>
     <% unless @contact.new_record? %>
-    <p class="field" id="contact-emails">
+      <p class="field" id="contact-emails">
       <h3>Existing Email Addresses</h3>
       <table border="0">
-      <%= render :partial => 'shared/contact_email_edit', :collection => @contact.contact_emails %>
+        <%= render :partial => 'shared/contact_email_edit', :collection => @contact.contact_emails %>
       </table>
-    </p>
+      </p>
     <% end %>
     <p class="field" id="new-emails">
-      <h3>Add Email Addresses</h3>
-      <table border="0">
-        <%= render :partial => 'shared/new_email', :collection => [1,2,3] %>
-      </table>
-      <span class="note">If you select a new email address as the primary address, it will take precedence over any existing primary addresses.</span>
+    <h3>Add Email Addresses</h3>
+    <table border="0">
+      <%= render :partial => 'shared/new_email', :collection => [1,2,3] %>
+    </table>
+    <span class="note">If you select a new email address as the primary address, it will take precedence over any existing primary addresses.</span>
     </p>
-    </div>
+  </div>
 
-    <h2 id="flyout-contact-tagging-info" class="toggle shown">Tags</h2>
-    <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen">
+  <h2 id="flyout-contact-tagging-info" class="toggle shown">Tags</h2>
+  <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen">
     <% unless @contact.new_record? %>
       <h3>Existing Tags:</h3>
-        <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags">
-          <%= render :partial => 'shared/existing_tags', :collection => @contact.tags %>
-        </ul>
+      <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags">
+        <%= render :partial => 'shared/existing_tags', :collection => @contact.tags %>
+      </ul>
       </p>
     <% end %>
-      <h3>Add tags to this contact:</h3>
-      <p class="field"><%= text_field_tag 'new_tags' %></p>
-    </div>
+    <h3>Add tags to this contact:</h3>
+    <p class="field"><%= text_field_tag 'new_tags' %></p>
+  </div>
 
-    <h2 id="flyout-contact-notes" class="toggle shown">Notes</h2>
-    <div id="flyout-contact-notes-actions" class="toggle-target defaultopen">
+  <h2 id="flyout-contact-notes" class="toggle shown">Notes</h2>
+  <div id="flyout-contact-notes-actions" class="toggle-target defaultopen">
     <% unless @contact.new_record? %>
-      <h3>Existing Notes:<h3>
-          <div id="existing-notes"> 
-            <%= render :partial => 'shared/enote', :collection => @contact.notes %>
-          </div>
-      <p class="field">
+      <h3>Existing Notes:</h3>
+      <div id="existing-notes-error"></div>
+      <div id="existing-notes"> 
+        <%= render :partial => 'shared/note', :collection => @contact.notes, :locals => {:new_object_id => nil} %>
+      </div>
       <h3>New Note:</h3>
-          <%= render :partial => 'shared/new_note' %>
+      <p class="field">
+      <%= render :partial => 'shared/new_note' %>
+      </p>
+    <% else %>
+      <h3>New Note:</h3>
+      <p class="field" id="new-note">
+      <%= text_area_tag 'note[note][]', '', :size => '40x4'%><%= link_to_function(icon(:add), "$('new-note').insert('<br/>'); $('new-note').insert(new Element('textarea',{'name': 'note[note][]','rows': '4', cols: '40'}))") %>
       </p>
     <% end %>
 
-    </div>
+  </div>
 
-    <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
-  <% end %>
+  <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
+<% end %>
 <%= render :partial => '/shared/form_footer' %>
 
 <script type="text/javascript">
-document.observe('dom:loaded',function(){
-ac = new UI.AutoComplete('new_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
-ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
-  .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
-});
-</script>
+  document.observe('dom:loaded',function(){
+      ac = new UI.AutoComplete('new_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+      ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
+      .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
+      });
+    </script>
 
