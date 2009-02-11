@@ -38,7 +38,7 @@ class Admin::ModelAbstractController < Admin::BaseController
     if request.post?
       @object.attributes = params[@object.class.name.downcase]
       if @object.save
-        redirect_to :action => :index and return
+        redirect_to :action => :index 
       end
     end
   end

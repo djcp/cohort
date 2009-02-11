@@ -1,0 +1,7 @@
+<div id="notes">
+  <% unless @notes.blank? %>
+    <%= render :partial => 'shared/note', :collection => @notes %>
+  <% else %>
+    <h2>None found. Sorry!</h2>
+  <% end %>
+</div>
