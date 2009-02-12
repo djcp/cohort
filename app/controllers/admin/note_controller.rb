@@ -3,7 +3,6 @@ class Admin::NoteController < Admin::ModelAbstractController
   def edit
     @dont_redirect = true
     super
-    # FIXME - remove redirection from the base class for finer control over post-action destinations.
     if request.xhr? 
       if @object.valid?
         render :partial => 'shared/note', :collection => @object.contact.notes, :locals => {:new_object_id => @object.id} 

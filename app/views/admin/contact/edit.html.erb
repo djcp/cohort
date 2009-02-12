@@ -74,7 +74,7 @@
       </div>
       <h3>New Note:</h3>
       <p class="field">
-      <%= render :partial => 'shared/new_note' %>
+      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error'}%>
       </p>
     <% else %>
       <h3>New Note:</h3>
