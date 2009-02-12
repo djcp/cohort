@@ -5,7 +5,11 @@ class Admin::NoteController < Admin::ModelAbstractController
     super
     if request.xhr? 
       if @object.valid?
-        render :partial => 'shared/note', :collection => @object.contact.notes, :locals => {:new_object_id => @object.id} 
+        if params[:update_counts_only] == '0'
+          render :partial => 'shared/note', :collection => @object.contact.notes, :locals => {:new_object_id => @object.id} 
+        else
+          render :text =>  "#{@object.contact.notes.count} notes" 
+        end
       else
         render :text => "We can't add empty notes. Please try again.", :status => 500 and return 
       end

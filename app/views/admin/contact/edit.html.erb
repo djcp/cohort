@@ -74,7 +74,7 @@
       </div>
       <h3>New Note:</h3>
       <p class="field">
-      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4'}%>
+      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0}%>
       </p>
     <% else %>
       <h3>New Note:</h3>

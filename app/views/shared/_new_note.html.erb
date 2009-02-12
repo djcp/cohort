@@ -1,12 +1,12 @@
 <%= hidden_field_tag 'note[user_id]', @session_user.id %> 
 <%= hidden_field_tag 'note[contact_id]', contact.id %>
 <p class="field"><label for="note[note]">Note:</label><br/> 
-<%= text_area_tag 'note[note]', '', :size => size %><br/>
-<%= submit_to_remote('create_note', 'Add Note', :url => {:controller => '/admin/note', :action => 'edit'},
+<%= text_area_tag 'note[note]', '', :size => size, :id => 'note-field-' +  contact.id.to_s %><br/>
+<%= submit_to_remote('create_note', 'Add Note', :url => {:controller => '/admin/note', :action => 'edit', :update_counts_only => update_counts_only},
                      :update => {
                         :success => success_update, 
                         :failure => failure_update},
-                        :complete => "$('note[note]').clear()",
+                        :complete => "$('note-field-#{contact.id}').clear()",
                         :after => "$('#{failure_update}').innerHTML = ''"
                     ) %>
 </p>
