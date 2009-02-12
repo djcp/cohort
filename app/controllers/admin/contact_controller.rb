@@ -19,7 +19,9 @@ class Admin::ContactController < Admin::ModelAbstractController
       deduped_tags = [
         (new_tags and new_tags.collect{|t|t.to_i}),
         (current_tags and current_tags.collect{|t|t.to_i})
-      ].flatten.uniq
+      ].flatten.uniq.compact
+
+      logger.warn('Deduped Tags: ' + deduped_tags.inspect)
 
       @object.tag_ids = deduped_tags || []
 

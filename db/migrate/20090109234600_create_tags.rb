@@ -91,15 +91,14 @@ CREATE TRIGGER position_fixes_on_update BEFORE UPDATE ON tags
 FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_update();
 ]
 
-    create_table :contacts_tags do |t|
+    create_table :contacts_tags, :id => false do |t|
       t.references :contact, :null => false, :on_update => :cascade, :on_delete => :cascade
       t.references :tag, :null => false, :on_update => :cascade, :on_delete => :cascade
-      t.column :relationship, :string, :limit => 50
       t.timestamps
     end
 
     add_index :contacts_tags, ['contact_id', 'tag_id'], :unique => true
-    %W|contact_id tag_id relationship|.each do |column|
+    %W|contact_id tag_id|.each do |column|
       add_index :contacts_tags, column
     end
   end

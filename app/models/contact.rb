@@ -5,7 +5,7 @@ class Contact < ActiveRecord::Base
   has_and_belongs_to_many :tags
 
   def name_for_display
-    [self.first_name, self.last_name].join(' ')
+    [self.first_name, self.last_name, ((self.contact_emails && self.contact_emails.first) ? [' - ', self.contact_emails.first.email] : '')].flatten.join(' ')
   end
 
   def primary_email

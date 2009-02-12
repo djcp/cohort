@@ -1,19 +1,21 @@
 <tr>
-  <td class="name">
+  <td class="name" valign="top">
     <%= contact_line.name_for_display %>
   </td>
-  <td>
+  <td valign="top">
     <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.count - 1 )).to_s + ' others') %>
   </td>
-  <td>
-    <%= contact_line.notes && contact_line.notes.count %> notes<br/>
+  <td valign="top">
+    <div id="notes-count-<%= contact_line.id %>"><%= contact_line.notes && contact_line.notes.count %> notes</div>
     <div id="note-success-<%= contact_line.id %>"></div>
-    <div id="note-failure-<%= contact_line.id %>"></div>
-    <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
-      <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-success-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s}) %>
-    <% end -%>
+    <div id="note-failure-<%= contact_line.id %>"></div><%= link_to_function(icon(:add), "$('add-new-note-#{contact_line.id}').toggle()") %>
+    <div id="add-new-note-<%= contact_line.id %>" style="display: none;">
+      <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
+        <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-success-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '20x2'}) %>
+      <% end -%>
+    </div>
   </td>
-  <td>
+  <td valign="top">
     <%= link_to 'edit', :action => :edit, :id => contact_line %><br/>
     <%= link_to 'delete', {:action => :destroy, :id => contact_line}, {:method => :post, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
   </td>
