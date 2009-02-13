@@ -7,10 +7,10 @@
   </td>
   <td valign="top">
     <div id="note-count-<%= contact_line.id %>"><%= contact_line.notes && contact_line.notes.count %> notes</div>
-    <div id="note-failure-<%= contact_line.id %>"></div><%= link_to_function(icon(:add), "$('add-new-note-#{contact_line.id}').toggle()") %>
+    <div class="error" id="note-failure-<%= contact_line.id %>"></div><%= link_to_function(icon(:add), "$('add-new-note-#{contact_line.id}').toggle()") %>
     <div id="add-new-note-<%= contact_line.id %>" style="display: none;">
       <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
-        <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '20x2', :update_counts_only => 1}) %>
+        <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '20x2', :update_counts_only => 1, :no_ajax => false}) %>
       <% end -%>
     </div>
   </td>

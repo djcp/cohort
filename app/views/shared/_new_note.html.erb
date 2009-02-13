@@ -2,11 +2,18 @@
 <%= hidden_field_tag 'note[contact_id]', contact.id %>
 <p class="field"><label for="note[note]">Note:</label><br/> 
 <%= text_area_tag 'note[note]', '', :size => size, :id => 'note-field-' +  contact.id.to_s %><br/>
-<%= submit_to_remote('create_note', 'Add Note', :url => {:controller => '/admin/note', :action => 'edit', :update_counts_only => update_counts_only},
-                     :update => {
-                        :success => success_update, 
-                        :failure => failure_update},
-                        :complete => "$('note-field-#{contact.id}').clear()",
-                        :after => "$('#{failure_update}').innerHTML = ''"
-                    ) %>
+<%= calendar_date_select_tag "note[follow_up]", '', :time => true, :minute_interval => 15 %>
+<label for="note[priority]">Priority:</label> <%= text_field_tag 'note[priority]','', {:size => 3} %>
+<% unless no_ajax %>
+  <br/>
+  <%= submit_to_remote('create_note', 'Add Note', :url => {
+    :controller => '/admin/note', 
+    :action => 'edit', 
+    :update_counts_only => update_counts_only},
+    :update => {
+    :success => success_update, 
+    :failure => failure_update},
+    :complete => "$('note-field-#{contact.id}').clear()",
+    :after => "$('#{failure_update}').innerHTML = ''") %>
+<% end %>
 </p>

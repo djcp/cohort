@@ -21,6 +21,10 @@ h2 {
   font-size: 220%;
 }
 
+.toggle:hover{
+  cursor: pointer;
+}
+
 .shown{
 	padding-left: 20px;
 	background: url('/icons/arrow_down.png') left center no-repeat; 

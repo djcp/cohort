@@ -11,7 +11,7 @@ class Admin::NoteController < Admin::ModelAbstractController
           render :text =>  "#{@object.contact.notes.count} notes" 
         end
       else
-        render :text => "We can't add empty notes. Please try again.", :status => 500 and return 
+        render :text => @object.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>'), :status => 500 and return 
       end
     end
   end

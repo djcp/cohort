@@ -54,17 +54,12 @@ class Admin::ContactController < Admin::ModelAbstractController
   end
 
   def deal_with_notes(object)
-    notes = params[:note][:note]
     notes_to_add = []
-    notes.each{|note|
-      begin
-        unless note.blank?
-          notes_to_add << Note.new(:note => note, :user => @session_user, :contact => object)
-        end
-      rescue Exception => exc
-        flash[:ceerror] = "There was an error creating that tag: #{exc.message}"
-      end
-    }
+    if params[:note] && ! params[:note][:note].blank?
+      note_to_add = Note.new(:user => @session_user,:contact => object)
+      note_to_add.attributes = params[:note]
+      notes_to_add << note_to_add
+    end
     return notes_to_add
   end
 

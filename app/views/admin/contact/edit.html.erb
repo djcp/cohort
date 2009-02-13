@@ -68,18 +68,18 @@
   <div id="flyout-contact-notes-actions" class="toggle-target defaultopen">
     <% unless @contact.new_record? %>
       <h3>Existing Notes:</h3>
-      <div id="existing-notes-error"></div>
+      <div class="error" id="existing-notes-error"></div>
       <div id="existing-notes"> 
         <%= render :partial => 'shared/note', :collection => @contact.notes, :locals => {:new_object_id => nil} %>
       </div>
       <h3>New Note:</h3>
       <p class="field">
-      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0}%>
+      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
       </p>
     <% else %>
       <h3>New Note:</h3>
       <p class="field" id="new-note">
-      <%= text_area_tag 'note[note][]', '', :size => '40x4'%><%= link_to_function(icon(:add), "$('new-note').insert('<br/>'); $('new-note').insert(new Element('textarea',{'name': 'note[note][]','rows': '4', cols: '40'}))") %>
+      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => true}%>
       </p>
     <% end %>
 
