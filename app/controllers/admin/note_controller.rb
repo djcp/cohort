@@ -1,5 +1,23 @@
 class Admin::NoteController < Admin::ModelAbstractController 
 
+  def my
+    add_to_sortable_columns('notes', :model => Note, :field => :priority, :alias => :priority)
+    add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
+    add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
+    @notes = Note.find(:all,
+                       :conditions => ['user_id = ?', @session_user],
+                       :order => sortable_order('notes', 
+                                                :model => Note, 
+                                                :field => 'updated_at',
+                                                :sort_direction => :desc
+                                               ) 
+                      )
+
+  end
+
+  def everyones
+  end
+
   def edit
     @dont_redirect = true
     super

@@ -1,8 +1,8 @@
 <%= hidden_field_tag 'note[user_id]', @session_user.id %> 
 <%= hidden_field_tag 'note[contact_id]', contact.id %>
 <p class="field"><label for="note[note]">Note:</label><br/> 
-<%= text_area_tag 'note[note]', '', :size => size, :id => 'note-field-' +  contact.id.to_s %><br/>
-<%= calendar_date_select_tag "note[follow_up]", '', :time => true, :minute_interval => 15 %>
+<%= text_area_tag 'note[note]', '', :size => size, :id => 'note-field-' +  contact.id.to_s %><br />
+Due Date: <%= calendar_date_select_tag "note[follow_up]", '', :time => true, :minute_interval => 15 %><br />
 <label for="note[priority]">Priority:</label> <%= text_field_tag 'note[priority]','', {:size => 3} %>
 <% unless no_ajax %>
   <br/>

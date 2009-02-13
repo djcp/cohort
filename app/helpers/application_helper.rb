@@ -14,4 +14,12 @@ module ApplicationHelper
     ret += "</ul>\n"
   end
 
+  def sorted_class(sortable_name,data_name,prefix="")
+    if params[:sortasc] == "#{sortable_name}-#{data_name}"
+      "#{prefix}asc"
+    elsif params[:sortdesc] == "#{sortable_name}-#{data_name}"
+      "#{prefix}desc"
+    end
+  end
+
 end

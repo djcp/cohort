@@ -82,7 +82,6 @@
       <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => true}%>
       </p>
     <% end %>
-
   </div>
 
   <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>

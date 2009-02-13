@@ -106,6 +106,15 @@ h3 {
   font-size: 90%;
 }
 
+.asc, .desc{
+  background: #e4e4e4 center right url('/icons/bullet_arrow_down.png') no-repeat;
+  padding-right: 16px;
+}
+
+.desc{
+  background-image: url('/icons/bullet_arrow_up.png');
+}
+
 #footer {
   font-family: Arial, sans-serif;
   font-size: 10px;

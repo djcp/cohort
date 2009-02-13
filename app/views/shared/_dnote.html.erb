@@ -1,0 +1,12 @@
+<tr class="note-<%= dnote.id %>">
+  <td><%= link_to_remote(icon(:cross), {:update => 'existing-notes', :url => {:controller => 'admin/note', :action => :destroy, :id => dnote}, :method => :post, :confirm => 'Are you sure?'}) -%></td>
+  <td class="contact"><%= link_to(dnote.contact.name_for_display, :controller => 'admin/contact', :action => :edit, :id => dnote.contact) %></td>
+  <td class="priority level-<%= dnote.priority %>"><%= dnote.priority %></td>
+  <td class="follow-up"><%= dnote.follow_up %></td>
+</tr>
+<tr class="note-<%= dnote.id %>">
+  <td colspan="3">
+    <%= RedCloth.new(dnote.note).to_html %><br/>
+    <div class="meta"><strong>Added at:</strong> <%= dnote.created_at %> <strong>By:</strong> <%= dnote.user.username %></strong></div>
+  </td>
+</tr>

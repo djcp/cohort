@@ -1,7 +1,14 @@
 <div class="note" id="note-<%= note.id %>">
   <div class="text"><%= link_to_remote(icon(:cross), {:update => 'existing-notes', :url => {:controller => 'admin/note', :action => :destroy, :id => note}, :method => :post, :confirm => 'Are you sure?'}) -%>
-    <%= note.note %></div>
-  <div class="meta"><strong>Added at:</strong> <%= note.created_at %> <strong>By:</strong> <%= note.user.username %></strong></div>
+    <%= RedCloth.new(note.note).to_html %></div>
+  <div class="meta">
+    <% unless note.priority.blank? %>
+      <div class="priority"><strong>Priority:</strong> <%= note.priority %></div>
+    <% end %>
+    <% unless note.follow_up.blank? %>
+      <div class="follow-up"><strong>Follow up on:</strong> <%= note.follow_up %></div>
+    <% end %>
+    <strong>Added at:</strong> <%= note.created_at %> <strong>By:</strong> <%= note.user.username %></strong></div>
 </div>
 <% if new_object_id == note.id %>
   <%= javascript_tag visual_effect :pulsate, 'note-' + note.id.to_s %>

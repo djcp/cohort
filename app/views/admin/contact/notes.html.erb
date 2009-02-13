@@ -1,0 +1,10 @@
+<h1>Notes for <%= link_to(@contact.name_for_display, :controller => 'admin/contact', :action => :edit, :id => @contact) %></h1>
+
+<div class="error" id="existing-notes-error"></div>
+<div id="existing-notes">
+  <%= render :partial => 'shared/note', :collection => @notes, :locals => {:new_object_id => nil} %>
+</div>
+
+<% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
+  <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
+<% end -%>

@@ -1,5 +1,14 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
+  def notes
+    begin
+      @contact = Contact.find(params[:id])
+      @notes = @contact.notes
+    rescue Exception => exc
+        logger.error "I couldn't do that: #{exc.message}"
+    end
+  end
+
   def edit 
     @use_fckeditor = true
     model = self.model
@@ -58,6 +67,10 @@ class Admin::ContactController < Admin::ModelAbstractController
     if params[:note] && ! params[:note][:note].blank?
       note_to_add = Note.new(:user => @session_user,:contact => object)
       note_to_add.attributes = params[:note]
+      if ! note_to_add.valid?
+        object.errors.add_to_base(note_to_add.errors.collect{|attribute,msg| "#{attribute}  #{msg}"}.join('<br/>'))
+        flash[:error] = (flash[:ceerror].blank? ? '' : flash[:ceerror]) + note_to_add.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>')
+      end
       notes_to_add << note_to_add
     end
     return notes_to_add

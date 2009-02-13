@@ -9,4 +9,9 @@
     <%= link_to 'Manage Contacts', :controller => '/admin/contact' %>
     <%= link_to 'Add Contact', :controller => '/admin/contact', :action => :edit %>
   </div>
+  <h1 id="flyout-notes" class="toggle hidden">Notes</h1>
+  <div id="flyout-notes-actions" class="toggle-target">
+    <%= link_to 'My notes', :controller => '/admin/note', :action => :my %>
+    <%= link_to 'Everyones\' notes', :controller => '/admin/note', :action => :everyones %>
+  </div>
 </div>
