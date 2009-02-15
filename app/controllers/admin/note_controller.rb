@@ -4,8 +4,17 @@ class Admin::NoteController < Admin::ModelAbstractController
     add_to_sortable_columns('notes', :model => Note, :field => :priority, :alias => :priority)
     add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
     add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
+    
+    conditions_fields = [' user_id = ? ']
+    conditions_params = [@session_user]
+
+    unless params[:q].blank?
+      conditions_fields << ' note like ? '
+      conditions_params << "%#{params[:q]}%"
+    end
+
     @notes = Note.find(:all,
-                       :conditions => ['user_id = ?', @session_user],
+                       :conditions => [conditions_fields.join(' and '),conditions_params].flatten,
                        :order => sortable_order('notes', 
                                                 :model => Note, 
                                                 :field => 'updated_at',

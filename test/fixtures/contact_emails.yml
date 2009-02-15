@@ -11,26 +11,26 @@ dan:
   contact_id: 1
   email: djcp@example.com
   email_type: work
-  primary: true
+  is_primary: true
 
 dan-2:
   id: 2
   contact_id: 1
   email: dan@example.com
   email_type: personal
-  primary: false
+  is_primary: false
 
 dan2-1:
   id: 3
   contact_id: 2
   email: djcp2@example.com
   email_type: work
-  primary: true
+  is_primary: true
 
 dan2-2:
   id: 4
   contact_id: 2
   email: dan2@example.com
   email_type: personal
-  primary: false
+  is_primary: false
 
