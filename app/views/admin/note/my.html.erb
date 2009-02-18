@@ -1,7 +1,7 @@
-<h1>My notes</h1>
-FIXME
-<% form_for do %>
-  <%= text_field_tag :q %>
+<div id="notes-update">
+  <h1><%= h @title %></h1>
+<% form_remote_tag :update => 'notes-update' do %>
+  <%= text_field_tag :q, params[:q] %><%= check_box_tag :anywhere, 1, (params[:anywhere].blank? ? false : true)%> match anywhere<%= submit_tag 'go' %>
 <% end %>
 <table border="0">
   <tr>
@@ -12,4 +12,4 @@ FIXME
   </tr>
   <%= render :partial => 'shared/dnote', :collection => @notes, :locals => {:new_object_id => nil, :show_contact => true} %>
 </table>
-
+  </div>

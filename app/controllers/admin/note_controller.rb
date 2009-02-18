@@ -1,6 +1,21 @@
 class Admin::NoteController < Admin::ModelAbstractController 
 
+  def contact
+    begin
+      @contact = Contact.find(params[:id])
+      @title = 'Notes for ' + @contact.name_for_display
+      note_engine(true)
+    rescue Exception => exc
+      logger.error "I couldn't do that: #{exc.message}"
+    end
+  end
+
   def my
+    @title = 'My notes'
+    note_engine
+  end
+
+  def note_engine(contact_only = false)
     add_to_sortable_columns('notes', :model => Note, :field => :priority, :alias => :priority)
     add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
     add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
@@ -8,9 +23,14 @@ class Admin::NoteController < Admin::ModelAbstractController
     conditions_fields = [' user_id = ? ']
     conditions_params = [@session_user]
 
+    if contact_only
+      conditions_fields << 'contact_id = ?'
+      conditions_params << params[:id]
+    end
+
     unless params[:q].blank?
-      conditions_fields << ' note like ? '
-      conditions_params << "%#{params[:q]}%"
+      conditions_fields << ' lower(note) like ? '
+      conditions_params << "#{params[:anywhere] ? '%' : ''}#{params[:q].downcase}%"
     end
 
     @notes = Note.find(:all,
@@ -21,7 +41,7 @@ class Admin::NoteController < Admin::ModelAbstractController
                                                 :sort_direction => :desc
                                                ) 
                       )
-
+    render :action => 'my', :layout => (request.xhr? ? false : true)
   end
 
   def everyones
@@ -52,6 +72,7 @@ class Admin::NoteController < Admin::ModelAbstractController
         logger.error "Destroy failed #{exc.message}"
       end
     end
+    #FIXME
     render :partial => 'shared/note', :collection => @object.contact.notes, :locals => {:new_object_id => nil} 
   end
 

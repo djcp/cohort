@@ -9,9 +9,10 @@ class CreateNotes < ActiveRecord::Migration
       t.column :position, :integer
       t.timestamps
     end
-    %W|user_id contact_id position follow_up priority note|.each do|column|
+    %W|user_id contact_id position follow_up priority|.each do|column|
       add_index :notes, column
     end
+    execute 'create index lower_note on notes( lower(note) )'
   end
 
   def self.down

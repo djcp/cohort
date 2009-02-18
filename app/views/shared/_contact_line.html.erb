@@ -6,7 +6,7 @@
     <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.count - 1 )).to_s + ' others') %>
   </td>
   <td valign="top">
-    <div id="note-count-<%= contact_line.id %>"><%= link_to(contact_line.notes.count.to_s + ' notes', :controller => '/admin/contact', :action => :notes, :id => contact_line) %></div>
+    <div id="note-count-<%= contact_line.id %>"><%= link_to(contact_line.notes.count.to_s + ' notes', :controller => '/admin/note', :action => :contact, :id => contact_line) %></div>
     <div class="error" id="note-failure-<%= contact_line.id %>"></div><%= link_to_function(icon(:add), "$('add-new-note-#{contact_line.id}').toggle()") %>
     <div id="add-new-note-<%= contact_line.id %>" style="display: none;">
       <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
