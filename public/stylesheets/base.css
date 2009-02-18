@@ -83,7 +83,7 @@ h3 {
 }
 
 #left-column {
-  font-size: 90%;
+  font-size: 100%;
 }
 
 #admin-bar a{
@@ -97,13 +97,18 @@ h3 {
   background-color: #eeeeee;
 }
 
+#admin-bar a.second-level{
+  font-size: 90%;
+  padding-left: 1.5em;
+}
+
 #right-column-wrapper {
   float: right;
   width: 209px;
 }
 
 #right-column {
-  font-size: 90%;
+  font-size: 100%;
 }
 
 .asc, .desc{

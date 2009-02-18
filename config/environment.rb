@@ -31,6 +31,7 @@ Rails::Initializer.run do |config|
   config.gem "postgres"
   config.gem "RedCloth"
   config.gem "ruby-net-ldap", :lib => 'net/ldap'
+  config.gem "ferret"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

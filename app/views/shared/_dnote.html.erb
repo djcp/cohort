@@ -1,5 +1,5 @@
 <tr class="dnote" id="dnote-<%= dnote.id %>">
-  <td><%= link_to_remote(icon(:cross), {:update => 'notes-update', :url => {:controller => 'admin/note', :action => :destroy, :id => dnote, :redirect_after => url_for(params)}, :method => :post, :confirm => 'Are you sure?'}) -%></td>
+  <td><%= link_to(icon(:cross), {:controller => 'admin/note', :action => :destroy, :id => dnote, :redirect_after => url_for(params)}, {:method => :post, :confirm => 'Are you sure?'}) -%></td>
   <td class="contact"><%= link_to(dnote.contact.name_for_display, :controller => 'admin/contact', :action => :edit, :id => dnote.contact) %></td>
   <td class="priority level-<%= dnote.priority %>"><%= dnote.priority %></td>
   <td class="follow-up"><%= dnote.follow_up %></td>

@@ -1,5 +1,6 @@
 class ContactEmail < ActiveRecord::Base
 
+  acts_as_ferret
   EMAIL_TYPES = {'unknown' => 'Unknown', 'personal' => 'Personal', 'work' => 'Work'}
 
   validates_inclusion_of :email_type, :in => EMAIL_TYPES.keys

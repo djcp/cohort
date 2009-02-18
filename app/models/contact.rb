@@ -1,5 +1,6 @@
 class Contact < ActiveRecord::Base
   # Many validations are handled by the redhill schema_validations plugin.
+  acts_as_ferret
   has_many :notes, :order => 'position desc'
   has_many :contact_emails, :validate => true
   has_and_belongs_to_many :tags

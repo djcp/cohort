@@ -54,6 +54,11 @@ class Admin::ContactController < Admin::ModelAbstractController
   end
 
   def index
+    #FIXME
+    conditions_fields = []
+    conditions_params = []
+    unless params[:q].blank?
+    end
     @contacts = Contact.find :all 
   end
 

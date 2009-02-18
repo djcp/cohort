@@ -12,16 +12,9 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   filter_parameter_logging :password, :passwd
-  after_filter :after_check
 
   protected
-
-  def after_check
-    if params[:redirect_after]
-      redirect_to params[:redirect_after] and return
-    end
-  end
-
+  
   def is_admin
     authenticate_or_request_with_http_basic 'Cohort CRM Management' do |user_name, password|
      u = User.authenticate(user_name,password)

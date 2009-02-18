@@ -20,21 +20,20 @@ class Admin::NoteController < Admin::ModelAbstractController
     add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
     add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
     
-    conditions_fields = [' user_id = ? ']
-    conditions_params = [@session_user]
-
+    ferret_fields = ""
+    ferret_fields += (params[:q].blank? ? '*' : params[:q])
+    ferret_fields += " user_id:#{@session_user.id} "
     if contact_only
-      conditions_fields << 'contact_id = ?'
-      conditions_params << params[:id]
+      ferret_fields += " contact_id:#{params[:id]} "
     end
 
-    unless params[:q].blank?
-      conditions_fields << ' lower(note) like ? '
-      conditions_params << "#{params[:anywhere] ? '%' : ''}#{params[:q].downcase}%"
-    end
+    logger.warn("Ferret query:" + ferret_fields)
+    fnotes = Note.find_with_ferret(ferret_fields)
+    notes_sql = "id in (" + (fnotes.collect{|f|f.id}.join(',')) + ")"
 
+    logger.warn('Notes_sql: ' + notes_sql)
     @notes = Note.find(:all,
-                       :conditions => [conditions_fields.join(' and '),conditions_params].flatten,
+                       :conditions => [notes_sql],
                        :order => sortable_order('notes', 
                                                 :model => Note, 
                                                 :field => 'updated_at',
@@ -55,7 +54,7 @@ class Admin::NoteController < Admin::ModelAbstractController
         if params[:update_counts_only] == '0'
           render :partial => 'shared/note', :collection => @object.contact.notes, :locals => {:new_object_id => @object.id} 
         else
-          render :text =>  "#{@object.contact.notes.count} notes" 
+          render :text =>  @object.contact.notes.count
         end
       else
         render :text => @object.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>'), :status => 500 and return 
@@ -72,8 +71,11 @@ class Admin::NoteController < Admin::ModelAbstractController
         logger.error "Destroy failed #{exc.message}"
       end
     end
-    #FIXME
-    render :partial => 'shared/note', :collection => @object.contact.notes, :locals => {:new_object_id => nil} 
+    if params[:redirect_after]
+      redirect_to params[:redirect_after]
+    else
+      render :partial => 'shared/note', :collection => @object.contact.notes, :locals => {:new_object_id => nil}
+    end
   end
 
   protected

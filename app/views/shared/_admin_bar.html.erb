@@ -12,6 +12,8 @@
   <h1 id="flyout-notes" class="toggle hidden">Notes</h1>
   <div id="flyout-notes-actions" class="toggle-target">
     <%= link_to 'My notes', :controller => '/admin/note', :action => :my %>
+    <%= link_to ' - priority', {:controller => '/admin/note', :action => :my, :sortdesc => 'notes-priority'},{:class => 'second-level'} %>
+    <%= link_to ' - follow-up date', {:controller => '/admin/note', :action => :my, :sortdesc => 'notes-follow_up'},{:class => 'second-level'} %>
     <%= link_to 'Everyones\' notes', :controller => '/admin/note', :action => :everyones %>
   </div>
 </div>
