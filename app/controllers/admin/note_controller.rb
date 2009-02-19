@@ -28,10 +28,15 @@ class Admin::NoteController < Admin::ModelAbstractController
     end
 
     logger.warn("Ferret query:" + ferret_fields)
-    fnotes = Note.find_with_ferret(ferret_fields)
-    notes_sql = "id in (" + (fnotes.collect{|f|f.id}.join(',')) + ")"
+    fnotes = Note.find_ids_with_ferret(ferret_fields)[1]
+    notes_sql=''
+    unless fnotes.blank?
+      notes_sql = "id in (" + (fnotes.collect{|r|r[:id]}.join(',')) + ")"
+    end
 
-    logger.warn('Notes_sql: ' + notes_sql)
+    unless notes_sql.blank?
+      logger.warn('Notes_sql: ' + notes_sql)
+    end
     @notes = Note.find(:all,
                        :conditions => [notes_sql],
                        :order => sortable_order('notes', 
