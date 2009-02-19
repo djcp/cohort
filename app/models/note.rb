@@ -1,6 +1,6 @@
 class Note < ActiveRecord::Base
   # Many validations are handled by the redhill schema_validations plugin.
-  acts_as_ferret
+  acts_as_ferret :single_index => true, :remote => true
   belongs_to :user
   belongs_to :contact
   acts_as_list :scope => :contact_id
