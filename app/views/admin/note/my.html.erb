@@ -1,14 +1,14 @@
 <div id="notes-update">
   <h1><%= h @title %></h1>
 <% form_remote_tag :update => 'notes-update' do %>
-  <%= text_field_tag :q, params[:q] %><%= check_box_tag :anywhere, 1, (params[:anywhere].blank? ? false : true)%> match anywhere<%= submit_tag 'go' %>
+  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %><%= link_to_function('show help',"Modalbox.show('/search-help.html',{title: 'Search help', width: '800'})") %>
 <% end %>
 <table border="0">
   <tr>
     <th>&nbsp;</th>
-    <th class="<%= sorted_class('notes','contact') %>"><%= link_to 'Contact', sort_param('notes', :alias => 'contact').merge({:q => params[:q], :anywhere => params[:anywhere]}) %></th>
-    <th class="<%= sorted_class('notes','priority') %>"><%= link_to 'Priority', sort_param('notes', :alias => 'priority').merge({:q => params[:q], :anywhere => params[:anywhere]}) %></th>
-    <th class="<%= sorted_class('notes','follow_up') %>"><%= link_to 'Follow up', sort_param('notes', :alias => 'follow_up').merge({:q => params[:q], :anywhere => params[:anywhere]}) %></th>
+    <th class="<%= sorted_class('notes','contact') %>"><%= link_to 'Contact', sort_param('notes', :alias => 'contact').merge({:q => params[:q]}) %></th>
+    <th class="<%= sorted_class('notes','priority') %>"><%= link_to 'Priority', sort_param('notes', :alias => 'priority').merge({:q => params[:q]}) %></th>
+    <th class="<%= sorted_class('notes','follow_up') %>"><%= link_to 'Follow up', sort_param('notes', :alias => 'follow_up').merge({:q => params[:q]}) %></th>
   </tr>
   <%= render :partial => 'shared/dnote', :collection => @notes, :locals => {:new_object_id => nil, :show_contact => true} %>
 </table>

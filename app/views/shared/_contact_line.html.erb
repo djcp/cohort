@@ -6,9 +6,11 @@
     <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.count - 1 )).to_s + ' others') %>
   </td>
   <td valign="top">
-    <div class="note-count"><%= link_to("<span id='note-count-#{contact_line.id}'>#{contact_line.notes.count.to_s}</span> notes", :controller => '/admin/note', :action => :contact, :id => contact_line) %></div>
-    <div class="error" id="note-failure-<%= contact_line.id %>"></div><%= link_to_function(icon(:add), "$('add-new-note-#{contact_line.id}').toggle()") %>
+    <%= link_to_function(icon(:add), "Modalbox.show($('add-new-note-#{contact_line.id}'), {afterHide: function(){$('parent-note-count-#{contact_line.id}').update($('note-count-#{contact_line.id}').innerHTML)}})") %>
+    <div class="note-count"><%= link_to("<span id='parent-note-count-#{contact_line.id}'>#{contact_line.notes.count.to_s}</span> notes", :controller => '/admin/note', :action => :contact, :id => contact_line) %></div>
     <div id="add-new-note-<%= contact_line.id %>" style="display: none;">
+    <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.count.to_s %></span> notes</div>
+    <div class="error" id="note-failure-<%= contact_line.id %>"></div>
       <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
         <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '20x2', :update_counts_only => 1, :no_ajax => false}) %>
       <% end -%>

@@ -1,13 +1,9 @@
 class Admin::NoteController < Admin::ModelAbstractController 
 
   def contact
-    begin
-      @contact = Contact.find(params[:id])
-      @title = 'Notes for ' + @contact.name_for_display
-      note_engine(true)
-    rescue Exception => exc
-      logger.error "I couldn't do that: #{exc.message}"
-    end
+    @contact = Contact.find(params[:id])
+    @title = 'Notes for ' + @contact.name_for_display
+    note_engine(true)
   end
 
   def my
@@ -19,32 +15,14 @@ class Admin::NoteController < Admin::ModelAbstractController
     add_to_sortable_columns('notes', :model => Note, :field => :priority, :alias => :priority)
     add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
     add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
-    
-    ferret_fields = ""
-    ferret_fields += (params[:q].blank? ? '*' : params[:q])
-    ferret_fields += " user_id:#{@session_user.id} "
+    ferret_fields = (params[:q].blank? ? '*' : params[:q])
+    notes_fields = ['user_id = ?']
+    notes_params = [@session_user.id]
     if contact_only
-      ferret_fields += " contact_id:#{params[:id]} "
+      notes_fields << 'contact_id = ?'
+      notes_params << params[:id]
     end
-
-    logger.warn("Ferret query:" + ferret_fields)
-    fnotes = Note.find_ids_with_ferret(ferret_fields)[1]
-    notes_sql=''
-    unless fnotes.blank?
-      notes_sql = "id in (" + (fnotes.collect{|r|r[:id]}.join(',')) + ")"
-    end
-
-    unless notes_sql.blank?
-      logger.warn('Notes_sql: ' + notes_sql)
-    end
-    @notes = Note.find(:all,
-                       :conditions => [notes_sql],
-                       :order => sortable_order('notes', 
-                                                :model => Note, 
-                                                :field => 'updated_at',
-                                                :sort_direction => :desc
-                                               ) 
-                      )
+    @notes = Note.find_with_ferret(ferret_fields, {},{:conditions => [notes_fields.join(' and '), notes_params].flatten, :order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
     render :action => 'my', :layout => (request.xhr? ? false : true)
   end
 

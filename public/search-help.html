@@ -1,0 +1,214 @@
+<div style="height: 600px; overflow: auto">
+<h2>Summary</h2>
+
+<p>The search mechanism built into the Cohort CRM is based on ruby's Ferret search engine. It's very fast and flexible. It uses a simple query language known as "Ferret Query Language", aka "FQL".</p>
+<h3>Preamble</h3>
+
+<p>
+The following characters are special characters in FQL;
+</p>
+<pre>
+  :, (, ), [, ], {, }, !, +, &quot;, ~, ^, -, |, &lt;, &gt;, =, *, ?, \
+</pre>
+<p>
+If you want to use one of these characters in one of your terms you need to
+escape it with a \ character. \ escapes itself. The exception to this rule
+is within Phrases which a strings surrounded by double quotes (and will be
+explained further bellow in the section on PhraseQueries). In Phrases, only
+&quot;, | and &lt;&gt; have special meaning and need to be escaped if you
+want the literal value. &lt;&gt; is escaped &lt;\&gt;.
+
+</p>
+<h3>Term Query</h3>
+<p>
+A term query is the most basic query of all and is what most of the other
+queries are built upon. The term consists of a single word. eg;
+</p>
+<pre>
+  'term'
+</pre>
+<p>
+Note that the analyzer will be run on the term and if it splits the term in
+two then it will be turned into a phrase query. Consider the following;
+</p>
+<pre>
+  'joe23schmoe'
+</pre>
+<p>
+is equivalent to searching for the phrase:
+</p>
+<pre>
+  '&quot;joe schmoe&quot;'
+</pre>
+<h3>Phrase Query</h3>
+<p>
+A phrase query is a string of terms surrounded by double quotes. For
+example you could write;
+</p>
+
+<pre>
+  '&quot;quick brown fox&quot;'
+</pre>
+<p>
+But if a &quot;fast&quot; fox is just as good as a quick one you could use
+the | character to specify alternate terms.
+</p>
+<pre>
+  '&quot;quick|speedy|fast brown fox&quot;'
+</pre>
+<p>
+What if we don&#8216;t care what colour the fox is? We can use the &lt;&gt; to specify a place setter for an entire word. eg;
+</p>
+<pre>
+  '&quot;quick|speedy|fast &lt;&gt; fox&quot;'
+</pre>
+<p>
+This will match any word in between quick and fox. Alternatively we could
+set the &quot;slop&quot; for the phrase which allows a certain variation in
+the match of the phrase. The slop for a phrase is an integer indicating how
+many positions you are allowed to move the terms to get a match. To set the
+slop factor for a phrase you can type;
+
+</p>
+<pre>
+  '&quot;big house&quot;~2'
+</pre>
+<p>
+This would match &quot;big house&quot;, &quot;big red house&quot;,
+&quot;big red brick house&quot; and even &quot;house big&quot;.
+That&#8216;s right, you don&#8216;t need to have th terms in order if you
+allow some slop in your phrases.</p>
+
+<p>
+These basic queries will be run against all the content of the object you're searching. But what if you want to search only a specific field?
+You&#8216;ll be needing a &#8230;
+</p>
+<h3>Field Query</h3>
+<p>
+A field query is any field prefixed by &lt;fieldname&gt;:. For example, to
+search for all instances of the term &quot;ski&quot; in field
+&quot;sport&quot;, you&#8216;d write;
+</p>
+<pre>
+  'sport:ski'
+</pre>
+<p>
+Or we can apply a field to phrase;
+</p>
+<pre>
+  'sport:&quot;skiing is fun&quot;'
+</pre>
+<p>
+Now we have a few types of queries, we&#8216;ll be needing to glue them
+together with a &#8230;
+</p>
+<h3>Boolean Query</h3>
+<p>
+There are a couple of ways of writing boolean queries. Firstly you can
+specify which terms are required, optional or required not to exist (not).
+</p>
+<ul>
+  <li>&#8217;+&#8217; or &quot;REQ&quot; can be used to indicate a required
+  query. &quot;REQ&quot; must be surrounded by white space.
+  </li>
+
+  <li>&#8217;-&#8217;, &#8217;!&#8217; or &quot;NOT&quot; are used to indicate
+  query that is required to be false. &quot;NOT&quot; must be surrounded by
+  white space.
+  </li>
+  <li>all other queries are optional if the above symbols are used.
+  </li>
+</ul>
+<p>
+Some examples;
+</p>
+<pre>
+  '+sport:ski -sport:snowboard sport:toboggan'
+  '+ingredient:chocolate +ingredient:strawberries -ingredient:wheat'
+</pre>
+<p>
+You may also use the boolean operators &quot;AND&quot;,
+&quot;&amp;&amp;&quot;, &quot;OR&quot; and &quot;||&quot;. eg;
+</p>
+<pre>
+  'sport:ski AND NOT sport:snowboard OR sport:toboggan'
+  'ingredient:chocolate AND ingredient:strawberries AND NOT ingredient:wheat'
+</pre>
+<h3>Range Query</h3>
+<p>
+A range query finds all documents with terms between the two query terms.
+This can be very useful in particular for dates. eg;
+</p>
+<pre>
+  'date:[20050725 20050905]' # all dates &gt;= 20050725 and &lt;= 20050905
+  'date:[20050725 20050905}' # all dates &gt;= 20050725 and &lt;  20050905
+  'date:{20050725 20050905]' # all dates &gt;  20050725 and &lt;= 20050905
+  'date:{20050725 20050905}' # all dates &gt;  20050725 and &lt;  20050905
+</pre>
+<p>
+You can also do open ended queries like this;
+</p>
+<pre>
+  'date:[20050725&gt;' # all dates &gt;= 20050725
+  'date:{20050725&gt;' # all dates &gt;  20050725
+  'date:&lt;20050905]' # all dates &lt;= 20050905
+  'date:&lt;20050905}' # all dates &lt;  20050905
+</pre>
+<p>
+Or like this;
+</p>
+<pre>
+  'date: &gt;= 20050725'
+  'date: &gt;  20050725'
+  'date: &lt;= 20050905'
+  'date: &lt;  20050905'
+</pre>
+<p>
+If you prefer the above style you could use a boolean query but like this;
+</p>
+
+<pre>
+  'date:( &gt;= 20050725 AND &lt;= 20050905)'
+</pre>
+<p>
+But rangequery only solution (shown first) will be faster.
+</p>
+<h3>Wild Query</h3>
+<p>
+A wild query is a query using the pattern matching characters * and ?. *
+matches 0 or more characters while ? matches a single character. This type
+of query can be really useful for matching hierarchical categories for
+example. Let&#8216;s say we had these terms in the index:
+</p>
+<pre>
+  /sport/skiing
+  /sport/cycling
+  /coding1/ruby
+  /coding1/c
+  /coding2/python
+  /coding2/perl
+</pre>
+<p>
+If you wanted all categories with programming languages you could use the
+query;
+</p>
+<pre>
+  'category:/coding?/?*'
+</pre>
+<p>
+Note that this query can be quite slow if not used carefully.</p>
+<h3>Fuzzy Query</h3>
+<p>
+This is like the sloppy phrase query above, except you are now adding slop
+to a term. Basically it measures the Levenshtein distance between two terms
+and if the value is below the slop threshold the term is a match. This time
+though the slop must be a float between 0 and 1.0, 1.0 being a perfect
+match and 0 being far from a match. The default is set to 0.5. Here
+are a couple of examples;
+</p>
+<pre>
+  'content:ferret~'
+  'content:Ostralya~0.4'
+</pre>
+<p>Note that this query can be quite slow.</p>
+</div>
