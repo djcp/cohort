@@ -10,7 +10,12 @@ class Contact < ActiveRecord::Base
   end
 
   def primary_email
-    pe = self.contact_emails.find(:first, :conditions => ['is_primary is true'])
+    pe = get_primary_email 
     return pe && pe.email
   end
+
+  def get_primary_email
+    pe = self.contact_emails.find(:first, :conditions => ['is_primary is true'])
+  end
+
 end

@@ -10,6 +10,9 @@
     </tr>
     <% unless @notes.blank? %>
       <%= render :partial => 'shared/dnote', :collection => @notes, :locals => {:new_object_id => nil, :show_contact => true} %>
-    <% end %>
-  </table>
+    </table>
+    <%= will_paginate @notes, :params => {:q => params[:q]} %>
+  <% else %>
+    <h2>No notes found.</h2>
+  <% end %>
 </div>

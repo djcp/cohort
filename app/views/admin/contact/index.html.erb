@@ -15,8 +15,9 @@
         <%= render :partial => 'shared/contact_line', :collection => @contacts %>  
       </table>
     </div>
+    <%= will_paginate @contacts, :params => {:q => params[:q]} %>
   <% else %>
-    <h2>None!</h2>
+    <h2>No contacts found.</h2>
   <% end %>
 
   <div class="new-object">

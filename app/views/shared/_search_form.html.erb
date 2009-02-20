@@ -1,3 +1,3 @@
-<% form_remote_tag :update => update do %>
-  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %><%= link_to_function('show help',"Modalbox.show('/search-help.html',{title: 'Search help', width: '800'})") %>
+<% form_remote_tag :update => update, :html => {:id => 'searchform'} do %>
+  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> <%= link_to_function('reset search',"Form.Element.setValue('q',''); $('searchform').submit();") %> | <%= link_to_function('help',"Modalbox.show('/search-help.html',{title: 'Search help', width: '800'})") %>
 <% end %>

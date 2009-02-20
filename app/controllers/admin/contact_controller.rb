@@ -50,8 +50,23 @@ class Admin::ContactController < Admin::ModelAbstractController
     add_to_sortable_columns('contacts', :model => Contact, :field => :country, :alias => :country)
     add_to_sortable_columns('contacts', :model => Contact, :field => :state, :alias => :state)
     ferret_fields = (params[:q].blank? ? '*' : params[:q])
-    @contacts = Contact.find_with_ferret(ferret_fields, {},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
-    render :layout => (request.xhr? ? false : true)
+    if params[:csv].blank?
+      @contacts = Contact.find_with_ferret(ferret_fields, {:page => params[:page],:per_page => 50},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
+      render :layout => (request.xhr? ? false : true)
+    else
+      contacts = Contact.find_with_ferret(ferret_fields)
+      columns = Contact.columns.collect{|c|c.name}
+      additional_columns = ['primary_email','other_emails']
+      columns << additional_columns
+      columns.flatten!
+      contacts.each do |c|
+        emails = c.contact_emails.collect{|ce| ce.email}
+        c['primary_email'] = c.primary_email
+        emails.delete(c.primary_email)
+        c['other_emails'] = emails.join(',')
+      end
+      render_csv(:model => Contact, :objects => contacts, :filename =>  'contact-export-' + Time.now.to_s(:number) + '.csv', :columns => columns)
+    end
   end
 
   protected

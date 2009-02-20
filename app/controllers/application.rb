@@ -14,7 +14,25 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :passwd
 
   protected
-  
+
+  def render_csv(param)
+    param[:filename] = param[:filename].blank? ? 'export.csv' : param[:filename]
+
+    if param[:columns].blank? 
+      param[:columns] = param[:model].columns.collect{|c| c.name}
+    end
+    csv_string = FasterCSV.generate do |csv|
+      csv << param[:columns]
+      param[:objects].each do |record|
+        line = param[:columns].collect{|col| record[col].to_s.chomp}
+        csv << line
+      end
+    end
+    send_data(csv_string,
+              :type => 'application/octet-stream',
+              :filename => param[:filename])
+  end
+
   def is_admin
     authenticate_or_request_with_http_basic 'Cohort CRM Management' do |user_name, password|
      u = User.authenticate(user_name,password)
