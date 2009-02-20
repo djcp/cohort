@@ -6,27 +6,35 @@ class Admin::NoteController < Admin::ModelAbstractController
     note_engine(true)
   end
 
+  def everyones
+    @title = 'Everyone\'s notes'
+    note_engine(false,true)
+  end
+
   def my
     @title = 'My notes'
     note_engine
   end
 
-  def note_engine(contact_only = false)
+  def note_engine(contact_only = false, all_users = false)
     add_to_sortable_columns('notes', :model => Note, :field => :priority, :alias => :priority)
     add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
     add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
-    ferret_fields = (params[:q].blank? ? '*' : params[:q])
-    notes_fields = ['user_id = ?']
-    notes_params = [@session_user.id]
-    if contact_only
-      notes_fields << 'contact_id = ?'
-      notes_params << params[:id]
-    end
-    @notes = Note.find_with_ferret(ferret_fields, {},{:conditions => [notes_fields.join(' and '), notes_params].flatten, :order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
-    render :action => 'my', :layout => (request.xhr? ? false : true)
-  end
 
-  def everyones
+    ferret_fields = (params[:q].blank? ? '*' : params[:q])
+
+    if contact_only
+      #looking for a contact's notes
+      ferret_fields += " contact_id: #{params[:id]} "
+    elsif all_users
+      #looking for everyone's notes. null conditions, just pass in the query. For now.
+    else
+      #Looking for my notes.
+      ferret_fields += " user_id: #{@session_user.id} "
+    end
+
+    @notes = Note.find_with_ferret(ferret_fields, {},{:order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
+    render :action => 'my', :layout => (request.xhr? ? false : true)
   end
 
   def edit

@@ -1,20 +1,25 @@
-<h1>Contacts</h1>
-<% unless @contacts.blank? %>
-<div id="admin-list">
-  <table border="0" width="100%">
-    <tr>
-      <th>Name:</th>
-      <th>Emails:</th>
-      <th>Notes:</th>
-      <th>Actions:</th>
-    </tr>
-  <%= render :partial => 'shared/contact_line', :collection => @contacts %>  
-  </table>
-</div>
-<% else %>
-  <h2>None!</h2>
-<% end %>
+<div id="contacts-update">
+  <h1>Contacts</h1>
+  <%= render :partial => 'shared/search_form', :locals => {:update => 'contacts-update'} %>
+  <% unless @contacts.blank? %>
+    <div id="admin-list">
+      <table border="0" width="100%">
+        <tr>
+          <th class="<%= sorted_class('contacts','last_name') %>"><%= link_to 'Name', sort_param('contacts', :alias => 'last_name').merge({:q => params[:q]}) %></th>
+          <th><span class="<%= sorted_class('contacts','country') %>"><%= link_to 'Country', sort_param('contacts', :alias => 'country').merge({:q => params[:q]}) %></span> / <span class="<%= sorted_class('contacts','state') %>"><%= link_to 'State', sort_param('contacts', :alias => 'state').merge({:q => params[:q]}) %></span></th>
+          <th class="<%= sorted_class('contacts','updated_at') %>"><%= link_to 'Last Updated', sort_param('contacts', :alias => 'updated_at').merge({:q => params[:q]}) %></th>
+          <th>Emails:</th>
+          <th>Notes:</th>
+          <th>Actions:</th>
+        </tr>
+        <%= render :partial => 'shared/contact_line', :collection => @contacts %>  
+      </table>
+    </div>
+  <% else %>
+    <h2>None!</h2>
+  <% end %>
 
-<div class="new-object">
-  <%= link_to(icon(:add) + ' New contact', :action => :edit) %>
+  <div class="new-object">
+    <%= link_to(icon(:add) + ' New contact', :action => :edit) %>
+  </div>
 </div>

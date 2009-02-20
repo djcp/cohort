@@ -1,14 +1,5 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
-  def notes
-    begin
-      @contact = Contact.find(params[:id])
-      @notes = @contact.notes
-    rescue Exception => exc
-        logger.error "I couldn't do that: #{exc.message}"
-    end
-  end
-
   def edit 
     @use_fckeditor = true
     model = self.model
@@ -54,12 +45,13 @@ class Admin::ContactController < Admin::ModelAbstractController
   end
 
   def index
-    #FIXME
-    conditions_fields = []
-    conditions_params = []
-    unless params[:q].blank?
-    end
-    @contacts = Contact.find :all 
+    add_to_sortable_columns('contacts', :model => Contact, :field => :last_name, :alias => :last_name)
+    add_to_sortable_columns('contacts', :model => Contact, :field => :updated_at, :alias => :updated_at)
+    add_to_sortable_columns('contacts', :model => Contact, :field => :country, :alias => :country)
+    add_to_sortable_columns('contacts', :model => Contact, :field => :state, :alias => :state)
+    ferret_fields = (params[:q].blank? ? '*' : params[:q])
+    @contacts = Contact.find_with_ferret(ferret_fields, {},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
+    render :layout => (request.xhr? ? false : true)
   end
 
   protected

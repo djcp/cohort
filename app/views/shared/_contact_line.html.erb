@@ -2,6 +2,12 @@
   <td class="name" valign="top">
     <%= contact_line.name_for_display %>
   </td>
+  <td>
+    <%= [contact_line.country, contact_line.state].compact.join[','] %>
+  </td>
+  <td>
+    <%= contact_line.updated_at %>
+  </td>
   <td valign="top">
     <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.count - 1 )).to_s + ' others') %>
   </td>
@@ -10,8 +16,8 @@
     <div class="note-count"><%= link_to("<span id='parent-note-count-#{contact_line.id}'>#{contact_line.notes.count.to_s}</span> notes", :controller => '/admin/note', :action => :contact, :id => contact_line) %></div>
 
     <div id="add-new-note-<%= contact_line.id %>" style="display: none;">
-    <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.count.to_s %></span> note(s) already</div>
-    <div class="error" id="note-failure-<%= contact_line.id %>"></div>
+      <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.count.to_s %></span> note(s) already</div>
+      <div class="error" id="note-failure-<%= contact_line.id %>"></div>
       <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
         <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '60x5', :update_counts_only => 1, :no_ajax => false}) %>
       <% end -%>
