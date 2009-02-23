@@ -11,6 +11,7 @@
           <th class="<%= sorted_class('contacts','updated_at') %>"><%= link_to 'Last Updated', sort_param('contacts', :alias => 'updated_at').merge({:q => params[:q]}) %></th>
           <th>Emails:</th>
           <th>Notes:</th>
+          <th>Tags:</th>
           <th>Actions:</th>
         </tr>
         <%= render :partial => 'shared/contact_line', :collection => @contacts %>  

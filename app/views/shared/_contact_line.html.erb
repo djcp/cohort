@@ -12,20 +12,31 @@
     <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.count - 1 )).to_s + ' others') %>
   </td>
   <td valign="top">
-    <%= link_to_function(icon(:add), "Modalbox.show($('add-new-note-#{contact_line.id}'), {title:'Add note for #{h contact_line.name_for_display}', beforeHide: function(){$('parent-note-count-#{contact_line.id}').update($('note-count-#{contact_line.id}').innerHTML)}})") %>
-    <div class="note-count"><%= link_to("<span id='parent-note-count-#{contact_line.id}'>#{contact_line.notes.count.to_s}</span> notes", :controller => '/admin/note', :action => :contact, :id => contact_line) %></div>
-
-    <div id="add-new-note-<%= contact_line.id %>" style="display: none;">
-      <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.count.to_s %></span> note(s) already</div>
-      <div class="error" id="note-failure-<%= contact_line.id %>"></div>
-      <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
-        <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '60x5', :update_counts_only => 1, :no_ajax => false}) %>
-      <% end -%>
-    </div>
-
+    <%= link_to_function(icon(:note), "toggle_notes_container('#{contact_line.id}')") %>
+    <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.count %></span><br/><%= link_to("view", :controller => '/admin/note', :action => :contact, :id => contact_line) %>
+  </td>
+  <td valign="top">
+    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}')") %>
+    <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.count %></span>
   </td>
   <td valign="top">
     <%= link_to 'edit', :action => :edit, :id => contact_line %><br/>
     <%= link_to 'delete', {:action => :destroy, :id => contact_line}, {:method => :post, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
   </td>
+</tr>
+<tr id="add-new-note-<%= contact_line.id %>" style="display: none;">
+  <td colspan="7">
+      <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.count.to_s %></span> note(s)</div>
+      <div class="error" id="note-failure-<%= contact_line.id %>"></div>
+      <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
+        <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '60x5', :update_counts_only => 1, :no_ajax => false}) %>
+      <% end -%>
+  </td>
+</tr>
+<tr id="manage-tags-<%= contact_line.id %>" style="display: none;">
+  <td colspan="7">
+    <div id="tag-details-<%= contact_line.id %>">
+      <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => contact_line, :standalone => true} %>
+  </div>
+</td>
 </tr>

@@ -1,5 +1,20 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
+  def manage_tags
+    @object = self.model.find_by_id(params[:id])
+    new_tags = []
+    current_tags = (params[:contact] ? params[:contact][:tag_ids] : [])
+    deal_with_new_tags(params[:new_tags],new_tags)
+    deduped_tags = [
+      (new_tags and new_tags.collect{|t|t.to_i}),
+      (current_tags and current_tags.collect{|t|t.to_i})
+    ].flatten.uniq.compact
+    logger.warn('Deduped Tags: ' + deduped_tags.inspect)
+    @object.tag_ids = deduped_tags || []
+    @object.save
+    render :partial => 'shared/manage_tags', :layout => (request.xhr? ? false : true), :locals => {:contact_line => @object, :standalone => true}
+  end
+
   def edit 
     @use_fckeditor = true
     model = self.model
@@ -56,19 +71,20 @@ class Admin::ContactController < Admin::ModelAbstractController
     else
       contacts = Contact.find_with_ferret(ferret_fields)
       columns = Contact.columns.collect{|c|c.name}
-      additional_columns = ['primary_email','other_emails']
-      columns << additional_columns
-      columns.flatten!
-      contacts.each do |c|
-        emails = c.contact_emails.collect{|ce| ce.email}
-        c['primary_email'] = c.primary_email
-        emails.delete(c.primary_email)
-        c['other_emails'] = emails.join(',')
-      end
       if params[:export] == 'csv'
+        #De-normalize data because csv files can't be hierarchical like XML.
+        additional_columns = ['primary_email','other_emails']
+        columns << additional_columns
+        columns.flatten!
+        contacts.each do |c|
+          emails = c.contact_emails.collect{|ce| ce.email}
+          c['primary_email'] = c.primary_email
+          emails.delete(c.primary_email)
+          c['other_emails'] = emails.join(',')
+        end
         render_csv(:model => Contact, :objects => contacts, :columns => columns)
       else
-        render :text => contacts.to_xml(:include => [:contact_emails, :notes, :tags])
+        render :xml => contacts.to_xml(:include => [:contact_emails, :notes, :tags])
       end
     end
   end

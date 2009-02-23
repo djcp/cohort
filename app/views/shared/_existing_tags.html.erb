@@ -1,5 +1,5 @@
-<li class="pui-autocomplete-box" id="tag-<%= existing_tags.id %>">
+<li class="pui-autocomplete-box" id="tag-<%= contact.id %>_<%= existing_tags.id %>">
   <span><%= existing_tags.hierarchical_title %></span>
   <%= hidden_field_tag 'contact[tag_ids][]', existing_tags.id %>
-  <a id="remove-tag-<%= existing_tags.id %>"></a>
+  <%= link_to_function('',"remove_tag('#{contact.id}_#{existing_tags.id}')") %>
 </li> 

@@ -30,17 +30,20 @@ var Cookie = {
 
 document.observe("dom:loaded", function() {
   deal_with_flyouts();
-  init_tag_controls();
 });
 
-function init_tag_controls(){
-  $('existing-tags') && $('existing-tags').select('[id*=remove-tag]').each(function(oEl){
-    oEl.observe('click',function(el){
-      var target = el.target;
-      var id = target.id.split('-').last();
-      $('tag-' + id).remove();
-    })
-  });
+function toggle_tag_container(id){
+  $('manage-tags-' + id).toggle();
+  $('parent-tag-count-' + id).update($('tag-count-count-' + id ).innerHTML);
+}
+
+function toggle_notes_container(id){
+  $('add-new-note-' + id).toggle();
+  $('parent-note-count-' +id).update($('note-count-' + id).innerHTML);
+}
+
+function remove_tag(id){
+  $('tag-' + id).remove();
 }
 
 function deal_with_flyouts(){

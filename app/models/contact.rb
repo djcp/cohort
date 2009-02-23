@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
   # Many validations are handled by the redhill schema_validations plugin.
-  acts_as_ferret :single_index => true, :remote => true
+  acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_emails], :remote => true)
   has_many :notes, :order => 'position desc'
   has_many :contact_emails, :validate => true
   has_and_belongs_to_many :tags
@@ -16,6 +16,14 @@ class Contact < ActiveRecord::Base
 
   def get_primary_email
     pe = self.contact_emails.find(:first, :conditions => ['is_primary is true'])
+  end
+
+  def my_tags
+    self.tags.collect{|t| t.tag}.join(' ')
+  end
+
+  def my_emails
+    self.contact_emails.collect{|e| e.email}.join(' ')
   end
 
 end
