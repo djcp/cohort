@@ -30,8 +30,23 @@ class Admin::NoteController < Admin::ModelAbstractController
       #Looking for my notes.
       ferret_fields += " user_id: #{@session_user.id} "
     end
-    @notes = Note.find_with_ferret(ferret_fields, {:page => params[:page], :per_page => 50},{:order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
-    render :action => 'my', :layout => (request.xhr? ? false : true)
+    if params[:csv].blank?
+      #FIXME
+      @notes = Note.find_with_ferret(ferret_fields, {:page => params[:page], :per_page => 50},{:order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
+      render :action => 'my', :layout => (request.xhr? ? false : true)
+    else
+      notes = Note.find_with_ferret(ferret_fields)
+      columns = Note.columns.collect{|c|c.name}
+      additional_columns = ['primary_email','last_name','first_name']
+      columns << additional_columns
+      columns.flatten!
+      notes.each do |n|
+        n['primary_email'] = n.contact.primary_email
+        n['last_name'] = n.contact.last_name
+        n['first_name'] = n.contact.first_name
+      end
+      render_csv(:model => Note, :objects => notes, :columns => columns) 
+    end
   end
 
   def edit

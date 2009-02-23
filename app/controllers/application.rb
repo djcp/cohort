@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def render_csv(param)
-    param[:filename] = param[:filename].blank? ? 'export.csv' : param[:filename]
+    param[:filebase] = param[:filebase].blank? ? param[:model].to_s.tableize : param[:filebase]
 
     if param[:columns].blank? 
       param[:columns] = param[:model].columns.collect{|c| c.name}
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     end
     send_data(csv_string,
               :type => 'application/octet-stream',
-              :filename => param[:filename])
+              :filename => "#{param[:filebase]}-#{Time.now.to_s(:number)}.csv")
   end
 
   def is_admin

@@ -50,7 +50,7 @@ class Admin::ContactController < Admin::ModelAbstractController
     add_to_sortable_columns('contacts', :model => Contact, :field => :country, :alias => :country)
     add_to_sortable_columns('contacts', :model => Contact, :field => :state, :alias => :state)
     ferret_fields = (params[:q].blank? ? '*' : params[:q])
-    if params[:csv].blank?
+    if params[:export].blank?
       @contacts = Contact.find_with_ferret(ferret_fields, {:page => params[:page],:per_page => 50},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
       render :layout => (request.xhr? ? false : true)
     else
@@ -65,7 +65,11 @@ class Admin::ContactController < Admin::ModelAbstractController
         emails.delete(c.primary_email)
         c['other_emails'] = emails.join(',')
       end
-      render_csv(:model => Contact, :objects => contacts, :filename =>  'contact-export-' + Time.now.to_s(:number) + '.csv', :columns => columns)
+      if params[:export] == 'csv'
+        render_csv(:model => Contact, :objects => contacts, :columns => columns)
+      else
+        render :text => contacts.to_xml(:include => [:contact_emails, :notes, :tags])
+      end
     end
   end
 
