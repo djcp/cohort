@@ -1,3 +1,18 @@
 <% form_remote_tag :update => update, :html => {:id => 'searchform'} do %>
   <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> <%= link_to_function('reset search',"Form.Element.setValue('q',''); $('searchform').submit();") %> | <%= link_to_function('help',"Modalbox.show('/search-help.html',{title: 'Search help', width: '800'})") %>
+  <div><%= link_to_function('Filter by tags', "$('tag_query').toggle('slide')") %></div>
+  <div id="tag_query" style="display: none;">
+    Look in these tags: <%= text_field_tag 'look_in_tags', params[:look_in_tags] %><br/>
+    Exclude these tags: <%= text_field_tag 'exclude_tags', params[:exclude_tags] %>
+  </div>
 <% end %>
+<script type="text/javascript" language="javascript">
+  document.observe('dom:loaded',function(){
+  var ac = new UI.AutoComplete('look_in_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
+  .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
+  var ac2 = new UI.AutoComplete('exclude_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  ac2.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
+  .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
+});
+</script>
