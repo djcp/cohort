@@ -4,7 +4,7 @@ class Admin::ContactController < Admin::ModelAbstractController
     @object = self.model.find_by_id(params[:id])
     new_tags = []
     current_tags = (params[:contact] ? params[:contact][:tag_ids] : [])
-    deal_with_new_tags(:tags_to_parse => params[:new_tags],:new_tags => new_tags, :vivify => true)
+    parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :vivify => true)
     deduped_tags = [
       (new_tags and new_tags.collect{|t|t.to_i}),
       (current_tags and current_tags.collect{|t|t.to_i})
@@ -27,7 +27,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       current_tags = params[:contact][:tag_ids]
 
       new_tags = []
-      deal_with_new_tags(:tags_to_parse => params[:new_tags],:new_tags => new_tags, :vivify => true)
+      parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :vivify => true)
       emails = deal_with_email @object
       new_notes = deal_with_notes @object
 
@@ -64,9 +64,27 @@ class Admin::ContactController < Admin::ModelAbstractController
     add_to_sortable_columns('contacts', :model => Contact, :field => :updated_at, :alias => :updated_at)
     add_to_sortable_columns('contacts', :model => Contact, :field => :country, :alias => :country)
     add_to_sortable_columns('contacts', :model => Contact, :field => :state, :alias => :state)
-    ferret_fields = (params[:q].blank? ? '*' : params[:q])
+    ferret_fields = (params[:q].blank? ? '*' : params[:q]) + ' '
 
     unless params[:look_in_tags].blank?
+      include_tags = []
+      @included_tags_for_output = []
+      existing_included_tags = params[:included_tags]
+
+      parse_tag_list(:tags_to_parse => params[:look_in_tags], :tag_list => include_tags, :vivify => false)
+      logger.warn('Included tag ids: ' + include_tags.inspect)
+      @included_tags_for_output << include_tags.collect{|tid| Tag.find(tid)} 
+      ferret_fields += (include_tags.collect{|tid| " +my_tag_ids: #{tid} "}.join(' '))
+    end
+
+    unless params[:exclude_tags].blank?
+      exclude_tags = []
+      @excluded_tags_for_output = []
+      existing_excluded_tags = params[:excluded_tags]
+
+      parse_tag_list(:tags_to_parse => params[:exclude_tags], :tag_list => exclude_tags, :vivify => false)
+      @excluded_tags_for_output << exclude_tags.each{|tid| Tag.find(tid)} 
+      ferret_fields += (exclude_tags.collect{|tid| " -my_tag_ids: #{tid} "}.join(' '))
     end
 
     if params[:export].blank?
@@ -187,17 +205,16 @@ class Admin::ContactController < Admin::ModelAbstractController
   end
 
   # This will auto-vivify tags that we haven't seen yet.
-  def deal_with_new_tags(param)
+  def parse_tag_list(param)
     param[:tags_to_parse].split(',').each do |tag|
       matchval = tag.match(/\(id\:(\d+)\)$/)
       if matchval
-        param[:new_tags] << matchval[1].to_i
-        #FIXME
+        param[:tag_list] << matchval[1].to_i
       elsif param[:vivify] && param[:vivify] == true
         begin
           unless tag.blank?
             nt = Tag.create(:tag => tag)
-            param[:new_tags] << nt.id
+            param[:tag_list] << nt.id
           end
         rescue Exception => exc
           flash[:ceerror] = "There was an error creating that tag: #{exc.message}"
