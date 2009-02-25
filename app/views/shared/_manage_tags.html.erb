@@ -4,7 +4,7 @@
 <% end %>
 <h3>Existing Tags:</h3>
 <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags-<%= contact_line.id %>">
-  <%= render :partial => 'shared/existing_tags', :collection => contact_line.tags, :locals => {:contact => contact_line} %>
+  <%= render :partial => 'shared/existing_tags', :collection => contact_line.tags, :locals => {:object_id => contact_line.id, :param_name => 'contact[tag_ids][]'} %>
 </ul>
 <h3>Add tags to this contact:</h3>
 <p class="field"><%= text_field_tag 'new_tags', {}, {:id =>  'new_tags-' + contact_line.id.to_s} %></p>

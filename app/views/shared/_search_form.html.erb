@@ -2,19 +2,27 @@
   <% url_params = params 
   url_params.delete('authenticity_token') %>
   <div><%= link_to('Permalink to this search',url_for(url_params)) %></div>
-  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> <%= link_to_function('reset search',"Form.Element.setValue('q',''); $('searchform').submit()") %> | <%= link_to_function('help',"Modalbox.show('/search-help.html',{title: 'Search help', width: '800'})") %>
+  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> <%= link_to('reset search',url_for) %> | <%= link_to_function('help',"Modalbox.show('/search-help.html',{title: 'Search help', width: '800'})") %>
   <h4 id="flyout-tag-filter" class="toggle hidden">Filter by tags</h4>
   <div id="flyout-tag-filter-actions" class="toggle-target">
-    Look in these tags: <%= text_field_tag 'look_in_tags' %><br/>
-    Exclude these tags: <%= text_field_tag 'exclude_tags' %>
+    Look in these tags:<br/> 
+    <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags-10">
+      <%= render :partial => 'shared/existing_tags', :collection => @included_tags_for_output, :locals => {:object_id => 10, :param_name => 'included_tags[]'} %>
+    </ul>
+    <%= text_field_tag 'tags_to_include' %><br/>
+    Exclude these tags:<br/> 
+    <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags-11">
+      <%= render :partial => 'shared/existing_tags', :collection => @excluded_tags_for_output, :locals => {:object_id => 11, :param_name => 'excluded_tags[]'} %>
+    </ul>
+    <%= text_field_tag 'tags_to_exclude' %>
 <script type="text/javascript" language="javascript">
   <% unless request.xhr? %>
     document.observe('dom:loaded',function(){
   <% end %>
-  var ac = new UI.AutoComplete('look_in_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  var ac = new UI.AutoComplete('tags_to_include',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
   ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
   .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
-  var ac2 = new UI.AutoComplete('exclude_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  var ac2 = new UI.AutoComplete('tags_to_exclude',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
   ac2.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
   .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
   <% unless request.xhr? %>

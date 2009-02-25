@@ -66,26 +66,24 @@ class Admin::ContactController < Admin::ModelAbstractController
     add_to_sortable_columns('contacts', :model => Contact, :field => :state, :alias => :state)
     ferret_fields = (params[:q].blank? ? '*' : params[:q]) + ' '
 
-    unless params[:look_in_tags].blank?
+    if params[:tags_to_include] or params[:included_tags]
       include_tags = []
-      @included_tags_for_output = []
       existing_included_tags = params[:included_tags]
-
-      parse_tag_list(:tags_to_parse => params[:look_in_tags], :tag_list => include_tags, :vivify => false)
-      logger.warn('Included tag ids: ' + include_tags.inspect)
-      @included_tags_for_output << include_tags.collect{|tid| Tag.find(tid)} 
-      ferret_fields += (include_tags.collect{|tid| " +my_tag_ids: #{tid} "}.join(' '))
+      parse_tag_list(:tags_to_parse => params[:tags_to_include] || '', :tag_list => include_tags, :vivify => false)
+      @included_tags_for_output = [existing_included_tags,include_tags].flatten.uniq.compact.collect{|tid| Tag.find(tid.to_i)} ||[]
+      ferret_fields += (@included_tags_for_output.collect{|tid| " +my_tag_ids: #{tid.id} "}.join(' '))
     end
 
-    unless params[:exclude_tags].blank?
+    if params[:tags_to_exclude] or params[:excluded_tags]
       exclude_tags = []
       @excluded_tags_for_output = []
       existing_excluded_tags = params[:excluded_tags]
-
-      parse_tag_list(:tags_to_parse => params[:exclude_tags], :tag_list => exclude_tags, :vivify => false)
-      @excluded_tags_for_output << exclude_tags.each{|tid| Tag.find(tid)} 
-      ferret_fields += (exclude_tags.collect{|tid| " -my_tag_ids: #{tid} "}.join(' '))
+      parse_tag_list(:tags_to_parse => params[:tags_to_exclude], :tag_list => exclude_tags, :vivify => false)
+      @excluded_tags_for_output = [existing_excluded_tags,exclude_tags].flatten.uniq.compact.collect{|tid| Tag.find(tid.to_i)} ||[]
+      ferret_fields += (@excluded_tags_for_output.collect{|tid| " -my_tag_ids: #{tid.id} "}.join(' '))
     end
+
+    logger.warn("Ferret search string: " + ferret_fields)
 
     if params[:export].blank?
       @contacts = Contact.find_with_ferret(ferret_fields, {:page => params[:page],:per_page => 50},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
