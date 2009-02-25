@@ -1,0 +1,7 @@
+<% form_tag url_for, {:id => 'searchform'} do %>
+  <% url_params = params 
+  url_params.delete('authenticity_token') %>
+  <div><%= link_to('Permalink to this search',url_for(url_params)) %></div>
+  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> <%= link_to('reset search',url_for) %> | <%= link_to_function('help',"Modalbox.show('/search-help.html',{title: 'Search help', width: '800'})") %>
+  </div>
+<% end %>

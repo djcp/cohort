@@ -1,6 +1,10 @@
 class Admin::TagController < Admin::ModelAbstractController
   protect_from_forgery :except => :json_tags
 
+  def edit
+    super(:parent_id => params[:parent_id])
+  end
+
   def index
       @tree = Tag.find(:all, :include => [ :children ], :order => :position)
   end
