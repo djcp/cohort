@@ -1,4 +1,8 @@
+<% unless tag_line.immutable %>
 <%= link_to(icon(:cross), {:action => :destroy, :id => tag_line}, {:method => :post, :confirm => 'Are you sure? Deleting this tag will remove *all* traces of it.', :title => "Delete this tag permanently."}) -%>
+<% else %>
+<%= image_tag 'transparent-icon.png' %>
+<% end %>
 <% unless tag_line.first? %><%= link_to icon(:arrow_up), :action => :move_higher, :id => tag_line %><% else %><%= image_tag 'transparent-icon.png' %><% end -%>
 <% unless tag_line.last? %><%= link_to icon(:arrow_down), :action => :move_lower, :id => tag_line %><% else %><%= image_tag 'transparent-icon.png' %><% end -%>
   <%= link_to("#{icon(:add)}", {:action => :edit, :parent_id => tag_line}, {:title => 'Add a child tag under this tag.'}) %>

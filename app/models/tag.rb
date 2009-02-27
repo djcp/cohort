@@ -1,8 +1,15 @@
 class Tag < ActiveRecord::Base
+  include CohortArMixin
   # Many validations are handled by the redhill schema_validations plugin.
   acts_as_list :scope => :parent_id
   acts_as_tree :order => :position
   has_and_belongs_to_many :contacts
+
+  before_destroy :forbid_delete_of_immutable_objects
+
+  def self.create_auto_tag(reason = 'Import')
+    Tag.create(:tag => "Autotag: #{reason} - #{Time.now.to_s(:long)}")
+  end
 
   def name_for_display
     self.hierarchical_title

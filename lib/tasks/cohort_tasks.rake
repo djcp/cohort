@@ -14,10 +14,14 @@ namespace :cohort do
     columns = Contact.columns.collect{|c| c.name}
     columns.delete('id')
     FasterCSV.foreach("tmp/import.csv", {:headers => true,:header_converters => :symbol}) do |row|
+      u = User.get_import_user
       c = Contact.new
       rhash = row.to_hash
       columns.each do |col|
         c[col.to_sym] = rhash[col.to_sym]
+      end
+      unless rhash[:notes].blank?
+        c.notes << Note.new(:contact => c, :note => rhash[:notes], :user => u)
       end
       if c.valid?
         c.save

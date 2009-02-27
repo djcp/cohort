@@ -6,10 +6,11 @@ class CreateTags < ActiveRecord::Migration
       t.column :tag, :string, :limit => 200, :null => false
       t.column :description, :string, :limit => 1000
       t.column :position, :integer
+      t.column :immutable, :boolean, :default => false
       t.timestamps
     end
 
-    %W|tag position parent_id|.each do|column|
+    %W|tag position parent_id immutable|.each do|column|
       add_index :tags, column
     end
 
@@ -101,6 +102,11 @@ FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_update();
     %W|contact_id tag_id|.each do |column|
       add_index :contacts_tags, column
     end
+    special = Tag.create(:tag => 'Special', :immutable => true)
+    autotags = Tag.create(:tag => 'Autotag', :immutable => true, :parent => special)
+    never_email = Tag.create(:tag => 'Never Email', :immutable => true, :parent => special)
+    never_contact = Tag.create(:tag => 'Never Contact', :immutable => true, :parent => special)
+    never_phone = Tag.create(:tag => 'Never Phone', :immutable => true, :parent => special)
   end
 
   def self.down
