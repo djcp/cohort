@@ -103,7 +103,7 @@ FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_update();
       add_index :contacts_tags, column
     end
     special = Tag.create(:tag => 'Special', :immutable => true)
-    autotags = Tag.create(:tag => 'Autotag', :immutable => true, :parent => special)
+    autotags = Tag.create(:tag => 'Autotags', :immutable => true, :parent => special)
     never_email = Tag.create(:tag => 'Never Email', :immutable => true, :parent => special)
     never_contact = Tag.create(:tag => 'Never Contact', :immutable => true, :parent => special)
     never_phone = Tag.create(:tag => 'Never Phone', :immutable => true, :parent => special)

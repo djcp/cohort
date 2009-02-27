@@ -13,22 +13,35 @@ namespace :cohort do
     setup
     columns = Contact.columns.collect{|c| c.name}
     columns.delete('id')
+
+    import_tag = Tag.create_auto_tag
+    u = User.get_import_user
+
     FasterCSV.foreach("tmp/import.csv", {:headers => true,:header_converters => :symbol}) do |row|
-      u = User.get_import_user
       c = Contact.new
       rhash = row.to_hash
       columns.each do |col|
         c[col.to_sym] = rhash[col.to_sym]
       end
-      unless rhash[:notes].blank?
+      if rhash[:notes] && ! rhash[:notes].strip.blank?
         c.notes << Note.new(:contact => c, :note => rhash[:notes], :user => u)
       end
+
+      if rhash[:email] && ! rhash[:email].strip.blank?
+        ce = ContactEmail.new(:contact => c, :email => rhash[:email])
+        if ce.valid?
+          c.contact_emails << ce
+        end
+      end
+      c.tags << import_tag
       if c.valid?
         c.save
       else
         puts 'Invalid: ' + c.errors.full_messages.join(' ') 
       end
     end
+    Contact.rebuild_index
+    Note.rebuild_index
   end
   
 end

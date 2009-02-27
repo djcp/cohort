@@ -8,7 +8,15 @@ class Tag < ActiveRecord::Base
   before_destroy :forbid_delete_of_immutable_objects
 
   def self.create_auto_tag(reason = 'Import')
-    Tag.create(:tag => "Autotag: #{reason} - #{Time.now.to_s(:long)}")
+    Tag.create(:tag => "Autotag: #{reason} - #{Time.now.to_s(:long)}", :parent => self.get_autotag_root_tag)
+  end
+
+  def self.get_special_root_tag
+    self.find(:first, :conditions => ['tag = ? and parent_id is null','Special'])
+  end
+
+  def self.get_autotag_root_tag
+    self.find(:first, :conditions => ['tag = ? and parent_id =?','Autotags',self.get_special_root_tag.id])
   end
 
   def name_for_display
