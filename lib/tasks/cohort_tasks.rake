@@ -28,9 +28,9 @@ namespace :cohort do
       end
 
       if rhash[:email] && ! rhash[:email].strip.blank?
-        ce = ContactEmail.new(:contact => c, :email => rhash[:email])
-        if ce.valid?
-          c.contact_emails << ce
+        ce = ContactEmail.new(:contact => c, :email => rhash[:email].strip, :email_type => 'work')
+        if ! ce.valid?
+          puts "Invalid: #{ce.errors.full_messages.join(' ')}"
         end
       end
       c.tags << import_tag
