@@ -10,11 +10,22 @@ The Cohort CRM is a tag-heavy Rails-based CRM system designed for:
 * Pluggable authentication / authorization (we use LDAP),
 * A careful use of ajax-y features to improve user experience without being gimmicky.
 
+This is still very alpha level code and under heavy development. DANGER, WILL ROBINSON!
+
 == History ==
 The Berkman Center for Internet and Society (http://cyber.law.harvard.edu) has been trying to find an easy-to-use and easy-to-customize CRM for years and despaired after much time spent surveying the landscape. Most CRMs didn't fit our needs, and those that seemed to were overly complex, hard to customize and/or had horrific data models designed to only be used through application code (the "Application Database" DHH espouses so much). We feel there is a huge need for a simple, usable CRM that - in the classic unix model - does few things and does them well.
 
 == TODO ==
+Many and varied, including:
+* Full MySQL support. Given MySQL's unusable triggers/stored procedure system, we need to make this app degrade gracefully when not using PostgreSQL,
+* Imports,
+* Look-and-feel improvements,
+* De-duplication assistance,
+* Mass actions on records,
+* Much more.
 
+== BUGS ==
+Yes. Many, for now.
 
 == License ==
 This application is licensed under the same terms as Rails itself. Plugins are licensed under the terms of their respective authors.
