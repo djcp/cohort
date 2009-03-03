@@ -12,17 +12,6 @@
   <%= submit_tag 'Save changes to tags' %>
 </form>
 <% end %>
-<script type="text/javascript">
-  <% unless request.xhr? %>
-    document.observe('dom:loaded',function(){
-  <% end %>
-  ac = new UI.AutoComplete('new_tags-<%= contact_line.id %>',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
-  ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
-  .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
-  <% unless request.xhr? %>
-    });
-  <% end %>
-</script>
 <% if request.xhr? %>
   <%= javascript_tag(visual_effect(:pulsate, "tag-count-#{contact_line.id}")) %>
 <% end %>
