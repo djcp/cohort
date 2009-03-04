@@ -32,7 +32,7 @@ document.observe("dom:loaded", function() {
   deal_with_flyouts();
 });
 
-function toggle_tag_container(id){
+function toggle_tag_container(id,json_url){
   var toggle_container = $('manage-tags-' + id);
   toggle_container.toggle();
   if(! toggle_container.visible()){
@@ -41,13 +41,10 @@ function toggle_tag_container(id){
   } else {
     // Instantiate the new tag observer .. . but only if it hasn't been instantiated already.
     var observed = $('manage-tags-' + id).select('li.pui-autocomplete-input');
-    alert(observed);
-#FIXME
-    if(not observed){
-      alert('observing. . . ');
-    ac = new UI.AutoComplete('new_tags-' + id,{shadow: "auto_complete", tokens: ',', url: '/admin/tag/json_tags' });
-    ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
-      .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
+    if(observed == ''){
+      ac = new UI.AutoComplete('new_tags-' + id,{shadow: "auto_complete", tokens: ',', url: json_url });
+      ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
+        .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});
     }
   }
 }

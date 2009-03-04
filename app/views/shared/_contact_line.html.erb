@@ -16,7 +16,7 @@
     <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.count %></span><br/><%= link_to("view", :controller => '/admin/note', :action => :contact, :id => contact_line) %>
   </td>
   <td valign="top">
-    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}')") %>
+    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/admin/tags', :action => :json_tags)}')") %>
     <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.count %></span>
   </td>
   <td valign="top">
@@ -29,7 +29,7 @@
       <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.count.to_s %></span> note(s)</div>
       <div class="error" id="note-failure-<%= contact_line.id %>"></div>
       <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
-        <%= render (:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '60x5', :update_counts_only => 1, :no_ajax => false}) %>
+        <%= render(:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '60x5', :update_counts_only => 1, :no_ajax => false}) %>
       <% end -%>
   </td>
 </tr>
