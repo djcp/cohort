@@ -16,7 +16,7 @@
     <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.count %></span><br/><%= link_to("view", :controller => '/admin/note', :action => :contact, :id => contact_line) %>
   </td>
   <td valign="top">
-    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/admin/tags', :action => :json_tags)}')") %>
+    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/admin/tag', :action => :json_tags)}')") %>
     <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.count %></span>
   </td>
   <td valign="top">
@@ -36,7 +36,7 @@
 <tr id="manage-tags-<%= contact_line.id %>" style="display: none;">
   <td colspan="7">
     <div id="tag-details-<%= contact_line.id %>">
-      <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => contact_line, :standalone => true} %>
+      <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => contact_line, :standalone => true, :init_observer => false} %>
   </div>
 </td>
 </tr>

@@ -55,7 +55,7 @@
   <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen">
     <% unless @contact.new_record? %>
       <div id="tag-details-<%= @contact.id %>">
-        <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => @contact, :standalone => false} %>
+        <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => @contact, :standalone => false, :init_observer => true} %>
       </div>
     <% else %>
       <h3>Add tags to this contact:</h3>

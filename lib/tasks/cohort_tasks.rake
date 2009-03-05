@@ -28,7 +28,7 @@ namespace :cohort do
       end
 
       if rhash[:email] && ! rhash[:email].strip.blank?
-        ce = ContactEmail.new(:email => rhash[:email].strip, :email_type => 'work')
+        ce = ContactEmail.new(:is_primary => true, :email => rhash[:email].strip, :email_type => 'work')
         if ! ce.valid?
           puts "Invalid: #{ce.errors.full_messages.join(' ')}"
         else

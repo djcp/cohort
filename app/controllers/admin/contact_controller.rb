@@ -86,7 +86,11 @@ class Admin::ContactController < Admin::ModelAbstractController
     logger.warn("Ferret search string: " + ferret_fields)
 
     if params[:export].blank?
-      @contacts = Contact.find_with_ferret(ferret_fields, {:page => params[:page],:per_page => 50},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
+      if ferret_fields == '* '
+        @contacts = Contact.find(:all, {:page => params[:page],:per_page => 50},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
+      else
+        @contacts = Contact.paginate(:page => params[:page],:per_page => 50,:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc))
+      end
       render :layout => (request.xhr? ? false : true)
     else
       contacts = Contact.find_with_ferret(ferret_fields)
