@@ -9,15 +9,15 @@
     <%= contact_line.updated_at %>
   </td>
   <td valign="top">
-    <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.count - 1 )).to_s + ' others') %>
+    <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.length - 1 )).to_s + ' others') %>
   </td>
   <td valign="top">
     <%= link_to_function(icon(:note), "toggle_notes_container('#{contact_line.id}')") %>
-    <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.count %></span><br/><%= link_to("view", :controller => '/admin/note', :action => :contact, :id => contact_line) %>
+    <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.length %></span><br/><%= link_to("view", :controller => '/admin/note', :action => :contact, :id => contact_line) %>
   </td>
   <td valign="top">
     <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/admin/tag', :action => :json_tags)}')") %>
-    <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.count %></span>
+    <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.length %></span>
   </td>
   <td valign="top">
     <%= link_to 'edit', :action => :edit, :id => contact_line %><br/>
@@ -26,7 +26,7 @@
 </tr>
 <tr id="add-new-note-<%= contact_line.id %>" style="display: none;">
   <td colspan="7">
-      <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.count.to_s %></span> note(s)</div>
+      <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.length.to_s %></span> note(s)</div>
       <div class="error" id="note-failure-<%= contact_line.id %>"></div>
       <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
         <%= render(:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '60x5', :update_counts_only => 1, :no_ajax => false}) %>

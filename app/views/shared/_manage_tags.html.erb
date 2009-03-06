@@ -1,4 +1,4 @@
-<div id="tag-count-<%= contact_line.id %>" class="tag-count"><span id="tag-count-count-<%= contact_line.id %>"><%= contact_line.tags.count.to_s %></span> tag(s)</div>
+<div id="tag-count-<%= contact_line.id %>" class="tag-count"><span id="tag-count-count-<%= contact_line.id %>"><%= contact_line.tags.length.to_s %></span> tag(s)</div>
 <% if standalone %>
   <%= form_remote_tag :url => url_for(:controller => '/admin/contact', :action => :manage_tags, :id => contact_line), :update => "tag-details-#{contact_line.id}" %>
 <% end %>

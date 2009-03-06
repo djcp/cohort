@@ -20,18 +20,22 @@ class Admin::NoteController < Admin::ModelAbstractController
     add_to_sortable_columns('notes', :model => Note, :field => :priority, :alias => :priority)
     add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
     add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
-    ferret_fields = (params[:q].blank? ? '*' : params[:q])
+    ferret_fields = (params[:q].blank? ? '* ' : params[:q])
     if contact_only
       #looking for a contact's notes
-      ferret_fields += " contact_id: #{params[:id]} "
+      ferret_fields += "contact_id: #{params[:id]} "
     elsif all_users
       #looking for everyone's notes. null conditions, just pass in the query. For now.
     else
       #Looking for my notes.
-      ferret_fields += " user_id: #{@session_user.id} "
+      ferret_fields += "user_id: #{@session_user.id} "
     end
     if params[:export].blank?
-      @notes = Note.find_with_ferret(ferret_fields, {:page => params[:page], :per_page => 50},{:order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
+      if ferret_fields == '* '
+        @notes = Note.paginate(:page => params[:page], :per_page => 50, :include => [:user => {}, :contact => {:contact_emails => {}}], :order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc))
+      else
+        @notes = Note.find_with_ferret(ferret_fields, {:page => params[:page], :per_page => 50},{:order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
+      end
       render :action => 'my', :layout => (request.xhr? ? false : true)
     else
       notes = Note.find_with_ferret(ferret_fields)
