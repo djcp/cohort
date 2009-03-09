@@ -34,7 +34,7 @@ class Admin::NoteController < Admin::ModelAbstractController
       if ferret_fields == '* '
         @notes = Note.paginate(:page => params[:page], :per_page => 50, :include => [:user => {}, :contact => {:contact_emails => {}}], :order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc))
       else
-        @notes = Note.find_with_ferret(ferret_fields, {:page => params[:page], :per_page => 50},{:order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
+        @notes = Note.find_with_ferret(ferret_fields, {:page => params[:page], :per_page => 50},{:include => [:user => {}, :contact =>{:contact_emails => {}}], :order => sortable_order('notes',:model => Note,:field => 'updated_at',:sort_direction => :desc) })
       end
       render :action => 'my', :layout => (request.xhr? ? false : true)
     else
