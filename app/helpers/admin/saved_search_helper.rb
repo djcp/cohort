@@ -1,0 +1,2 @@
+module Admin::SavedSearchHelper
+end
