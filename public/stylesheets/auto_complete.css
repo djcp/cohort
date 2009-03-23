@@ -18,23 +18,23 @@
 }
 
 .shadow_container.auto_complete .se_shadow {
-  background:url(/images/autocomplete/se.png);
+  background:url(../images/autocomplete/se.png);
   height:30px;   
 }
 
 .shadow_container.auto_complete .s_shadow {
-  background:url(/images/autocomplete/s.png);
+  background:url(../images/autocomplete/s.png);
   height:30px;
   margin: 0 30px;
 }
 
 .shadow_container.auto_complete .sw_shadow {
-  background:url(/images/autocomplete/sw.png);
+  background:url(../images/autocomplete/sw.png);
   height:30px;
 }
 
 .shadow_container.auto_complete .ne_shadow {
-  background:url(/images/autocomplete/ne.png);
+  background:url(../images/autocomplete/ne.png);
   height:14px;
 }
 
@@ -44,17 +44,17 @@
 }
 
 .shadow_container.auto_complete .nw_shadow {
-  background:url(/images/autocomplete/nw.png);
+  background:url(../images/autocomplete/nw.png);
   height:14px;
 }
 
 .shadow_container.auto_complete .e_shadow {
-  background:url(/images/autocomplete/e.png) repeat-y;
+  background:url(../images/autocomplete/e.png) repeat-y;
   height:100%;
 }
 
 .shadow_container.auto_complete .w_shadow {
-  background:url(/images/autocomplete/w.png) repeat-y;
+  background:url(../images/autocomplete/w.png) repeat-y;
   height:100%;
 }
 

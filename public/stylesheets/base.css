@@ -27,12 +27,12 @@ h2 {
 
 .shown{
 	padding-left: 20px;
-	background: url('/icons/arrow_down.png') left center no-repeat; 
+	background: url('../icons/arrow_down.png') left center no-repeat; 
 }
 
 .hidden{
 	padding-left: 20px;
-	background: url('/icons/arrow_right.png') left center no-repeat; 
+	background: url('../icons/arrow_right.png') left center no-repeat; 
 }
 
 h3 {
@@ -117,12 +117,12 @@ h3 {
 }
 
 .asc, .desc{
-  background: #e4e4e4 center right url('/icons/bullet_arrow_down.png') no-repeat;
+  background: #e4e4e4 center right url('../icons/bullet_arrow_down.png') no-repeat;
   padding-right: 16px;
 }
 
 .desc{
-  background-image: url('/icons/bullet_arrow_up.png');
+  background-image: url('../icons/bullet_arrow_up.png');
 }
 
 #footer {
