@@ -1,6 +1,8 @@
 <%= render :partial => '/shared/form_header' %>
 <% form_for :saved_search do|f| %>
 
+  <%= f.hidden_field :search %>
+
   <p class="field"><label for="saved_search_name">Search Name:</label>
   <%= f.text_field :name %>
   </p>
