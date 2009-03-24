@@ -1,7 +1,7 @@
 <%= render :partial => '/shared/form_header' %>
 <% form_for :saved_search do|f| %>
 
-  <%= f.hidden_field :search %>
+  <%= f.hidden_field :search_url %>
 
   <p class="field"><label for="saved_search_name">Search Name:</label>
   <%= f.text_field :name %>
@@ -11,6 +11,13 @@
   <%= f.text_area :description %>
   </p>
 
+  <p class="field"><label for="saved_search_category">Category:</label><br/>
+  <%= text_field_with_auto_complete :saved_search, :category %>
+  </p>
+
+  <p>
   <%= submit_tag(@object.new_record? ? "Add Saved Search" : "Edit Saved Search") %>
+  </p>
 <% end %>
 <%= render :partial => '/shared/form_footer' %>
+

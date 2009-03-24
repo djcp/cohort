@@ -16,4 +16,13 @@
     <%= link_to ' - follow-up date', {:controller => '/admin/note', :action => :my, :sortdesc => 'notes-follow_up'},{:class => 'second-level'} %>
     <%= link_to 'Everyones\' notes', :controller => '/admin/note', :action => :everyones %>
   </div>
+  <h1 id="flyout-saved-searches" class="toggle hidden">Searches</h1>
+  <div id="flyout-saved-searches-actions" class="toggle-target">
+    <%= link_to 'Manage Searches', {:controller => '/admin/saved_search'} %>
+    Run a saved search:
+    <% form_tag(url_for(:controller => '/admin/saved_search', :action => :run)) do %>
+      <%= select_tag(:id, grouped_options_for_select(SavedSearch.select_options), :style => 'width: 8em') %>
+      <%= submit_tag 'go' %>
+    <% end %>
+  </div>
 </div>

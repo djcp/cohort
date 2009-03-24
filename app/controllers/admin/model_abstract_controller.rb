@@ -28,15 +28,14 @@ class Admin::ModelAbstractController < Admin::BaseController
     @use_fckeditor = true
     model = self.model
     @object = model.find_by_id(params[:id]) || model.new(default_new_object_attributes)
-
     #Copy the object to a class-specific instance variable so we can have easier-to-use edit and management forms.
-    self.instance_variable_set('@' + @object.class.name.downcase, @object)
+    self.instance_variable_set('@' + @object.class.name.underscore, @object)
 
     # This is an admin-only way of assigning attributes to 
     # objects. We need to protect methods if we're going to expose
     # objects to editing by non-admin users.
     if request.post?
-      @object.attributes = params[@object.class.name.downcase]
+      @object.attributes = params[@object.class.name.underscore]
       if @object.save
         unless @dont_redirect
           redirect_to :action => :index 

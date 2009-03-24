@@ -4,8 +4,8 @@ class CreateSavedSearches < ActiveRecord::Migration
       t.references :user, :null => false, :on_update => :cascade, :on_delete => :cascade
       t.column :name, :string, :limit => 200, :null => false
       t.column :description, :string, :limit => 1000
-      t.column :search, :string, :limit => 5000, :null => false
-      t.column :category, :string, :limit => 100, :null => false, :default => 'Uncategorized'
+      t.column :search_url, :string, :limit => 5000, :null => false
+      t.column :category, :string, :limit => 100
       t.timestamps
     end
     %W|name category|.each do|column|

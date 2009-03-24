@@ -1,0 +1,12 @@
+<tr>
+  <td><%= link_to(icon(:cross), {:controller => '/admin/saved_search', :action => :destroy, :id => saved_search, :redirect_after => url_for(params)}, {:method => :post, :confirm => 'Are you sure?'}) -%></td>
+  <td><%= saved_search.category %></td>
+  <td><%= saved_search.name %></td>
+  <td><%= link_to('link', :action => '/admin/saved_search', :action => :run, :id => saved_search) %></td>
+</tr>
+<% unless saved_search.description.blank? %>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="3"><%= saved_search.description %></td>
+  </tr>
+<% end %>

@@ -1,0 +1,15 @@
+<h1>Saved Searches</h1>
+<% unless @saved_searches.blank? %>
+  <table border="0">
+    <tr>
+      <th>&nbsp;</th>
+      <th class="<%= sorted_class('searches','category') %>"><%= link_to 'Category', sort_param('searches', :alias => 'category').merge({:q => params[:q]}) %></th>
+      <th class="<%= sorted_class('searches','name') %>"><%= link_to 'Name', sort_param('searches', :alias => 'name').merge({:q => params[:q]}) %></th>
+      <th>Link</th>
+    </tr>
+    <%= render :partial => 'shared/saved_search', :collection => @saved_searches %>
+  </table>
+    <%= will_paginate @saved_searches, :params => {:q => params[:q]} %>
+<% else %>
+  <h2>None found</h2>
+<% end %>
