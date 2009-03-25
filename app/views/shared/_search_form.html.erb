@@ -3,8 +3,13 @@
   url_params.delete('authenticity_token')
   url_params.delete('commit')
 %>
-  <div><strong>Search:</strong> <%= link_to('Permalink',url_for(url_params)) %> <%= link_to('Save',:controller => '/admin/saved_search', :action => :edit, :search_url => url_for(url_params)) %></div>
-  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> <%= link_to('reset search',url_for) %> | <%= link_to_function('help',"Modalbox.show('#{url_for('/search-help.html')}',{title: 'Search help', width: '800'})") %>
+<div id="searchmeta">
+  <strong>Search:</strong> <%= link_to(icon('script_link') + ' Permalink',url_for(url_params)) %> 
+    <%= link_to(icon('script_save') + ' Save',:controller => '/admin/saved_search', :action => :edit, :search_url => url_for(url_params)) %>
+    <%= link_to(icon('script_delete') + ' Reset',url_for) %> 
+    <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for('/search-help.html')}',{title: 'Search help', width: '800'})") %>
+</div>
+  <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> 
   <h4 id="flyout-tag-filter" class="toggle hidden">Filter by tags</h4>
   <div id="flyout-tag-filter-actions" class="toggle-target">
     Look in these tags:<br/> 
