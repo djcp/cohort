@@ -1,23 +1,23 @@
 <div id="admin-bar">
-  <h1 id="flyout-tags" class="toggle hidden">Tags</h1>
-  <div id="flyout-tags-actions" class="toggle-target">
+  <h1 id="flyout-tags" class="toggle hidden tags">Tags</h1>
+  <div id="flyout-tags-actions" class="toggle-target tags">
     <%= link_to 'Edit tag hierarchy', :controller => '/admin/tag' %>
     <%= link_to 'Add tag', :controller => '/admin/tag', :action => :edit %>
   </div>
-  <h1 id="flyout-contacts" class="toggle hidden">Contacts</h1>
-  <div id="flyout-contacts-actions" class="toggle-target">
+  <h1 id="flyout-contacts" class="toggle hidden contacts">Contacts</h1>
+  <div id="flyout-contacts-actions" class="toggle-target contacts">
     <%= link_to 'Manage Contacts', :controller => '/admin/contact' %>
     <%= link_to 'Add Contact', :controller => '/admin/contact', :action => :edit %>
   </div>
-  <h1 id="flyout-notes" class="toggle hidden">Notes</h1>
-  <div id="flyout-notes-actions" class="toggle-target">
+  <h1 id="flyout-notes" class="toggle hidden notes">Notes</h1>
+  <div id="flyout-notes-actions" class="toggle-target notes">
     <%= link_to 'My notes', :controller => '/admin/note', :action => :my %>
     <%= link_to ' - priority', {:controller => '/admin/note', :action => :my, :sortdesc => 'notes-priority'},{:class => 'second-level'} %>
     <%= link_to ' - follow-up date', {:controller => '/admin/note', :action => :my, :sortdesc => 'notes-follow_up'},{:class => 'second-level'} %>
     <%= link_to 'Everyones\' notes', :controller => '/admin/note', :action => :everyones %>
   </div>
-  <h1 id="flyout-saved-searches" class="toggle hidden">Searches</h1>
-  <div id="flyout-saved-searches-actions" class="toggle-target">
+  <h1 id="flyout-saved-searches" class="toggle hidden saved-searches">Searches</h1>
+  <div id="flyout-saved-searches-actions" class="toggle-target saved-searches">
     <%= link_to 'Manage Searches', {:controller => '/admin/saved_search'} %>
     Run a saved search:
     <% form_tag(url_for(:controller => '/admin/saved_search', :action => :run)) do %>

@@ -51,8 +51,8 @@
     </p>
   </div>
 
-  <h2 id="flyout-contact-tagging-info" class="toggle shown">Tags</h2>
-  <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen">
+  <h2 id="flyout-contact-tagging-info" class="toggle shown tags">Tags</h2>
+  <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen tags">
     <% unless @contact.new_record? %>
       <div id="tag-details-<%= @contact.id %>">
         <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => @contact, :standalone => false, :init_observer => true} %>
@@ -63,8 +63,8 @@
     <% end %>
   </div>
 
-  <h2 id="flyout-contact-notes" class="toggle shown">Notes</h2>
-  <div id="flyout-contact-notes-actions" class="toggle-target defaultopen">
+  <h2 id="flyout-contact-notes" class="toggle shown notes">Notes</h2>
+  <div id="flyout-contact-notes-actions" class="toggle-target defaultopen notes">
     <% unless @contact.new_record? %>
       <h3>Existing Notes:</h3>
       <div class="error" id="existing-notes-error"></div>

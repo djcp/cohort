@@ -10,8 +10,8 @@
     <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for('/search-help.html')}',{title: 'Search help', width: '800'})") %>
 </div>
   <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> 
-  <h4 id="flyout-tag-filter" class="toggle hidden">Filter by tags</h4>
-  <div id="flyout-tag-filter-actions" class="toggle-target">
+  <h4 id="flyout-tag-filter" class="toggle hidden saved-searches">Filter by tags</h4>
+  <div id="flyout-tag-filter-actions" class="toggle-target saved-searches">
     Look in these tags:<br/> 
     <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags-10">
       <%= render :partial => 'shared/existing_tags', :collection => @included_tags_for_output, :locals => {:object_id => 10, :param_name => 'included_tags[]'} %>

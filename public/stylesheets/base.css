@@ -1,3 +1,16 @@
+/*
+ 
+blue: #47A8CB
+eggplant: #C75D6C
+green: #68C366
+purple: #8C77B0
+red: #8D0003
+
+dark gray: #888888
+lighter gray: #cccccc
+
+ */
+
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 80%;
@@ -48,22 +61,35 @@ h1.toggle, h4.toggle{
 
 .toggle-target{
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 30px;
   border-left: #47a8cb 1px solid;
   padding: 3px;
+  background: #efefef;
 }
 
 .toggle:hover{
   cursor: pointer;
 }
 
+.tags{
+  border-color: #68C366;
+}
+
+.notes{
+  border-color: #8c77b0;
+}
+
+.saved-searches{
+  border-color: #8D0003;
+}
+
 .shown{
-        padding: 3px 3px 3px 20px;
-	background: url('../icons/arrow_down.png') left center no-repeat; 
+  padding: 3px 3px 3px 20px;
+  background: url('../icons/arrow_down.png') left center no-repeat #efefef; 
 }
 
 .hidden{
-        padding: 3px 3px 3px 20px;
+  padding: 3px 3px 3px 20px;
 	background: url('../icons/arrow_right.png') left center no-repeat; 
 }
 
