@@ -50,6 +50,10 @@ div,form,input,select{
   text-decoration: underline;
 }
 
+.clarification{
+  color: #999999;
+}
+
 .toggle{
   border-top: #47a8cb solid 4px;
   border-left: #47a8cb 1px solid;
@@ -64,7 +68,6 @@ h1.toggle, h4.toggle{
   margin-bottom: 30px;
   border-left: #47a8cb 1px solid;
   padding: 3px;
-  background: #efefef;
 }
 
 .toggle:hover{
@@ -85,7 +88,7 @@ h1.toggle, h4.toggle{
 
 .shown{
   padding: 3px 3px 3px 20px;
-  background: url('../icons/arrow_down.png') left center no-repeat #efefef; 
+  background: url('../icons/arrow_down.png') left center no-repeat; 
 }
 
 .hidden{

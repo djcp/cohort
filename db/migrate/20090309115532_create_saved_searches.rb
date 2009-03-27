@@ -6,6 +6,7 @@ class CreateSavedSearches < ActiveRecord::Migration
       t.column :description, :string, :limit => 1000
       t.column :search_url, :string, :limit => 5000, :null => false
       t.column :category, :string, :limit => 100
+      t.column :global_search, :boolean, :default => false
       t.timestamps
     end
     %W|name category|.each do|column|

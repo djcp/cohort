@@ -19,9 +19,14 @@
   <h1 id="flyout-saved-searches" class="toggle hidden saved-searches">Searches</h1>
   <div id="flyout-saved-searches-actions" class="toggle-target saved-searches">
     <%= link_to 'Manage Searches', {:controller => '/admin/saved_search'} %>
-    Run a saved search:
+    Run a global search:
     <% form_tag(url_for(:controller => '/admin/saved_search', :action => :run)) do %>
       <%= select_tag(:id, grouped_options_for_select(SavedSearch.select_options), :style => 'width: 8em') %>
+      <%= submit_tag 'go' %>
+    <% end %><br/>
+    Run one of my searches:
+    <% form_tag(url_for(:controller => '/admin/saved_search', :action => :run)) do %>
+      <%= select_tag(:id, grouped_options_for_select(SavedSearch.select_options(false)), :style => 'width: 8em') %>
       <%= submit_tag 'go' %>
     <% end %>
   </div>
