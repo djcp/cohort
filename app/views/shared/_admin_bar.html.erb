@@ -21,12 +21,12 @@
     <%= link_to 'Manage Searches', {:controller => '/admin/saved_search'} %>
     Run a global search:
     <% form_tag(url_for(:controller => '/admin/saved_search', :action => :run)) do %>
-      <%= select_tag(:id, grouped_options_for_select(SavedSearch.select_options), :style => 'width: 8em') %>
+      <%= select_tag(:id, grouped_options_for_select(SavedSearch.select_options(true)), :style => 'width: 8em') %>
       <%= submit_tag 'go' %>
     <% end %><br/>
-    Run one of my searches:
+    Run a personal search:
     <% form_tag(url_for(:controller => '/admin/saved_search', :action => :run)) do %>
-      <%= select_tag(:id, grouped_options_for_select(SavedSearch.select_options(false)), :style => 'width: 8em') %>
+      <%= select_tag(:id, grouped_options_for_select(SavedSearch.select_options(false,@session_user)), :style => 'width: 8em') %>
       <%= submit_tag 'go' %>
     <% end %>
   </div>
