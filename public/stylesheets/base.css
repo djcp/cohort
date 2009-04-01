@@ -54,6 +54,10 @@ div,form,input,select{
   color: #999999;
 }
 
+tr.table-header th{
+  background: #eeeeee;
+}
+
 .toggle{
   border-top: #47a8cb solid 4px;
   border-left: #47a8cb 1px solid;

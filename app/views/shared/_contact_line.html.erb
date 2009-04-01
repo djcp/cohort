@@ -1,15 +1,18 @@
 <tr>
-  <td class="name" valign="top">
-    <%= contact_line.name_for_display %>
-  </td>
-  <td>
-    <%= [contact_line.country, contact_line.state].compact.join(',') %>
-  </td>
-  <td>
-    <%= contact_line.updated_at %>
+  <td valign="top">
+    <%= check_box_tag 'contact_ids[]', contact_line.id, false, :class=> 'contact-selector' %>
   </td>
   <td valign="top">
-    <%= contact_line.primary_email %><br/><%= (contact_line.contact_emails.blank? ? '' : ((contact_line.contact_emails.length - 1 )).to_s + ' others') %>
+    <%= link_to icon('cross'), {:action => :destroy, :id => contact_line}, {:method => :post, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
+  </td>
+  <td class="name" valign="top">
+    <%= link_to contact_line.name_for_display, :action => :edit, :id => contact_line %><br/>
+  </td>
+  <td valign="top">
+    <%= contact_line.updated_at.to_date.to_s(:long_ordinal) %>
+  </td>
+  <td valign="top">
+    <%= (contact_line.contact_emails.blank? ? '' : mail_to(contact_line.primary_email) + '<br/>' + ((contact_line.contact_emails.length - 1 )).to_s + ' others') %>
   </td>
   <td valign="top">
     <%= link_to_function(icon(:note), "toggle_notes_container('#{contact_line.id}')") %>
@@ -18,10 +21,6 @@
   <td valign="top">
     <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/admin/tag', :action => :json_tags)}')") %>
     <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.length %></span>
-  </td>
-  <td valign="top">
-    <%= link_to 'edit', :action => :edit, :id => contact_line %><br/>
-    <%= link_to 'delete', {:action => :destroy, :id => contact_line}, {:method => :post, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
   </td>
 </tr>
 <tr id="add-new-note-<%= contact_line.id %>" style="display: none;">

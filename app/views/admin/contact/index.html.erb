@@ -5,14 +5,14 @@
   <% unless @contacts.blank? %>
     <div id="admin-list">
       <table border="0" width="100%">
-        <tr>
+        <tr class="table-header">
+          <th><%= check_box_tag :toggle_selects, 1, false, :id => 'toggle-contact-selects' %></th>
+          <th>&nbsp;</th>
           <th class="<%= sorted_class('contacts','last_name') %>"><%= link_to 'Name', sort_param('contacts', :alias => 'last_name').merge({:q => params[:q]}) %></th>
-          <th><span class="<%= sorted_class('contacts','country') %>"><%= link_to 'Country', sort_param('contacts', :alias => 'country').merge({:q => params[:q]}) %></span> / <span class="<%= sorted_class('contacts','state') %>"><%= link_to 'State', sort_param('contacts', :alias => 'state').merge({:q => params[:q]}) %></span></th>
           <th class="<%= sorted_class('contacts','updated_at') %>"><%= link_to 'Last Updated', sort_param('contacts', :alias => 'updated_at').merge({:q => params[:q]}) %></th>
           <th>Emails:</th>
           <th>Notes:</th>
           <th>Tags:</th>
-          <th>Actions:</th>
         </tr>
         <%= render :partial => 'shared/contact_line', :collection => @contacts %>  
       </table>

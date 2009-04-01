@@ -28,8 +28,21 @@ var Cookie = {
   }
 };
 
+function observe_contact_select_toggle(){
+  $('toggle-contact-selects').observe('click', function(){
+      $$('input.contact-selector').each(function(el){
+        if(el.checked == true){
+          el.checked = false;
+          } else {
+          el.checked = true;
+          }
+        });
+      });
+}
+
 document.observe("dom:loaded", function() {
   deal_with_flyouts();
+  observe_contact_select_toggle();
 });
 
 function toggle_tag_container(id,json_url){
@@ -104,6 +117,5 @@ function deal_with_flyouts(){
 
   }
 });
- 
 }
 
