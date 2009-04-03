@@ -215,7 +215,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       elsif param[:vivify] && param[:vivify] == true
         begin
           unless tag.blank?
-            nt = Tag.create(:tag => tag)
+            nt = Tag.create(:tag => tag, :parent => Tag.get_uncategorized_root_tag)
             param[:tag_list] << nt.id
           end
         rescue Exception => exc

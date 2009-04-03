@@ -107,6 +107,7 @@ FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_update();
     never_email = Tag.create(:tag => 'Never Email', :immutable => true, :parent => special)
     never_contact = Tag.create(:tag => 'Never Contact', :immutable => true, :parent => special)
     never_phone = Tag.create(:tag => 'Never Phone', :immutable => true, :parent => special)
+    uncategorized = Tag.create(:tag => 'Uncategorized', :immutable => true)
   end
 
   def self.down

@@ -15,6 +15,10 @@ class Tag < ActiveRecord::Base
     self.find(:first, :conditions => ['tag = ? and parent_id is null','Special'])
   end
 
+  def self.get_uncategorized_root_tag
+    self.find(:first, :conditions => ['tag = ? and parent_id is null','Uncategorized'])
+  end
+
   def self.get_autotag_root_tag
     self.find(:first, :conditions => ['tag = ? and parent_id =?','Autotags',self.get_special_root_tag.id])
   end

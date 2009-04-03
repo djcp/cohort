@@ -1,0 +1,8 @@
+<h4 id="flyout-bulk" class="toggle hidden">Bulk Actions</h4>
+<div id="flyout-bulk-actions" class="toggle-target">
+    <%= link_to_function(icon(:tag_blue) + ' Apply tag(s) to selections',"Modalbox.show($('bulk-tagger'),{title: 'Bulk Tagging', width: '800'})") %>
+</div>
+
+<div id="bulk-tagger" style="display: none;">
+    <%= text_field_tag 'tags_to_include' %><br/>
+</div>

@@ -2,6 +2,8 @@ class SavedSearch < ActiveRecord::Base
   belongs_to :user
   has_many :saved_search_runs
 
+  validates_format_of :name, :with => /^[a-z\d\-\., ]+$/i, :message => 'should contain only letters, numbers, spaces, and the following characters: , - . '
+
   def self.select_options(global_search = true,user_id = nil)
     category_conditions = []
     search_conditions = []
@@ -17,7 +19,7 @@ class SavedSearch < ActiveRecord::Base
     grouped_options = [['',['-- select one --']]]
     search_cat.each do|cat|
       searches_in_cat = self.find(:all, :conditions => [search_conditions, cat.category].flatten, :order => :name)
-      grouped_options << [cat.category,searches_in_cat.collect{|ss| [ss.name, ss.id.to_s]}]
+      grouped_options << [cat.category,searches_in_cat.collect{|ss| [ss.name, ss.name]}]
     end
     return grouped_options
   end
