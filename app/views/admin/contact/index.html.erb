@@ -2,8 +2,6 @@
   <%= render :partial => 'shared/exports' %>
   <h1>Contacts</h1>
   <%= render :partial => 'shared/search_form', :locals => {:update => 'contacts-update'} %>
-
-  <% form_tag url_for, {:id => 'searchform'} do %>
   <%= render :partial => 'shared/bulk_contact_actions' %>
   <% unless @contacts.blank? %>
     <div id="admin-list">
@@ -24,7 +22,6 @@
   <% else %>
     <h2>No contacts found.</h2>
   <% end %>
-
   <div class="new-object">
     <%= link_to(icon(:add) + ' New contact', :action => :edit) %>
   </div>

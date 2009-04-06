@@ -33,4 +33,11 @@ module ApplicationHelper
     body
   end
 
+  def sanitized_url_params
+    url_params = params 
+    url_params.delete('authenticity_token')
+    url_params.delete('commit')
+    url_params
+  end
+
 end

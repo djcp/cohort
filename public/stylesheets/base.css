@@ -67,6 +67,22 @@ h1.toggle, h4.toggle{
   margin-bottom: 0px;
 }
 
+h4.sub-action{
+  display: inline;
+  border-style: none;
+}
+
+div.sub-action{
+  border-style: none;
+  padding: .5em;
+  margin: 1em;
+  background: #efefef;
+}
+
+.pui-autocomplete-holder{
+  background: #ffffff;
+}
+
 .toggle-target{
   margin-top: 0px;
   margin-bottom: 30px;

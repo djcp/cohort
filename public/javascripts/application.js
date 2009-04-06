@@ -40,9 +40,33 @@ function observe_contact_select_toggle(){
       });
 }
 
+function count_selected_contacts(formId){
+      var select_count = 0;
+      $$('input.contact-selector').each(function(el){
+        if(el.checked == true){
+          select_count++;
+          $(formId).insert(new Element('input', {'name' : 'contact_ids[]', 'type' : 'hidden', 'value' : el.getValue() }));
+        }         
+        });
+      return select_count;
+}
+
+function bulk_actions(){
+  $('apply-tags-form').observe('submit', function(baform){
+      var select_count = count_selected_contacts('apply-tags-form');
+      alert("Selected contacts: " + select_count);
+      alert("Tags to apply: " + $F('bulk_apply_tags'));
+      if(select_count == 0 || $F('bulk_apply_tags') == ''){
+        $('flyout-apply-bulk-tags-actions').insert(new Element('p', { 'class' : 'notification'} ).update('Please select a tag and a set of contacts.'));
+        Event.stop(baform);
+      }
+      });
+}
+
 document.observe("dom:loaded", function() {
   deal_with_flyouts();
   observe_contact_select_toggle();
+  bulk_actions();
 });
 
 function toggle_tag_container(id,json_url){

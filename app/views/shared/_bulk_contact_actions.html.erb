@@ -1,8 +1,36 @@
 <h4 id="flyout-bulk" class="toggle hidden">Bulk Actions</h4>
 <div id="flyout-bulk-actions" class="toggle-target">
-    <%= link_to_function(icon(:tag_blue) + ' Apply tag(s) to selections',"Modalbox.show($('bulk-tagger'),{title: 'Bulk Tagging', width: '800'})") %>
+  <h4 id="flyout-apply-bulk-tags" class="toggle hidden tags sub-action"><%= icon(:tag_blue) %> Apply tag(s) to selections</h4>
+  <h4 id="flyout-remove-bulk-tags" class="toggle hidden tags sub-action"><%= icon(:tag_blue) %> Remove tag(s) from selections</h4>
 </div>
 
-<div id="bulk-tagger" style="display: none;">
-    <%= text_field_tag 'tags_to_include' %><br/>
+<div id="flyout-apply-bulk-tags-actions" class="toggle-target tags sub-action" style="display: none;">
+  <p>Apply tags to the selected contacts</p>
+  <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_tag), :id => 'apply-tags-form') do %>
+    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= text_field_tag 'bulk_apply_tags', '', :id => 'bulk_apply_tags' %>
+    <%= submit_tag 'Apply Tags' %><br/>
+  <% end %>
+<script type="text/javascript" language="javascript">
+    document.observe('dom:loaded',function(){
+  var ac = new UI.AutoComplete('bulk_apply_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
+  .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
+  });
+</script>
+</div>
+
+<div id="flyout-remove-bulk-tags-actions" class="toggle-target tags sub-action" style="display: none;">
+  <p>Remove tags from the selected contacts</p>
+  <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_tag_remove), :id => 'bulk_actions_form') do %>
+    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= text_field_tag 'bulk_remove_tags' %><%= submit_tag 'Remove tags' %><br/>
+  <% end %>
+<script type="text/javascript" language="javascript">
+    document.observe('dom:loaded',function(){
+  var ac = new UI.AutoComplete('bulk_remove_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
+  .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
+  });
+</script>
 </div>

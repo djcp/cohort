@@ -1,13 +1,9 @@
 <% form_tag url_for, {:id => 'searchform'} do %>
-  <% url_params = params 
-  url_params.delete('authenticity_token')
-  url_params.delete('commit')
-%>
 <div id="searchmeta">
   <strong>Search:</strong> 
-  <% unless url_for == url_for(url_params) %>
-    <%= link_to(icon('script_link') + ' Permalink',url_for(url_params)) %> 
-    <%= link_to(icon('script_save') + ' Save',:controller => '/admin/saved_search', :action => :edit, :search_url => url_for(url_params)) %>
+  <% unless url_for == url_for(sanitized_url_params) %>
+    <%= link_to(icon('script_link') + ' Permalink',url_for(sanitized_url_params)) %> 
+    <%= link_to(icon('script_save') + ' Save',:controller => '/admin/saved_search', :action => :edit, :search_url => url_for(sanitized_url_params)) %>
     <%= link_to(icon('script_delete') + ' Reset',url_for) %> 
   <% end %>
     <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for('/search-help.html')}',{title: 'Search help', width: '800'})") %>
