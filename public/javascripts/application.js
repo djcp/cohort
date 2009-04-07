@@ -80,7 +80,7 @@ function bulk_actions_remove_tags(){
       });
 }
 
-function bulk_actions_delete_users(){
+function bulk_actions_delete_contacts(){
   $('bulk-delete-contacts').observe('submit',function(delContacts){
       var select_count = count_selected_contacts('bulk-delete-contacts');
       if(select_count == 0){
@@ -109,13 +109,42 @@ function bulk_actions_bulk_note(){
       });
 }
 
+function toggle_tag_edit_controls(){
+  $('tag-edit-control').observe('click', function(editToggle){
+      $$('span.tag-edit-control').each(function(el){
+        el.toggle();
+        });
+      if($$('span.tag-edit-control')[0].visible()){
+        $('tag-edit-control').update('Hide tag edit controls');
+      } else {
+        $('tag-edit-control').update('Show tag edit controls');
+      }
+      Event.stop(editToggle);
+      });
+}
+
 document.observe("dom:loaded", function() {
-  deal_with_flyouts();
-  observe_contact_select_toggle();
-  bulk_actions_apply_tags();
-  bulk_actions_remove_tags();
-  bulk_actions_delete_users();
-  bulk_actions_bulk_note();
+  if($('main')){
+    deal_with_flyouts();
+  }
+  if($('toggle-contact-selects')){
+    observe_contact_select_toggle();
+  }
+  if($('apply-tags-form')){
+    bulk_actions_apply_tags();
+  }
+  if($('remove-tags-form')){
+    bulk_actions_remove_tags();
+  }
+  if($('bulk-delete-contacts')){
+    bulk_actions_delete_contacts();
+  }
+  if($('bulk-note')){
+    bulk_actions_bulk_note();
+  }
+  if($('tag-edit-control')){
+    toggle_tag_edit_controls();
+  }
 });
 
 

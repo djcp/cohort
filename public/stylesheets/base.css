@@ -67,11 +67,11 @@ h1.toggle, h4.toggle{
   margin-bottom: 0px;
 }
 
-#bulk-actions-choices ul{
+ul#bulk-action-choices{
   list-style: none;
 }
 
-#bulk-actions-choices li{
+#bulk-action-choices li{
   padding-bottom: 10px;
 }
 
@@ -163,6 +163,10 @@ h3 {
 
 #admin-list td{
   border-top: 1px solid #e4e4e4;
+}
+
+#admin-list li{
+  line-height: 24px;
 }
 
 #left-column-wrapper{

@@ -3,5 +3,7 @@
   <%= display_tree_recursive(@tree,nil) {|node| render :partial => '/shared/tag_line', :object => node } %>
 </div>
 <div class="new-object">
-  <%= link_to(icon(:add) + ' New tag', :action => :edit) %>
+  <%= icon(:tag_blue) %> <%= link_to('New tag', :action => :edit) %>
 </div>
+
+<p><%= icon(:tag_red) %> <a href="#" id="tag-edit-control">Hide tag edit controls</a></p>
