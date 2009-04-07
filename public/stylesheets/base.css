@@ -67,9 +67,18 @@ h1.toggle, h4.toggle{
   margin-bottom: 0px;
 }
 
+#bulk-actions-choices ul{
+  list-style: none;
+}
+
+#bulk-actions-choices li{
+  padding-bottom: 10px;
+}
+
 h4.sub-action{
   display: inline;
   border-style: none;
+  margin-left: 10px;
 }
 
 div.sub-action{

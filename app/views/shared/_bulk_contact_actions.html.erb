@@ -1,11 +1,33 @@
 <h4 id="flyout-bulk" class="toggle hidden">Bulk Actions</h4>
 <div id="flyout-bulk-actions" class="toggle-target">
-  <h4 id="flyout-apply-bulk-tags" class="toggle hidden tags sub-action"><%= icon(:tag_blue) %> Apply tag(s) to selections</h4>
-  <h4 id="flyout-remove-bulk-tags" class="toggle hidden tags sub-action"><%= icon(:tag_blue) %> Remove tag(s) from selections</h4>
+  <ul id="bulk-action-choices">
+    <li><strong><%= icon(:tag_blue) %>Tags:</strong><h4 id="flyout-apply-bulk-tags" class="toggle hidden tags sub-action">Apply tag(s) to selections</h4> <h4 id="flyout-remove-bulk-tags" class="toggle hidden tags sub-action">Remove tag(s) from selections</h4></li>
+    <li><strong><%= icon(:user) %>Contacts:</strong><h4 id="flyout-bulk-contact-delete" class="toggle hidden tags sub-action">Delete selected contacts</h4></li>
+    <li><strong><%= icon(:user) %>Notes:</strong><h4 id="flyout-bulk-note" class="toggle hidden tags sub-action">Add a note to selected contacts</h4></li>
+  </ul>
+
+  <div id="flyout-bulk-note-actions" class="toggle-target tags sub-action" style="display: none;">
+    <p>Add a note to the selected contacts.</p>
+  <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_note), :id => 'bulk-note') do %>
+    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+<p class="field"><label for="note">Note:</label><br/> 
+<%= text_area_tag 'note', '', :size => '60x5' %><br />
+Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_interval => 15 %><br />
+<label for="priority">Priority:</label> <%= text_field_tag 'priority','', {:size => 3} %><br/>
+<%= submit_tag 'Add a note' %>
+<% end %>
+</p>
+  </div>
+
+<div id="flyout-bulk-contact-delete-actions" class="toggle-target tags sub-action" style="display: none;">
+  <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_contact_delete), :id => 'bulk-delete-contacts') do %>
+    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= submit_tag 'Delete selected contacts permanently.' %><br/>
+  <% end %>
 </div>
 
 <div id="flyout-apply-bulk-tags-actions" class="toggle-target tags sub-action" style="display: none;">
-  <p>Apply tags to the selected contacts</p>
+  <p>Apply tags to the selected contacts.</p>
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_tag), :id => 'apply-tags-form') do %>
     <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
     <%= text_field_tag 'bulk_apply_tags' %>
@@ -21,7 +43,7 @@
 </div>
 
 <div id="flyout-remove-bulk-tags-actions" class="toggle-target tags sub-action" style="display: none;">
-  <p>Remove tags from the selected contacts</p>
+  <p>Remove tags from the selected contacts.</p>
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_tag_remove), :id => 'remove-tags-form') do %>
     <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
     <%= text_field_tag 'bulk_remove_tags' %><%= submit_tag 'Remove tags' %><br/>
@@ -33,4 +55,5 @@
   .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
   });
 </script>
+</div>
 </div>

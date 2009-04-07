@@ -66,15 +66,45 @@ function bulk_actions_apply_tags(){
 }
 
 function bulk_actions_remove_tags(){
-  $('remote-tags-form').observe('submit', function(baform){
+  $('remove-tags-form').observe('submit', function(baform){
       var select_count = count_selected_contacts('remove-tags-form');
       
       // This horrible, horrible hack is necessary  because we're using the PrototypeUI autocomplete
       // thing. It mangles the form fields that it observes.
+      //
       var tags_values = $F($('remove-tags-form').select('[name*="bulk_remove_tags"]')[0]);
       if(select_count == 0 || tags_values == ''){
         $('flyout-remove-bulk-tags-actions').insert(new Element('p', { 'class' : 'notification'} ).update('Please select a tag to remove and a set of contacts.'));
         Event.stop(baform);
+      }
+      });
+}
+
+function bulk_actions_delete_users(){
+  $('bulk-delete-contacts').observe('submit',function(delContacts){
+      var select_count = count_selected_contacts('bulk-delete-contacts');
+      if(select_count == 0){
+        $('bulk-delete-contacts').insert(new Element('p', { 'class' : 'notification'} ).update('Please select a set of contacts to delete.'));
+        Event.stop(delContacts);
+        return;
+      }
+      if(! confirm('Are you sure you want to delete these contacts? They will be removed permanently, \n along with all notes and tags associated with them.\n\n Click "OK" to delete the selected contacts.')){
+        Event.stop(delContacts);
+      }
+      });
+}
+
+function bulk_actions_bulk_note(){
+  $('bulk-note').observe('submit', function(bulkNote){
+      var select_count = count_selected_contacts('bulk-note');
+      if(select_count == 0){
+        $('bulk-note').insert(new Element('p', { 'class' : 'notification'} ).update('Please select a set of contacts.'));
+        Event.stop(bulkNote);
+      }
+      var note = $F('note');
+      if((note.replace(/ /g,'')).length <=0){
+        $('bulk-note').insert(new Element('p', { 'class' : 'notification'} ).update('Please enter a note.'));
+        Event.stop(bulkNote);
       }
       });
 }
@@ -84,7 +114,10 @@ document.observe("dom:loaded", function() {
   observe_contact_select_toggle();
   bulk_actions_apply_tags();
   bulk_actions_remove_tags();
+  bulk_actions_delete_users();
+  bulk_actions_bulk_note();
 });
+
 
 function toggle_tag_container(id,json_url){
   var toggle_container = $('manage-tags-' + id);
