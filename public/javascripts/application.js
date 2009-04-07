@@ -51,13 +51,29 @@ function count_selected_contacts(formId){
       return select_count;
 }
 
-function bulk_actions(){
+function bulk_actions_apply_tags(){
   $('apply-tags-form').observe('submit', function(baform){
       var select_count = count_selected_contacts('apply-tags-form');
-      alert("Selected contacts: " + select_count);
-      alert("Tags to apply: " + $F('bulk_apply_tags'));
-      if(select_count == 0 || $F('bulk_apply_tags') == ''){
+      
+      // This horrible, horrible hack is necessary  because we're using the PrototypeUI autocomplete
+      // thing. It mangles the form fields that it observes.
+      var tags_values = $F($('apply-tags-form').select('[name*="bulk_apply_tags"]')[0]);
+      if(select_count == 0 || tags_values == ''){
         $('flyout-apply-bulk-tags-actions').insert(new Element('p', { 'class' : 'notification'} ).update('Please select a tag and a set of contacts.'));
+        Event.stop(baform);
+      }
+      });
+}
+
+function bulk_actions_remove_tags(){
+  $('remote-tags-form').observe('submit', function(baform){
+      var select_count = count_selected_contacts('remove-tags-form');
+      
+      // This horrible, horrible hack is necessary  because we're using the PrototypeUI autocomplete
+      // thing. It mangles the form fields that it observes.
+      var tags_values = $F($('remove-tags-form').select('[name*="bulk_remove_tags"]')[0]);
+      if(select_count == 0 || tags_values == ''){
+        $('flyout-remove-bulk-tags-actions').insert(new Element('p', { 'class' : 'notification'} ).update('Please select a tag to remove and a set of contacts.'));
         Event.stop(baform);
       }
       });
@@ -66,7 +82,8 @@ function bulk_actions(){
 document.observe("dom:loaded", function() {
   deal_with_flyouts();
   observe_contact_select_toggle();
-  bulk_actions();
+  bulk_actions_apply_tags();
+  bulk_actions_remove_tags();
 });
 
 function toggle_tag_container(id,json_url){
