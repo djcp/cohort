@@ -1,5 +1,5 @@
 <h1>Tags</h1>
-<div id="admin-list">
+<div id="admin-list" class="tag-tree">
   <%= display_tree_recursive(@tree,nil) {|node| render :partial => '/shared/tag_line', :object => node } %>
 </div>
 <div class="new-object">
