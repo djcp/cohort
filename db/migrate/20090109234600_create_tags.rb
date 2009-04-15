@@ -5,6 +5,7 @@ class CreateTags < ActiveRecord::Migration
       t.column :parent_id, :integer
       t.column :tag, :string, :limit => 200, :null => false
       t.column :description, :string, :limit => 1000
+      t.column :tag_path, :string, :limit => 5000
       t.column :position, :integer
       t.column :immutable, :boolean, :default => false
       t.timestamps
@@ -91,6 +92,23 @@ FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_insert();
 CREATE TRIGGER position_fixes_on_update BEFORE UPDATE ON tags
 FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_update();
 ]
+  execute %Q[
+CREATE OR REPLACE FUNCTION getfulltagname(integer) RETURNS TEXT AS 'DECLARE
+tagid ALIAS FOR $1;
+tagfullname TEXT;
+tagrecord RECORD;
+BEGIN
+    SELECT t.* INTO tagrecord FROM tags t  where id=tagid;
+     tagfullname := tagfullname || tagrecord.tag;
+     IF tagrecord.parent_id IS NOT NULL  THEN
+           tagfullname := getfulltagname(tagrecord.parent_id) || '' -> '' || tagfullname ;
+           RETURN tagfullname;
+     ELSE
+           RETURN tagfullname;
+     END IF;
+END'  LANGUAGE 'plpgsql';
+  ]
+
 
     create_table :contacts_tags, :id => false do |t|
       t.references :contact, :null => false, :on_update => :cascade, :on_delete => :cascade
