@@ -18,6 +18,7 @@
   </div>
   <h1 id="flyout-saved-searches" class="toggle hidden saved-searches">Searches</h1>
   <div id="flyout-saved-searches-actions" class="toggle-target saved-searches">
+    <%= show_help_link('saved_search_help', 'Saved Search Help') %>
     <%= link_to 'Manage Searches', {:controller => '/admin/saved_search'} %>
     Run a global search:
     <% form_tag(url_for(:controller => '/admin/saved_search', :action => :run)) do %>

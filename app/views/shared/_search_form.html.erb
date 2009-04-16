@@ -6,7 +6,7 @@
     <%= link_to(icon('script_save') + ' Save',:controller => '/admin/saved_search', :action => :edit, :search_url => url_for(sanitized_url_params)) %>
     <%= link_to(icon('script_delete') + ' Reset',url_for) %> 
   <% end %>
-  <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/static_pages', :action => :search_help)}',{title: 'Search help', width: '800'})") %>
+  <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/help', :action => :search_help)}',{title: 'Search help', width: '800'})") %>
 </div>
   <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %> 
   <h4 id="flyout-tag-filter" class="toggle hidden saved-searches">Filter by tags</h4>

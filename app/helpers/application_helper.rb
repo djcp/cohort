@@ -40,4 +40,8 @@ module ApplicationHelper
     url_params
   end
 
+  def show_help_link(help_page = 'general', title = 'General Help')
+    link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/help', :action => help_page)}',{title: '#{title}', width: '800'})") 
+  end
+
 end
