@@ -9,7 +9,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       (new_tags and new_tags.collect{|t|t.to_i}),
       (current_tags and current_tags.collect{|t|t.to_i})
     ].flatten.uniq.compact
-    logger.warn('Deduped Tags: ' + deduped_tags.inspect)
+    #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
     @object.tag_ids = deduped_tags || []
     @object.save
     render :partial => 'shared/manage_tags', :layout => (request.xhr? ? false : true), :locals => {:contact_line => @object, :standalone => true}
@@ -36,7 +36,7 @@ class Admin::ContactController < Admin::ModelAbstractController
         (current_tags and current_tags.collect{|t|t.to_i})
       ].flatten.uniq.compact
 
-      logger.warn('Deduped Tags: ' + deduped_tags.inspect)
+      #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
 
       @object.tag_ids = deduped_tags || []
 
@@ -83,7 +83,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       ferret_fields += (@excluded_tags_for_output.collect{|tid| " -my_tag_ids: #{tid.id} "}.join(' '))
     end
 
-    logger.warn("Ferret search string: " + ferret_fields)
+    #logger.warn("Ferret search string: " + ferret_fields)
 
     if params[:export].blank?
       if ferret_fields == '* '
@@ -157,7 +157,7 @@ class Admin::ContactController < Admin::ModelAbstractController
           :is_primary => ((params[:new_email][:is_primary] == i) ? true : false),
           :contact => object
         }
-        logger.warn(new_email.inspect + "\n")
+        #logger.warn(new_email.inspect + "\n")
         ce = ContactEmail.new(new_email)
         if ! ce.valid? 
           object.errors.add_to_base(ce.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>'))
