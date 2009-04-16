@@ -28,7 +28,7 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 
-  config.gem 'postgres'
+  config.gem 'pg'
   config.gem 'RedCloth'
   config.gem 'ruby-net-ldap', :lib => 'net/ldap'
   config.gem 'ferret'
