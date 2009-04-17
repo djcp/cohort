@@ -29,6 +29,7 @@ class Admin::SavedSearchController < Admin::ModelAbstractController
       ss = SavedSearch.find_by_name params[:id]
       ss or raise Exception, "couldn't find that saved search"
       SavedSearchRun.create(:saved_search => ss)
+      session[:saved_search_ran] = ss
       redirect_to ss.search_url 
     rescue Exception => exc
         logger.error "Couldn't view that saved search: #{exc.message}"

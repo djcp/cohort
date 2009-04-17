@@ -33,6 +33,10 @@
           <div id="content">
           <%= render :partial => '/shared/messages', :object => 'error' %>
           <%= render :partial => '/shared/messages', :object => 'notice' %>
+          <% unless session[:saved_search_ran].blank? %>
+            <%= render :partial => '/shared/saved_search_ran_notification', :locals => {:ss => session[:saved_search_ran]} %>
+            <% session[:saved_search_ran] = nil %>
+          <% end %>
           <%= yield %>
           </div>
         </div>
