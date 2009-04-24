@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   include CohortArMixin
   # Many validations are handled by the redhill schema_validations plugin.
   has_many :notes
+  has_many :log_items, :as => :item
+
   before_destroy :forbid_delete_of_immutable_objects
 
   def self.get_import_user
