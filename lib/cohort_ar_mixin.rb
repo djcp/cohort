@@ -5,4 +5,9 @@ module CohortArMixin
       return false
     end
   end
+
+  def diff_two_objects(object1 = self.new,object2 = self.new)
+
+  end
+
 end

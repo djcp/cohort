@@ -3,7 +3,7 @@ class Note < ActiveRecord::Base
   acts_as_ferret :single_index => true, :remote => true, :additional_fields => [:my_contact, :my_user]
   belongs_to :user
   belongs_to :contact
-  has_many :log_items, :as => :item
+  has_many :log_items, :as => :item, :dependent => :destroy
   acts_as_list :scope => :contact_id
 
   def my_contact

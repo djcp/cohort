@@ -1,6 +1,7 @@
 class Tag < ActiveRecord::Base
   include CohortArMixin
   # Many validations are handled by the redhill schema_validations plugin.
+  has_many :log_items, :as => :item, :dependent => :destroy
   acts_as_list :scope => :parent_id
   acts_as_tree :order => :position
   has_and_belongs_to_many :contacts

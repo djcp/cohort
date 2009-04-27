@@ -35,8 +35,11 @@ class Admin::ModelAbstractController < Admin::BaseController
     # objects. We need to protect methods if we're going to expose
     # objects to editing by non-admin users.
     if request.post?
+      @untouched_object = @object.clone
       @object.attributes = params[@object.class.name.underscore]
       if @object.save
+        #Here is where we'll log the action taken on an item.
+
         unless @dont_redirect
           redirect_to :action => :index 
         end
