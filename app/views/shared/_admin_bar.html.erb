@@ -1,4 +1,12 @@
-<div id="admin-bar">
+<div id="admin-tabs">
+  <%= link_to 'Dashboard', :controller => '/admin/dashboard', :action => :dashboard %>
+  <%= link_to 'Contacts', :controller => '/admin/contact', :action => :dashboard %>
+  <%= link_to 'Tags', :controller => '/admin/tag', :action => :dashboard %>
+  <%= link_to 'Notes', :controller => '/admin/note', :action => :dashboard %>
+  <%= link_to 'Search', :controller => '/admin/contact', :action => :search %>
+</div>
+
+<div id="admin-bar" style="display: none;">
   <h1 id="flyout-tags" class="toggle hidden tags">Tags</h1>
   <div id="flyout-tags-actions" class="toggle-target tags">
     <%= link_to 'Edit tag hierarchy', :controller => '/admin/tag' %>

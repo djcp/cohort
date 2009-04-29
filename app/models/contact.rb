@@ -4,7 +4,9 @@ class Contact < ActiveRecord::Base
   has_many :log_items, :as => :item, :dependent => :destroy
   has_many :notes, :order => 'position desc'
   has_many :contact_emails, :validate => true
-  has_and_belongs_to_many :tags
+
+  has_many :taggings
+  has_many :tags, :through => :taggings
 
   def name_for_display
     dname = [self.first_name, self.last_name].flatten.join(' ')

@@ -110,15 +110,16 @@ END'  LANGUAGE 'plpgsql';
   ]
 
 
-    create_table :contacts_tags, :id => false do |t|
+    create_table :taggings do |t|
       t.references :contact, :null => false, :on_update => :cascade, :on_delete => :cascade
       t.references :tag, :null => false, :on_update => :cascade, :on_delete => :cascade
+      t.column :relationship, :string, :limit => 100
       t.timestamps
     end
 
-    add_index :contacts_tags, ['contact_id', 'tag_id'], :unique => true
+    add_index :taggings, ['contact_id', 'tag_id'], :unique => true
     %W|contact_id tag_id|.each do |column|
-      add_index :contacts_tags, column
+      add_index :taggings, column
     end
     special = Tag.create(:tag => 'Special', :immutable => true)
     autotags = Tag.create(:tag => 'Autotags', :immutable => true, :parent => special)
@@ -135,7 +136,7 @@ END'  LANGUAGE 'plpgsql';
     execute 'drop function parent_checks()'
     execute 'drop function position_fixes_on_update()'
     execute 'drop function position_fixes_on_insert()'
-    drop_table :contacts_tags
+    drop_table :taggings
     drop_table :tags
   end
 end

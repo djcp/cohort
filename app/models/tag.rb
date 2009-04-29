@@ -4,7 +4,9 @@ class Tag < ActiveRecord::Base
   has_many :log_items, :as => :item, :dependent => :destroy
   acts_as_list :scope => :parent_id
   acts_as_tree :order => :position
-  has_and_belongs_to_many :contacts
+
+  has_many :taggings
+  has_many :contacts, :through => :taggings
 
   before_destroy :forbid_delete_of_immutable_objects
 

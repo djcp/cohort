@@ -17,32 +17,32 @@
   <body>
     <div id="page">
       <div id="header">
-        <h1>Cohort</h1>
+          <% if @session_user %>
+            <%= render :partial => '/shared/admin_bar' %>
+          <% end %>
       </div><!-- /#header -->
 
       <div id="main-wrapper">
-      <div id="main">
-        <div id="left-column-wrapper">
-          <div id="left-column">
-       <% if @session_user %>
-         <%= render :partial => '/shared/admin_bar' %>
-       <% end %>
+        <div id="main">
+          <div id="content-wrapper">
+            <div id="content">
+              <%= render :partial => '/shared/messages', :object => 'error' %>
+              <%= render :partial => '/shared/messages', :object => 'notice' %>
+              <% unless session[:saved_search_ran].blank? %>
+                <%= render :partial => '/shared/saved_search_ran_notification', :locals => {:ss => session[:saved_search_ran]} %>
+                <% session[:saved_search_ran] = nil %>
+              <% end %>
+              <%= yield %>
+            </div>
           </div>
-        </div>
-       <div id="content-wrapper">
-          <div id="content">
-          <%= render :partial => '/shared/messages', :object => 'error' %>
-          <%= render :partial => '/shared/messages', :object => 'notice' %>
-          <% unless session[:saved_search_ran].blank? %>
-            <%= render :partial => '/shared/saved_search_ran_notification', :locals => {:ss => session[:saved_search_ran]} %>
-            <% session[:saved_search_ran] = nil %>
-          <% end %>
-          <%= yield %>
+          <div id="right-column-wrapper">
+            <div id="right-column">
+              <h2>I'm a right column!</h2>
+            </div>
           </div>
-        </div>
-        <div class="clear"></div>
-        <div id="footer">footer</div><!-- /#footer -->
-      </div><!-- /#main -->
+          <div class="clear"></div>
+          <div id="footer">footer</div><!-- /#footer -->
+        </div><!-- /#main -->
       </div><!-- /#main-wrapper -->
 
     </div><!-- /#page -->

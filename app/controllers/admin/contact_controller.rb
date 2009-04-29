@@ -1,5 +1,11 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
+  def dashboard
+    @most_recent_adds =  self.model.find(:all, :order => 'created_at desc', :limit => 5)
+    @most_recent_updates = self.model.find(:all, :order => 'updated_at desc', :limit => 5)
+
+  end
+
   def manage_tags
     @object = self.model.find_by_id(params[:id])
     new_tags = []
