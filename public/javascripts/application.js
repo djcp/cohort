@@ -1,32 +1,48 @@
-// inspired by http://gorondowtl.sourceforge.net/wiki/Cookie
-// Modified by DJCP to support setting a path.
-var Cookie = {
-  set: function(name, value, daysToExpire, path) {
-    var expire = '';
-    if (daysToExpire != undefined) {
-      var d = new Date();
-      d.setTime(d.getTime() + (86400000 * parseFloat(daysToExpire)));
-      expire = '; expires=' + d.toGMTString();
-    }
-    return (document.cookie = escape(name) + '=' + escape(value || '') + expire + '; path=' + ((path) ? escape(path) : '/') ) ;
-  },
-  get: function(name) {
-    var cookie = document.cookie.match(new RegExp('(^|;)\\s*' + escape(name) + '=([^;\\s]*)'));
-    return (cookie ? unescape(cookie[2]) : null);
-  },
-  erase: function(name) {
-    var cookie = Cookie.get(name) || true;
-    Cookie.set(name, '', -1);
-    return cookie;
-  },
-  accept: function() {
-    if (typeof navigator.cookieEnabled == 'boolean') {
-      return navigator.cookieEnabled;
-    }
-    Cookie.set('_test', '1');
-    return (Cookie.erase('_test') === '1');
+document.observe("dom:loaded", function() {
+  if($('main')){
+    deal_with_flyouts();
   }
-};
+  if($('toggle-contact-selects')){
+    observe_contact_select_toggle();
+  }
+  if($('apply-tags-form')){
+    bulk_actions_apply_tags();
+  }
+  if($('remove-tags-form')){
+    bulk_actions_remove_tags();
+  }
+  if($('bulk-delete-contacts')){
+    bulk_actions_delete_contacts();
+  }
+  if($('bulk-note')){
+    bulk_actions_bulk_note();
+  }
+  if($('tag-edit-control')){
+    toggle_tag_edit_controls();
+  }
+
+  if($$('.dashboard-list')){
+    observe_dashboard_lists();
+  }
+
+});
+
+function observe_dashboard_lists(){
+  $$('.dashboard-list li').each(function(el){
+      el.observe('mouseover', function(){
+        el.addClassName('highlight');
+        el.select('span.details').each(function(dateEl){
+          dateEl.show();
+          });
+      });
+      el.observe('mouseout', function(){
+        el.removeClassName('highlight');
+        el.select('span.details').each(function(dateEl){
+          dateEl.hide();
+          });
+        });
+      });
+}
 
 function observe_contact_select_toggle(){
   $('toggle-contact-selects').observe('click', function(){
@@ -123,30 +139,6 @@ function toggle_tag_edit_controls(){
       });
 }
 
-document.observe("dom:loaded", function() {
-  if($('main')){
-    deal_with_flyouts();
-  }
-  if($('toggle-contact-selects')){
-    observe_contact_select_toggle();
-  }
-  if($('apply-tags-form')){
-    bulk_actions_apply_tags();
-  }
-  if($('remove-tags-form')){
-    bulk_actions_remove_tags();
-  }
-  if($('bulk-delete-contacts')){
-    bulk_actions_delete_contacts();
-  }
-  if($('bulk-note')){
-    bulk_actions_bulk_note();
-  }
-  if($('tag-edit-control')){
-    toggle_tag_edit_controls();
-  }
-});
-
 
 function toggle_tag_container(id,json_url){
   var toggle_container = $('manage-tags-' + id);
@@ -222,3 +214,32 @@ function deal_with_flyouts(){
 });
 }
 
+// inspired by http://gorondowtl.sourceforge.net/wiki/Cookie
+// Modified by DJCP to support setting a path.
+var Cookie = {
+  set: function(name, value, daysToExpire, path) {
+    var expire = '';
+    if (daysToExpire != undefined) {
+      var d = new Date();
+      d.setTime(d.getTime() + (86400000 * parseFloat(daysToExpire)));
+      expire = '; expires=' + d.toGMTString();
+    }
+    return (document.cookie = escape(name) + '=' + escape(value || '') + expire + '; path=' + ((path) ? escape(path) : '/') ) ;
+  },
+  get: function(name) {
+    var cookie = document.cookie.match(new RegExp('(^|;)\\s*' + escape(name) + '=([^;\\s]*)'));
+    return (cookie ? unescape(cookie[2]) : null);
+  },
+  erase: function(name) {
+    var cookie = Cookie.get(name) || true;
+    Cookie.set(name, '', -1);
+    return cookie;
+  },
+  accept: function() {
+    if (typeof navigator.cookieEnabled == 'boolean') {
+      return navigator.cookieEnabled;
+    }
+    Cookie.set('_test', '1');
+    return (Cookie.erase('_test') === '1');
+  }
+};

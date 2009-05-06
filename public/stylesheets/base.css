@@ -176,6 +176,21 @@ h3 {
   line-height: 24px;
 }
 
+.dashboard-list{
+  width: 48%;
+  height: 22em;
+  float: left;
+  margin-right: 10px;
+}
+
+.dashboard-list h2{
+  border-bottom: 1px solid #cccccc;
+}
+
+.highlight{
+  background-color: #ffff88;
+}
+
 /* 
 #left-column-wrapper{
   float: left;

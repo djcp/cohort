@@ -1,5 +1,6 @@
 class Tag < ActiveRecord::Base
-  include CohortArMixin
+  include CohortArInstanceMixin
+  extend CohortArClassMixin
   # Many validations are handled by the redhill schema_validations plugin.
   has_many :log_items, :as => :item, :dependent => :destroy
   acts_as_list :scope => :parent_id

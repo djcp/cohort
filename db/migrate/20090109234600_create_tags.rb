@@ -118,7 +118,7 @@ END'  LANGUAGE 'plpgsql';
     end
 
     add_index :taggings, ['contact_id', 'tag_id'], :unique => true
-    %W|contact_id tag_id|.each do |column|
+    %W|contact_id tag_id created_at updated_at|.each do |column|
       add_index :taggings, column
     end
     special = Tag.create(:tag => 'Special', :immutable => true)

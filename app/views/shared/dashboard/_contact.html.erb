@@ -1,0 +1,4 @@
+<li>
+<%= check_box_tag 'contact_ids[]', contact.id, false, :class=> 'contact-selector' %> <%=  link_to(contact.name_for_display, :controller => '/admin/contact', :action => :show, :id => contact )%><br/>
+<div><span class="details" style="display: none;"><%= h contact.send(display_method) %></span>&nbsp;</div>
+</li>

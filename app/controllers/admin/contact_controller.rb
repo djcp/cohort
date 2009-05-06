@@ -1,8 +1,13 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
   def dashboard
-    @most_recent_adds =  self.model.find(:all, :order => 'created_at desc', :limit => 5)
-    @most_recent_updates = self.model.find(:all, :order => 'updated_at desc', :limit => 5)
+    @recent_contact_adds = Contact.recent_adds
+    @recent_contact_updates = Contact.recent_updates
+
+    @recent_taggings = Tagging.recent_adds
+
+    @recent_note_adds = Note.recent_adds
+    @my_recent_note_adds = Note.my_recent_adds(@session_user)
 
   end
 
@@ -45,7 +50,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
 
       @object.tag_ids = deduped_tags || []
-
+  
       @object.notes << new_notes
 
       if flash[:ceerror].blank? and @object.save

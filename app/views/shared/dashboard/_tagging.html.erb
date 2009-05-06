@@ -1,0 +1,4 @@
+<li>
+<%= link_to(tagging.tag.tag, :controller => '/admin/contact', 'included_tags[]' => tagging.tag.id) %> on <%= h tagging.contact.name_for_display %><br />
+<div><span class="details" style="display: none;"><%= h tagging.send(display_method) %></span>&nbsp;</div>
+</li>

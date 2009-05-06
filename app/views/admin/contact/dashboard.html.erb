@@ -1,0 +1,44 @@
+<% unless @recent_contact_adds.blank? %>
+  <div class="dashboard-list">
+    <h2>New Contacts</h2>
+    <ul>
+      <%= render :partial => 'shared/dashboard/contact', :collection => @recent_contact_adds, :locals => {:display_method => 'created_at_for_display'} %>
+    </ul>
+  </div>
+<% end %>
+
+<% unless @recent_contact_updates.blank? %>
+  <div class="dashboard-list">
+    <h2>Recently updated contacts</h2>
+    <ul>
+      <%= render :partial => 'shared/dashboard/contact', :collection => @recent_contact_updates, :locals => {:display_method => 'updated_at_for_display'} %>
+    </ul>
+  </div>
+<% end %>
+
+<% unless @recent_note_adds.blank? %>
+  <div class="dashboard-list">
+    <h2>Everyone's Notes</h2>
+    <ul>
+      <%= render :partial => 'shared/dashboard/note', :collection => @recent_note_adds, :locals => {:display_method => 'created_at_for_display'} %>
+    </ul>
+  </div>
+<% end %>
+
+<% unless @my_recent_note_adds.blank? %>
+  <div class="dashboard-list">
+    <h2>My Notes</h2>
+    <ul>
+      <%= render :partial => 'shared/dashboard/note', :collection => @my_recent_note_adds, :locals => {:display_method => 'created_at_for_display'} %>
+    </ul>
+  </div>
+<% end %>
+
+<% unless @recent_taggings.blank? %>
+  <div class="dashboard-list">
+    <h2>Recent Taggings</h2>
+    <ul>
+      <%= render :partial => 'shared/dashboard/tagging', :collection => @recent_taggings, :locals => {:display_method => 'created_at_for_display'} %>
+    </ul>
+  </div>
+<% end %>
