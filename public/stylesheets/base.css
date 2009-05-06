@@ -48,6 +48,10 @@ div,form,input,select{
   padding: 20px 0px 0px 20px;
 }
 
+#exports{
+  text-align: right;
+}
+
 #exports a, #searchmeta a{
   text-decoration: none;
   padding: 2px 10px 2px 0px;
@@ -74,16 +78,7 @@ h1.toggle, h4.toggle{
   margin-bottom: 0px;
 }
 
-ul#bulk-action-choices{
-  list-style: none;
-}
-
-#bulk-action-choices li{
-  padding-bottom: 10px;
-}
-
 h4.sub-action{
-  display: inline;
   border-style: none;
   margin-left: 10px;
 }
@@ -195,6 +190,10 @@ h3 {
   background: #ffffff;
 }
 
+#right-column .pui-autocomplete-holder{
+  width: 300px !important;
+}
+
 .dashboard-list li.item{
   padding: 5px;
 }
@@ -257,10 +256,6 @@ span.tag-display span {
   text-decoration: underline;
 }
 
-#exports{
-  float: right;
-  width: 180px;
-}
 
 #right-column-wrapper {
   float: left;

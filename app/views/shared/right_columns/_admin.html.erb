@@ -1,1 +1,14 @@
-<h1>Generic right column</h1>
+<% form_tag url_for(:controller => '/admin/contact', :action => :index), {:id => 'searchform'} do %>
+<div id="search" class="section">
+  <div id="searchmeta">
+  <strong>Search:</strong> 
+  <% unless url_for == url_for(sanitized_url_params) %>
+    <%= link_to(icon('script_link') + ' Permalink',url_for(sanitized_url_params)) %> 
+    <%= link_to(icon('script_save') + ' Save',:controller => '/admin/saved_search', :action => :edit, :search_url => url_for(sanitized_url_params)) %>
+    <%= link_to(icon('script_delete') + ' Reset',url_for) %> 
+  <% end %>
+  <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/help', :action => :search_help)}',{title: 'Search help', width: '800'})") %>
+</div>
+<%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %>
+</div>
+<% end %>

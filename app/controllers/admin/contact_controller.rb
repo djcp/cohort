@@ -1,14 +1,6 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
   def dashboard
-    @recent_contact_adds = Contact.recent_adds(10)
-    @recent_contact_updates = Contact.recent_updates(10)
-
-    @recent_taggings = Tagging.recent_adds
-
-    @recent_note_adds = Note.recent_adds
-    @my_recent_note_adds = Note.my_recent_adds(@session_user)
-
   end
 
   def manage_tags
