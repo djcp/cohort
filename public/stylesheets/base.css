@@ -95,9 +95,6 @@ div.sub-action{
   background: #efefef;
 }
 
-.pui-autocomplete-holder{
-  background: #ffffff;
-}
 
 .toggle-target{
   margin-top: 0px;
@@ -178,9 +175,49 @@ h3 {
 
 .dashboard-list{
   width: 48%;
-  height: 22em;
+  height: 20em;
   float: left;
   margin-right: 10px;
+}
+
+.dashboard-list ul{
+  clear: both;
+  list-style-type: none;
+}
+
+.fullwidth {
+  width: 100%;
+  float: none;
+  height: 27em;
+}
+
+.pui-autocomplete-holder{
+  background: #ffffff;
+}
+
+.dashboard-list li.item{
+  padding: 5px;
+}
+
+.dashboard-list li.item div{
+  padding: 2px;
+}
+
+span.tag-display a{
+  text-decoration: none;
+}
+
+span.tag-display {
+  height:16px;   
+  background:url(../images/autocomplete/item_left.gif) no-repeat;
+  font:normal 12px Verdana, Arial, sans-serif;     
+}                                                    
+
+span.tag-display span { 
+  margin:0;
+  padding:0 5px 0 5px;
+  height:16px;   
+  background:url(../images/autocomplete/item_right.gif) no-repeat right center;
 }
 
 .dashboard-list h2{
@@ -235,6 +272,10 @@ h3 {
 
 #right-column {
   font-size: 100%;
+}
+
+#right-column div.section{
+  margin-bottom: 2em;
 }
 
 .asc, .desc{

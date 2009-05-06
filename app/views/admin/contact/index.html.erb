@@ -1,8 +1,6 @@
 <div id="contacts-update">
   <%= render :partial => 'shared/exports' %>
   <h1>Contacts</h1>
-  <%= render :partial => 'shared/search_form', :locals => {:update => 'contacts-update'} %>
-  <%= render :partial => 'shared/bulk_contact_actions' %>
   <% unless @contacts.blank? %>
     <div id="admin-list">
       <table border="0" width="100%">

@@ -1,4 +1,9 @@
-<li>
-<%= check_box_tag 'contact_ids[]', contact.id, false, :class=> 'contact-selector' %> <%=  link_to(contact.name_for_display, :controller => '/admin/contact', :action => :show, :id => contact )%><br/>
-<div><span class="details" style="display: none;"><%= h contact.send(display_method) %></span>&nbsp;</div>
+<li class="item">
+<%= check_box_tag 'contact_ids[]', contact.id, false, :class=> 'contact-selector' %> <%= link_to(contact.name_for_display, :controller => '/admin/contact', :action => :show, :id => contact )%>
+<% unless contact.primary_email.blank? %>, <%= mail_to(contact.primary_email) %><% end %><br />
+  <div class="details" style="display: none;"><%= h contact.send(display_method) %>
+      <% contact.tags.each do |tag| %>
+        <span class="tag-display"><span><%= link_to(tag.name_for_display, :controller => '/admin/contact', 'included_tags[]' => tag.id) %></span></span>
+        <% end %>
+  </div>
 </li>

@@ -31,13 +31,13 @@ function observe_dashboard_lists(){
   $$('.dashboard-list li').each(function(el){
       el.observe('mouseover', function(){
         el.addClassName('highlight');
-        el.select('span.details').each(function(dateEl){
+        el.select('div.details').each(function(dateEl){
           dateEl.show();
           });
       });
       el.observe('mouseout', function(){
         el.removeClassName('highlight');
-        el.select('span.details').each(function(dateEl){
+        el.select('div.details').each(function(dateEl){
           dateEl.hide();
           });
         });

@@ -1,8 +1,8 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
   def dashboard
-    @recent_contact_adds = Contact.recent_adds
-    @recent_contact_updates = Contact.recent_updates
+    @recent_contact_adds = Contact.recent_adds(10)
+    @recent_contact_updates = Contact.recent_updates(10)
 
     @recent_taggings = Tagging.recent_adds
 

@@ -1,6 +1,21 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def resolve_right_column_partial
+    right_column_hierarchy = [
+      "#{controller.controller_path.gsub('/','_')}_#{params[:action]}",
+      controller.controller_path.gsub('/','_'),
+      'admin'
+    ]
+    right_column_hierarchy.each do |right_column_partial|
+      file_to_test = "#{RAILS_ROOT}/app/views/shared/right_columns/_#{right_column_partial}.html.erb"
+      logger.warn(file_to_test)
+      if FileTest.exist?(file_to_test)
+        return "shared/right_columns/#{right_column_partial}"
+      end
+    end
+  end
+
   def display_tree_recursive(tree, parent_id)
     ret = "\n<ul id='node_#{parent_id}'>"
     tree.each do |node|

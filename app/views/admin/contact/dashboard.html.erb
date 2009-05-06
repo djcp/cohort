@@ -1,5 +1,5 @@
 <% unless @recent_contact_adds.blank? %>
-  <div class="dashboard-list">
+  <div class="dashboard-list fullwidth">
     <h2>New Contacts</h2>
     <ul>
       <%= render :partial => 'shared/dashboard/contact', :collection => @recent_contact_adds, :locals => {:display_method => 'created_at_for_display'} %>
@@ -8,7 +8,7 @@
 <% end %>
 
 <% unless @recent_contact_updates.blank? %>
-  <div class="dashboard-list">
+  <div class="dashboard-list fullwidth">
     <h2>Recently updated contacts</h2>
     <ul>
       <%= render :partial => 'shared/dashboard/contact', :collection => @recent_contact_updates, :locals => {:display_method => 'updated_at_for_display'} %>
