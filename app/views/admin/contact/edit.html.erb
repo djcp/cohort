@@ -62,27 +62,7 @@
       <p class="field"><%= text_field_tag 'new_tags' %></p>
     <% end %>
   </div>
-
-  <h2 id="flyout-contact-notes" class="toggle shown notes">Notes</h2>
-  <div id="flyout-contact-notes-actions" class="toggle-target defaultopen notes">
-    <% unless @contact.new_record? %>
-      <h3>Existing Notes:</h3>
-      <div class="error" id="existing-notes-error"></div>
-      <div id="existing-notes"> 
-        <%= render :partial => 'shared/note', :collection => @contact.notes, :locals => {:new_object_id => nil} %>
-      </div>
-      <h3>New Note:</h3>
-      <p class="field">
-      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
-      </p>
-    <% else %>
-      <h3>New Note:</h3>
-      <p class="field" id="new-note">
-      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => true}%>
-      </p>
-    <% end %>
-  </div>
-
+  
   <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
 <% end %>
 <%= render :partial => '/shared/form_footer' %>

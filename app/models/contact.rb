@@ -24,6 +24,10 @@ class Contact < ActiveRecord::Base
     pe = self.contact_emails.find(:first, :conditions => ['is_primary is true'])
   end
 
+  def get_non_primary_emails
+    self.contact_emails.find(:all, :conditions => ['is_primary is false'])
+  end
+
   def my_tags
     self.tags.collect{|t| t.tag}.join(' ')
   end

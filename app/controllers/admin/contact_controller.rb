@@ -1,5 +1,14 @@
 class Admin::ContactController < Admin::ModelAbstractController
 
+  def show
+    begin
+      @contact = Contact.find(params[:id])
+    rescue Exception => exc
+      flash[:error] = "There was an error when we looked for that contact: #{exc.message}"
+      redirect_to :action => :dashboard and return
+    end
+  end
+
   def dashboard
   end
 

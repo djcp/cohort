@@ -70,8 +70,7 @@ tr.table-header th{
 }
 
 .toggle{
-  border-top: #47a8cb solid 4px;
-  border-left: #47a8cb 1px solid;
+  border-bottom: 1px solid black;
 }
 
 h1.toggle, h4.toggle{
@@ -90,12 +89,10 @@ div.sub-action{
   background: #efefef;
 }
 
-
 .toggle-target{
   margin-top: 0px;
   margin-bottom: 30px;
-  border-left: #47a8cb 1px solid;
-  padding: 3px;
+  padding: 20px;
 }
 
 .toggle:hover{
@@ -170,7 +167,7 @@ h3 {
 
 .dashboard-list{
   width: 48%;
-  height: 20em;
+  height: 23em;
   float: left;
   margin-right: 10px;
 }

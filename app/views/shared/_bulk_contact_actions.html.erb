@@ -39,7 +39,7 @@
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_note), :id => 'bulk-note') do %>
     <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
 <p class="field"><label for="note">Note:</label><br/> 
-<%= text_area_tag 'note', '', :size => '60x5' %><br />
+<%= text_area_tag 'note', '', :size => '35x5' %><br />
 Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_interval => 15 %><br />
 <label for="priority">Priority:</label> <%= text_field_tag 'priority','', {:size => 3} %><br/>
 <%= submit_tag 'Add a note' %>
