@@ -183,6 +183,10 @@ h3 {
   height: 27em;
 }
 
+dt {
+  font-weight: bold;
+}
+
 .pui-autocomplete-holder{
   background: #ffffff;
 }

@@ -1,13 +1,13 @@
 <div id="notes-update">
   <h1><%= h @title %></h1>
-  <table border="0">
-    <tr>
-      <th>&nbsp;</th>
-      <th class="<%= sorted_class('notes','contact') %>"><%= link_to 'Contact', sort_param('notes', :alias => 'contact').merge({:q => params[:q]}) %></th>
-      <th class="<%= sorted_class('notes','priority') %>"><%= link_to 'Priority', sort_param('notes', :alias => 'priority').merge({:q => params[:q]}) %></th>
-      <th class="<%= sorted_class('notes','follow_up') %>"><%= link_to 'Follow up', sort_param('notes', :alias => 'follow_up').merge({:q => params[:q]}) %></th>
-    </tr>
-    <% unless @notes.blank? %>
+  <% unless @notes.blank? %>
+    <table border="0">
+      <tr>
+        <th>&nbsp;</th>
+        <th class="<%= sorted_class('notes','contact') %>"><%= link_to 'Contact', sort_param('notes', :alias => 'contact').merge({:q => params[:q]}) %></th>
+        <th class="<%= sorted_class('notes','priority') %>"><%= link_to 'Priority', sort_param('notes', :alias => 'priority').merge({:q => params[:q]}) %></th>
+        <th class="<%= sorted_class('notes','follow_up') %>"><%= link_to 'Follow up', sort_param('notes', :alias => 'follow_up').merge({:q => params[:q]}) %></th>
+      </tr>
       <%= render :partial => 'shared/dnote', :collection => @notes, :locals => {:new_object_id => nil, :show_contact => true} %>
     </table>
     <%= will_paginate @notes, :params => {:q => params[:q]} %>
