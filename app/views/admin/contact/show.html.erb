@@ -27,14 +27,25 @@
   <div id="flyout-contact-notes-actions" class="toggle-target defaultopen notes">
     <% unless @contact.new_record? %>
       <h3>Existing Notes:</h3>
-      <div class="error" id="existing-notes-error"></div>
-      <div id="existing-notes"> 
-        <%= render :partial => 'shared/note', :collection => @contact.notes, :locals => {:new_object_id => nil} %>
-      </div>
+      <div class="error" id="existing-notes-error-<%= @contact.id %>"></div>
+      <table >
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Note:</th>
+            <th>Priority:</th>
+            <th>Follow-up:</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody id="existing-notes-<%= @contact.id %>">
+          <%= render :partial => 'shared/note', :collection => @contact.notes, :locals => {:new_object_id => nil} %>
+        </tbody>
+      </table>
       <h3>New Note:</h3>
       <p class="field">
       <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
-        <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
+        <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => "existing-notes-#{@contact.id}", :failure_update => "existing-notes-error-#{@contact.id}", :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
       <% end %>
       </p>
     <% else %>

@@ -3,16 +3,21 @@ class Admin::NoteController < Admin::ModelAbstractController
   def contact
     @contact = Contact.find(params[:id])
     @title = 'Notes for ' + @contact.name_for_display
+    @alt_title = nil
     note_engine(true)
   end
 
   def everyones
     @title = 'Everyone\'s notes'
+    @alt_title = 'My notes'
+    @alt_action = :my
     note_engine(false,true)
   end
 
   def my
     @title = 'My notes'
+    @alt_action = :everyones
+    @alt_title = 'Everyone\'s notes'
     note_engine
   end
 

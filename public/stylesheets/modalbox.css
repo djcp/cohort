@@ -3,7 +3,7 @@
 	margin: auto;
 	top: 0;	left: 0;
 	width: 100%; height: 100%;
-	z-index: 9999;
+	z-index: 1;
 	background-color: #000!important;
 }
 #MB_overlay[id] { position: fixed; }
@@ -13,7 +13,7 @@
 	top: 0;
 	border: 0 solid;
 	text-align: left;
-	z-index: 10000;
+	z-index: 2;
 }
 #MB_window[id] { position: fixed!important; }
 
