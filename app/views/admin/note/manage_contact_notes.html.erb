@@ -1,6 +1,5 @@
     <div id="add-new-note-<%= @contact.id %>">
     <% unless @contact.new_record? %>
-      <h3>Existing Notes:</h3>
       <div class="error" id="existing-notes-error-<%= @contact.id %>"></div>
       <table>
         <thead>
@@ -23,7 +22,7 @@
       <% end %>
       </p>
     <% else %>
-      <h3>New Note:</h3>
+      <h3>Add a note:</h3>
       <p class="field" id="new-note">
       <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
         <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => true}%>
