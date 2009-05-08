@@ -62,6 +62,11 @@ class Admin::NoteController < Admin::ModelAbstractController
     end
   end
 
+  def manage_contact_notes
+    @contact = Contact.find(params[:id])
+    render :layout => ((request.xhr?) ? false : true)
+  end
+
   def edit
     @dont_redirect = true
     super

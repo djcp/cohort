@@ -2,40 +2,7 @@
 <%= check_box_tag 'contact_ids[]', contact.id, false, :class=> 'contact-selector' %> <%= link_to(contact.name_for_display, :controller => '/admin/contact', :action => :show, :id => contact )%>
 <% unless contact.primary_email.blank? %>, <%= mail_to(contact.primary_email) %><% end %><br />
   <div class="details" style="display: none;"><%= link_to('edit', :controller => '/admin/contact', :action => :edit, :id => contact) %> |
-    <%= link_to_function('notes',"Modalbox.show($('add-new-note-#{contact.id}'),{title: 'Add note', width: '800'})") %> | 
+    <%= link_to_function('notes',"Modalbox.show('#{url_for(:controller => '/admin/note', :action => :manage_contact_notes, :id => contact.id)}',{title: 'Add note', width: '800'})") %> | 
     <%= h contact.send(display_method) %>
-    <div id="add-new-note-<%= contact.id %>" style="display: none;">
-    <% unless contact.new_record? %>
-      <h3>Existing Notes:</h3>
-      <div class="error" id="existing-notes-error-<%= contact.id %>"></div>
-      <table >
-        <thead>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Note:</th>
-            <th>Priority:</th>
-            <th>Follow-up:</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody id="existing-notes-<%= contact.id %>">
-          <%= render :partial => 'shared/note', :collection => contact.notes, :locals => {:new_object_id => nil} %>
-        </tbody>
-      </table>
-      <h3>New Note:</h3>
-      <p class="field">
-      <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
-        <%= render :partial => 'shared/new_note' , :locals => {:contact => contact , :success_update => "existing-notes-#{contact.id}", :failure_update => "existing-notes-error-#{contact.id}", :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
-      <% end %>
-      </p>
-    <% else %>
-      <h3>New Note:</h3>
-      <p class="field" id="new-note">
-      <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
-        <%= render :partial => 'shared/new_note' , :locals => {:contact => contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => true}%>
-      <% end %>
-      </p>
-    <% end %>
-    </div>
   </div>
-  </li>
+</li>
