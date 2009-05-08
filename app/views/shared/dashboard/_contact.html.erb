@@ -6,8 +6,6 @@
     <%= link_to_function('notes',"Modalbox.show($('add-new-note-#{contact.id}'),{title: 'Add note', width: '800'})") %> | 
     <%= h contact.send(display_method) %>
     <div id="add-new-note-<%= contact.id %>" style="display: none;">
-
-      
     <% unless contact.new_record? %>
       <h3>Existing Notes:</h3>
       <div class="error" id="existing-notes-error-<%= contact.id %>"></div>

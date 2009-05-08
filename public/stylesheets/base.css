@@ -25,6 +25,14 @@ h1, h2, h3, h4{
   padding: 0em;
 }
 
+#MB_overlay{
+  z-index: 1 !important;
+}
+
+#MB_window{
+  z-index: 2 !important;
+}
+
 h1 {
   font-size: 250%;
   font-weight: normal;
