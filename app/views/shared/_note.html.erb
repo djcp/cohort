@@ -12,7 +12,7 @@
   </td>
   <td>
     <% unless note.follow_up.blank? %>
-      <%= note.follow_up %>
+      <%= note.follow_up_for_display %>
     <% end %>
   </td>
   <td>
@@ -22,4 +22,5 @@
 </tr>
 <% if new_object_id == note.id %>
   <%= javascript_tag visual_effect :pulsate, 'note-' + note.id.to_s %>
+  <%= javascript_tag 'Modalbox.resizeToContent()' %>
 <% end %>

@@ -20,4 +20,8 @@ class Note < ActiveRecord::Base
     self.note and ((self.note.length > length) ? self.note[0..length] + '. . .' : self.note )
   end
 
+  def follow_up_for_display
+    self.follow_up.strftime('%b %d %Y at %I:%M%p')
+  end
+
 end
