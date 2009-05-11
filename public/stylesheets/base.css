@@ -185,10 +185,23 @@ h3 {
   list-style-type: none;
 }
 
+.dashboard-list .details{
+  margin-left: 2em;
+}
+
+.dashboard-list li.item{
+  padding: 5px;
+  height: 2.5em;
+}
+
+.dashboard-list li.item div{
+  padding: 2px;
+}
+
 .fullwidth {
   width: 100%;
   float: none;
-  height: 27em;
+  height: 38em;
 }
 
 dt {
@@ -203,13 +216,6 @@ dt {
   width: 300px !important;
 }
 
-.dashboard-list li.item{
-  padding: 5px;
-}
-
-.dashboard-list li.item div{
-  padding: 2px;
-}
 
 span.tag-display a{
   text-decoration: none;
