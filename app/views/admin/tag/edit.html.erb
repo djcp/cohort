@@ -4,7 +4,7 @@
     <%= f.text_field :tag, {:disabled => @tag.immutable} %>
     </p>
     <p class="field"><label for="tag_description">Description:</label>
-      <%= fckeditor_textarea( :tag, :description, :height => '220' ) %>
+    <%= f.text_area :description, :size => '40x4' %>
     </p>
     <p class="field"><label for="tag_parent_id">Parent tag:</label>
     <%= f.select :parent_id, Tag.select_options,{},:disabled => @tag.immutable %>

@@ -25,7 +25,6 @@ class Admin::ModelAbstractController < Admin::BaseController
   end
 
   def edit(default_new_object_attributes = {})
-    @use_fckeditor = true
     model = self.model
     @object = model.find_by_id(params[:id]) || model.new(default_new_object_attributes)
     #Copy the object to a class-specific instance variable so we can have easier-to-use edit and management forms.

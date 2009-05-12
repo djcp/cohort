@@ -30,7 +30,6 @@ class Admin::ContactController < Admin::ModelAbstractController
   end
 
   def edit 
-    @use_fckeditor = true
     model = self.model
     @object = model.find_by_id(params[:id]) || model.new
 
