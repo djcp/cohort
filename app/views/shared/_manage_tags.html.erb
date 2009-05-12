@@ -1,20 +1,26 @@
-<div id="tag-count-<%= contact_line.id %>" class="tag-count"><span id="tag-count-count-<%= contact_line.id %>"><%= contact_line.tags.length.to_s %></span> tag(s)</div>
-<% if standalone %>
-  <%= form_remote_tag :url => url_for(:controller => '/admin/contact', :action => :manage_tags, :id => contact_line), :update => "tag-details-#{contact_line.id}" %>
-<% end %>
-<h3>Existing Tags:</h3>
-<ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags-<%= contact_line.id %>">
-  <%= render :partial => 'shared/existing_tags', :collection => contact_line.tags, :locals => {:object_id => contact_line.id, :param_name => 'contact[tag_ids][]'} %>
-</ul>
-<h3>Add tags to this contact:</h3>
-<p class="field"><%= text_field_tag 'new_tags', {}, {:id =>  'new_tags-' + contact_line.id.to_s} %></p>
-<% if standalone %>
-  <%= submit_tag 'Save changes to tags' %>
-</form>
+<div id="tag-details-<%= contact_line.id %>">
+  <div id="tag-count-<%= contact_line.id %>" class="tag-count"><span id="tag-count-count-<%= contact_line.id %>"><%= contact_line.tags.length.to_s %></span> tag(s)</div>
+  <% if standalone %>
+    <%= form_remote_tag :url => url_for(:controller => '/admin/contact', :action => :manage_tags, :id => contact_line), :update => "tag-details-#{contact_line.id}" %>
+  <% end %>
+  <h3>Existing Tags:</h3>
+  <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags-<%= contact_line.id %>">
+    <%= render :partial => 'shared/existing_tags', :collection => contact_line.tags, :locals => {:object_id => contact_line.id, :param_name => 'contact[tag_ids][]'} %>
+  </ul>
+  <h3>Add tags to this contact:</h3>
+  <p class="field"><%= text_field_tag 'new_tags', {}, {:id =>  'new_tags-' + contact_line.id.to_s} %></p>
+  <% if standalone %>
+    <p>&nbsp;</p>
+    <p>
+    <%= submit_tag 'Save changes to tags' %>
+    </p>
+  </form>
 <% end %>
 <% if request.xhr? || init_observer %>
   <%= javascript_tag(%Q|ac = new UI.AutoComplete('new_tags-#{contact_line.id}',{shadow: "auto_complete", tokens: ',', url: '#{url_for(:controller => '/admin/tag', :action => :json_tags)}' });
       ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Type a tag. New tags should be comma-separated.")})
       .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Nothing found")});|) %>
-  <%= javascript_tag(visual_effect(:pulsate, "tag-count-#{contact_line.id}")) %>
-<% end %>
+      <%= javascript_tag(visual_effect(:pulsate, "tag-count-#{contact_line.id}")) %>
+      <%= javascript_tag 'Modalbox.resizeToContent()' %>
+    <% end %>
+  </div>

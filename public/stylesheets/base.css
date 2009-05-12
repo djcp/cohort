@@ -115,6 +115,15 @@ div.sub-action{
   border-color: #8c77b0;
 }
 
+div.existing-notes{
+  height: 300px;
+  overflow: auto;
+}
+
+table.notes-list{
+  width: 95%;
+}
+
 .saved-searches{
   border-color: #8D0003;
 }

@@ -14,16 +14,18 @@ class Admin::ContactController < Admin::ModelAbstractController
 
   def manage_tags
     @object = self.model.find_by_id(params[:id])
-    new_tags = []
-    current_tags = (params[:contact] ? params[:contact][:tag_ids] : [])
-    parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :vivify => true)
-    deduped_tags = [
-      (new_tags and new_tags.collect{|t|t.to_i}),
-      (current_tags and current_tags.collect{|t|t.to_i})
-    ].flatten.uniq.compact
-    #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
-    @object.tag_ids = deduped_tags || []
-    @object.save
+    if request.post?
+      new_tags = []
+      current_tags = (params[:contact] ? params[:contact][:tag_ids] : [])
+      parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :vivify => true)
+      deduped_tags = [
+        (new_tags and new_tags.collect{|t|t.to_i}),
+        (current_tags and current_tags.collect{|t|t.to_i})
+      ].flatten.uniq.compact
+      #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
+      @object.tag_ids = deduped_tags || []
+      @object.save
+    end
     render :partial => 'shared/manage_tags', :layout => (request.xhr? ? false : true), :locals => {:contact_line => @object, :standalone => true}
   end
 
