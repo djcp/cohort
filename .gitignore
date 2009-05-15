@@ -1,2 +1,6 @@
-config/database.yml
 log/
+db/schema.rb
+.gitignore*
+config/database.yml
+.rake_tasks
+index/
