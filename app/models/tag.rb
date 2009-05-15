@@ -10,6 +10,7 @@ class Tag < ActiveRecord::Base
   has_many :contacts, :through => :taggings
 
   before_destroy :forbid_delete_of_immutable_objects
+  before_save :create_full_path
 
   def self.create_auto_tag(reason = 'Import')
     Tag.create(:tag => "Autotag: #{reason} - #{Time.now.to_s(:long)}", :parent => self.get_autotag_root_tag)
@@ -55,6 +56,11 @@ class Tag < ActiveRecord::Base
   end
 
   protected
+
+  def create_full_path
+    #Ideally, this could be done at the database level.
+    self.tag_path = self.hierarchical_title
+  end
 
   def recurse_for_children(tree,children)
     tree.each do|node|
