@@ -1,0 +1,38 @@
+<div id="add-new-note-<%= @contact.id %>" class="manage-notes">
+  <% unless @contact.new_record? %>
+    <div class="error" id="existing-notes-error-<%= @contact.id %>"></div>
+    <div class="existing-notes">
+      <table id="notes-list">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Note:</th>
+            <th>Priority:</th>
+            <th>Follow-up:</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody id="existing-notes-<%= @contact.id %>">
+          <% unless @contact.notes.blank? %>
+            <%= render :partial => 'shared/note', :collection => @contact.notes, :locals => {:new_object_id => nil} %>
+          <% else %>
+            <tr><td>No notes for this contact.</td></tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <h3>New Note:</h3>
+    <p class="field">
+    <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
+      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => "existing-notes-#{@contact.id}", :failure_update => "existing-notes-error-#{@contact.id}", :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
+    <% end %>
+    </p>
+  <% else %>
+    <h3>Add a note:</h3>
+    <p class="field" id="new-note">
+    <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
+      <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => 'existing-notes', :failure_update => 'existing-notes-error', :size => '40x4', :update_counts_only => 0, :no_ajax => true}%>
+    <% end %>
+    </p>
+  <% end %>
+</div>
