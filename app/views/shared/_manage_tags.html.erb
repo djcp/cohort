@@ -1,4 +1,4 @@
-<div id="tag-details-<%= contact_line.id %>">
+<div id="tag-details-<%= contact_line.id %>" class="tag-details">
   <% if standalone %>
     <%= form_remote_tag :url => url_for(:controller => '/admin/contact', :action => :manage_tags, :id => contact_line), :update => "tag-details-#{contact_line.id}" %>
   <% end %>

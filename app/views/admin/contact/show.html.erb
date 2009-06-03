@@ -1,8 +1,4 @@
 <div class="contact-details">
-  <div class="notes-tags">
-    <%= create_compact_object_widget('note',@contact,:manage_notes) %>
-  </div>
-
 
 <h1><%= @contact.name_for_display %> <span style="font-size: smaller;"><%= link_to('edit', :controller => "/admin/contact", :action => :edit, :id => @contact) %></h1>
 <dl>
