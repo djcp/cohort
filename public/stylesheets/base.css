@@ -115,6 +115,22 @@ div.sub-action{
   border-color: #8c77b0;
 }
 
+.contact-details .notes-tags{
+  float: right;
+  text-align: center;
+  margin: 5px;
+}
+
+.contact-details .notes-tags a{
+  text-decoration: none;
+}
+.contact-details .notes-tags div{
+  border: 1px solid #cccccc;
+  background-color: #f4f4f4;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
 div.existing-notes{
   height: 300px;
   overflow: auto;
@@ -196,6 +212,10 @@ h3 {
 
 .dashboard-list .details{
   margin-left: 2em;
+}
+
+.dashboard-list .details div{
+  display: inline;
 }
 
 .dashboard-list li.item{

@@ -2,8 +2,8 @@
 <%= check_box_tag 'contact_ids[]', contact.id, false, :class=> 'contact-selector' %> <%= link_to(contact.name_for_display, :controller => '/admin/contact', :action => :show, :id => contact )%>
 <% unless contact.primary_email.blank? %>, <%= mail_to(contact.primary_email) %><% end %><br />
   <div class="details" style="display: none;"><%= link_to('edit', :controller => '/admin/contact', :action => :edit, :id => contact) %> |
-    <%= link_to_function("notes#{((contact.notes.blank?) ? '' : '(' + contact.notes.length.to_s + ')')}","Modalbox.show('#{url_for(:controller => '/admin/note', :action => :manage_contact_notes, :id => contact.id)}',{title: 'Notes for #{h contact.name_for_display}', width: '800'})") %> | 
-    <%= link_to_function("tags#{((contact.tags.blank?) ? '' : '(' + contact.tags.length.to_s + ')')}","Modalbox.show('#{url_for(:controller => '/admin/contact', :action => :manage_tags, :id => contact.id)}',{title: 'Tags for #{h contact.name_for_display}', width: '800'})") %> |
+    <%= create_compact_object_widget('note',contact,:manage_notes) %>
+    <%= create_compact_object_widget('tag',contact,:manage_tags) %>
     <%= h contact.send(display_method) %>
   </div>
 </li>

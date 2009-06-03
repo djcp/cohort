@@ -1,6 +1,15 @@
 <%= render :partial => '/shared/form_header' %>
 <% form_for :contact do|f| %>
 
+  <% unless @contact.new_record? %>
+    <div class="contact-details">
+      <div class="notes-tags">
+        <%= create_compact_object_widget('note',@contact,:manage_notes) %>
+        <%= create_compact_object_widget('tag',@contact,:manage_tags) %>
+      </div>
+    </div>
+  <% end %>
+
   <h2 id="flyout-contact-personal-info" class="toggle shown">Personal Info</h2>
   <div id="flyout-contact-personal-info-actions" class="toggle-target defaultopen">
     <% %W|first_name last_name title organization|.each do|field| %>
@@ -50,19 +59,6 @@
     <span class="note">If you select a new email address as the primary address, it will take precedence over any existing primary addresses.</span>
     </p>
   </div>
-
-  <h2 id="flyout-contact-tagging-info" class="toggle shown tags">Tags</h2>
-  <div id="flyout-contact-tagging-info-actions" class="toggle-target defaultopen tags">
-    <% unless @contact.new_record? %>
-      <div id="tag-details-<%= @contact.id %>">
-        <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => @contact, :standalone => false, :init_observer => true} %>
-      </div>
-    <% else %>
-      <h3>Add tags to this contact:</h3>
-      <p class="field"><%= text_field_tag 'new_tags' %></p>
-    <% end %>
-  </div>
-  
   <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
 <% end %>
 <%= render :partial => '/shared/form_footer' %>

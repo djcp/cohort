@@ -1,6 +1,6 @@
 <tr class="note" id="note-<%= note.id %>">
   <td>
-    <%= link_to_remote(icon(:cross), {:complete => 'Modalbox.resizeToContent()', :update => "existing-notes-#{note.contact.id}", :url => {:controller => 'admin/note', :action => :destroy, :id => note}, :method => :post, :confirm => 'Are you sure?'}) -%>
+    <%= link_to_remote(icon(:cross), {:complete => "$('contact-note-count-#{note.contact.id}').update(parseInt($('contact-note-count-#{note.contact.id}').innerHTML) - 1);Modalbox.resizeToContent()", :update => "existing-notes-#{note.contact.id}", :url => {:controller => 'admin/note', :action => :destroy, :id => note}, :method => :post, :confirm => 'Are you sure?'}) -%>
   </td>
   <td>
     <%= RedCloth.new(note.note).to_html %>

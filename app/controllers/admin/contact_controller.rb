@@ -12,6 +12,11 @@ class Admin::ContactController < Admin::ModelAbstractController
   def dashboard
   end
 
+  def manage_notes
+    @contact = Contact.find(params[:id])
+    render :partial => 'shared/manage_notes', :layout => (request.xhr? ? false : true)
+  end
+
   def manage_tags
     @object = self.model.find_by_id(params[:id])
     if request.post?
