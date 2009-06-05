@@ -1,6 +1,7 @@
 class CohortMigrationPostgresql
 
   def self.can_be_extended?(connection)
+    # FIXME - inspect the server version and ensure it has plpgsql installed.
    return true 
   end
 
@@ -76,7 +77,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION parent_checks() RETURNS trigger AS $$
 BEGIN
   if NEW.parent_id = NEW.id THEN
-    -- Big fat negative - you can't be your own parent. Except maybe in Kentucky.
+    -- Big fat negative - you can't be your own parent.
     RAISE EXCEPTION 'Can not be your own parent!';
   END IF;
   -- TO DO: Check to ensure a node can't be set as a child of one of its children.
@@ -92,27 +93,6 @@ FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_insert();
 
 CREATE TRIGGER position_fixes_on_update BEFORE UPDATE ON tags
 FOR EACH ROW EXECUTE PROCEDURE position_fixes_on_update();
-],
-  %Q[
-CREATE OR REPLACE FUNCTION getfulltagname(integer) RETURNS TEXT AS 'DECLARE
-tagid ALIAS FOR $1;
-tagfullname TEXT;
-tagrecord RECORD;
-BEGIN
-    SELECT t.* INTO tagrecord FROM tags t  where id=tagid;
-     tagfullname := tagfullname || tagrecord.tag;
-     IF tagrecord.parent_id IS NOT NULL  THEN
-           tagfullname := getfulltagname(tagrecord.parent_id) || '' -> '' || tagfullname ;
-           RETURN tagfullname;
-     ELSE
-           RETURN tagfullname;
-     END IF;
-END'  LANGUAGE 'plpgsql';
-  ]]
-
+]]
   end
-
-  def before_tag_table_drop
-  end
-
 end

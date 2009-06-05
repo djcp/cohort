@@ -12,6 +12,11 @@ class Admin::ContactController < Admin::ModelAbstractController
   def dashboard
   end
 
+  def manage_notes
+    @contact = Contact.find(params[:id])
+    render :partial => 'shared/manage_notes', :layout => (request.xhr? ? false : true)
+  end
+
   def manage_tags
     @object = self.model.find_by_id(params[:id])
     if request.post?
@@ -84,7 +89,15 @@ class Admin::ContactController < Admin::ModelAbstractController
       existing_included_tags = params[:included_tags]
       parse_tag_list(:tags_to_parse => params[:tags_to_include] || '', :tag_list => include_tags, :vivify => false)
       @included_tags_for_output = [existing_included_tags,include_tags].flatten.uniq.compact.collect{|tid| Tag.find(tid.to_i)} ||[]
-      ferret_fields += (@included_tags_for_output.collect{|tid| " +my_tag_ids: #{tid.id} "}.join(' '))
+
+      tags_to_search_for = []
+      @included_tags_for_output.each do |tag|
+        tags_to_search_for << tag.get_all_children
+      end
+      final_tags_to_include = [tags_to_search_for,@included_tags_for_output].flatten.uniq.compact
+      unless final_tags_to_include.blank?
+        ferret_fields += " (" + (final_tags_to_include.collect{|tid| "my_tag_ids:#{tid.id}"}.join(' OR ')) + ") "
+      end
     end
 
     if params[:tags_to_exclude] or params[:excluded_tags]
@@ -93,7 +106,14 @@ class Admin::ContactController < Admin::ModelAbstractController
       existing_excluded_tags = params[:excluded_tags]
       parse_tag_list(:tags_to_parse => params[:tags_to_exclude], :tag_list => exclude_tags, :vivify => false)
       @excluded_tags_for_output = [existing_excluded_tags,exclude_tags].flatten.uniq.compact.collect{|tid| Tag.find(tid.to_i)} ||[]
-      ferret_fields += (@excluded_tags_for_output.collect{|tid| " -my_tag_ids: #{tid.id} "}.join(' '))
+      tags_to_exclude = []
+      @excluded_tags_for_output.each do |tag|
+        tags_to_exclude << tag.get_all_children
+      end
+      final_tags_to_exclude = [@excluded_tags_for_output,tags_to_exclude].flatten.uniq.compact
+      unless final_tags_to_exclude.blank?
+        ferret_fields += ' (' + (final_tags_to_exclude.collect{|tid| "-my_tag_ids:#{tid.id}"}.join(' OR ')) + ') '
+      end
     end
 
     #logger.warn("Ferret search string: " + ferret_fields)

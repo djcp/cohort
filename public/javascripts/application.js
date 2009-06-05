@@ -162,8 +162,8 @@ function toggle_notes_container(id){
   $('parent-note-count-' +id).update($('note-count-' + id).innerHTML);
 }
 
-function remove_tag(id){
-  $('tag-' + id).remove();
+function remove_tag(object_id,tag_id){
+  $('tag-' + object_id + '_' + tag_id).remove();
 }
 
 function deal_with_flyouts(){

@@ -13,7 +13,7 @@ Due Date: <%= calendar_date_select_tag "note[follow_up]", '', :time => true, :mi
     :update => {
     :success => success_update, 
     :failure => failure_update},
-    :complete => "$('note-field-#{contact.id}').clear()",
+    :complete => "$('note-field-#{contact.id}').clear();$('contact-note-count-#{contact.id}').update(parseInt($('contact-note-count-#{contact.id}').innerHTML) + 1)",
     :after => "$('#{failure_update}').innerHTML = ''") %>
 <% end %>
 </p>
