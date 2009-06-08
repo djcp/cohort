@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>RSpec results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 80%;
+  }
+  </style>
+  <script type="text/javascript">
+    // <![CDATA[
+function moveProgressBar(percentDone) {
+  document.getElementById("rspec-header").style.width = percentDone +"%";
+}
+function makeRed(element_id) {
+  document.getElementById(element_id).style.background = '#C40D0D';
+  document.getElementById(element_id).style.color = '#FFFFFF';
+}
+
+function makeYellow(element_id) {
+  if (element_id == "rspec-header" && document.getElementById(element_id).style.background != '#C40D0D')
+  {
+    document.getElementById(element_id).style.background = '#FAF834';
+    document.getElementById(element_id).style.color = '#000000';
+  }
+  else
+  {
+    document.getElementById(element_id).style.background = '#FAF834';
+    document.getElementById(element_id).style.color = '#000000';
+  }
+}
+
+    // ]]>
+  </script>
+  <style type="text/css">
+#rspec-header {
+  background: #65C400; color: #fff; height: 4em;
+}
+
+.rspec-report h1 {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  font-size: 1.8em;
+  position: absolute;
+}
+
+#summary {
+  margin: 0; padding: 5px 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  text-align: right;
+  top: 0px;
+  right: 0px;
+  float:right;
+}
+
+#summary p {
+  margin: 0 0 0 2px;
+}
+
+#summary #totals {
+  font-size: 1.2em;
+}
+
+.example_group {
+  margin: 0 10px 5px;
+  background: #fff;
+}
+
+dl {
+  margin: 0; padding: 0 0 5px;
+  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
+}
+
+dt {
+  padding: 3px;
+  background: #65C400;
+  color: #fff;
+  font-weight: bold;
+}
+
+dd {
+  margin: 5px 0 5px 5px;
+  padding: 3px 3px 3px 18px;
+}
+
+dd.spec.passed {
+  border-left: 5px solid #65C400;
+  border-bottom: 1px solid #65C400;
+  background: #DBFFB4; color: #3D7700;
+}
+
+dd.spec.failed {
+  border-left: 5px solid #C20000;
+  border-bottom: 1px solid #C20000;
+  color: #C20000; background: #FFFBD3;
+}
+
+dd.spec.not_implemented {
+  border-left: 5px solid #FAF834;
+  border-bottom: 1px solid #FAF834;
+  background: #FCFB98; color: #131313;
+}
+
+dd.spec.pending_fixed {
+  border-left: 5px solid #0000C2;
+  border-bottom: 1px solid #0000C2;
+  color: #0000C2; background: #D3FBFF;
+}
+
+.backtrace {
+  color: #000;
+  font-size: 12px;
+}
+
+a {
+  color: #BE5C00;
+}
+
+/* Ruby code, style similar to vibrant ink */
+.ruby {
+  font-size: 12px;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.1em 0 0.2em 0;
+}
+
+.ruby .keyword { color: #FF6600; }
+.ruby .constant { color: #339999; }
+.ruby .attribute { color: white; }
+.ruby .global { color: white; }
+.ruby .module { color: white; }
+.ruby .class { color: white; }
+.ruby .string { color: #66FF00; }
+.ruby .ident { color: white; }
+.ruby .method { color: #FFCC00; }
+.ruby .number { color: white; }
+.ruby .char { color: white; }
+.ruby .comment { color: #9933CC; }
+.ruby .symbol { color: white; }
+.ruby .regex { color: #44B4CC; }
+.ruby .punct { color: white; }
+.ruby .escape { color: white; }
+.ruby .interp { color: white; }
+.ruby .expr { color: white; }
+
+.ruby .offending { background-color: gray; }
+.ruby .linenum {
+  width: 75px;
+  padding: 0.1em 1em 0.2em 0;
+  color: #000000;
+  background-color: #FFFBD3;
+}
+
+  </style>
+</head>
+<body>
+<div class="rspec-report">
+
+<div id="rspec-header">
+  <div id="label">
+    <h1>RSpec Code Examples</h1>
+  </div>
+
+  <div id="summary">
+    <p id="totals">&nbsp;</p>
+    <p id="duration">&nbsp;</p>
+  </div>
+</div>
+
+<div class="results">
+<div class="example_group">
+  <dl>
+  <dt id="example_group_1">Tag tree node</dt>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('example_group_1');</script>
+    <script type="text/javascript">moveProgressBar('2.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should respond to #children</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>expected #&lt;Tag id: 1, parent_id: nil, position: nil, children_count: nil, ancestors_count: nil, descendants_count: nil, hidden: nil, title: &quot;title&quot;, description: &quot;description&quot;, removable: true, created_at: &quot;2009-06-08 20:00:31&quot;, updated_at: &quot;2009-06-08 20:00:31&quot;&gt; to respond to :children</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:50:</pre></div>
+    <pre class="ruby"><code><span class="linenum">48</span>    <span class="keyword">end</span>
+<span class="linenum">49</span>    <span class="ident">subject</span> <span class="punct">{</span> <span class="attribute">@tag</span> <span class="punct">}</span>
+<span class="offending"><span class="linenum">50</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:children</span> <span class="punct">}</span></span>
+<span class="linenum">51</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:descendants</span> <span class="punct">}</span>
+<span class="linenum">52</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent</span> <span class="punct">}</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('4.4');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should respond to #descendants</span>
+      <div class="failure" id="failure_2">
+        <div class="message"><pre>expected #&lt;Tag id: 2, parent_id: nil, position: nil, children_count: nil, ancestors_count: nil, descendants_count: nil, hidden: nil, title: &quot;title&quot;, description: &quot;description&quot;, removable: true, created_at: &quot;2009-06-08 20:00:31&quot;, updated_at: &quot;2009-06-08 20:00:31&quot;&gt; to respond to :descendants</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:51:</pre></div>
+    <pre class="ruby"><code><span class="linenum">49</span>    <span class="ident">subject</span> <span class="punct">{</span> <span class="attribute">@tag</span> <span class="punct">}</span>
+<span class="linenum">50</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:children</span> <span class="punct">}</span>
+<span class="offending"><span class="linenum">51</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:descendants</span> <span class="punct">}</span></span>
+<span class="linenum">52</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent</span> <span class="punct">}</span>
+<span class="linenum">53</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent=</span> <span class="punct">}</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('6.6');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should respond to #parent</span>
+      <div class="failure" id="failure_3">
+        <div class="message"><pre>expected #&lt;Tag id: 3, parent_id: nil, position: nil, children_count: nil, ancestors_count: nil, descendants_count: nil, hidden: nil, title: &quot;title&quot;, description: &quot;description&quot;, removable: true, created_at: &quot;2009-06-08 20:00:31&quot;, updated_at: &quot;2009-06-08 20:00:31&quot;&gt; to respond to :parent</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:52:</pre></div>
+    <pre class="ruby"><code><span class="linenum">50</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:children</span> <span class="punct">}</span>
+<span class="linenum">51</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:descendants</span> <span class="punct">}</span>
+<span class="offending"><span class="linenum">52</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent</span> <span class="punct">}</span></span>
+<span class="linenum">53</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent=</span> <span class="punct">}</span>
+<span class="linenum">54</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:ancestors</span> <span class="punct">}</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('8.8');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should respond to #parent=</span>
+      <div class="failure" id="failure_4">
+        <div class="message"><pre>expected #&lt;Tag id: 4, parent_id: nil, position: nil, children_count: nil, ancestors_count: nil, descendants_count: nil, hidden: nil, title: &quot;title&quot;, description: &quot;description&quot;, removable: true, created_at: &quot;2009-06-08 20:00:31&quot;, updated_at: &quot;2009-06-08 20:00:31&quot;&gt; to respond to :parent=</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:53:</pre></div>
+    <pre class="ruby"><code><span class="linenum">51</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:descendants</span> <span class="punct">}</span>
+<span class="linenum">52</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent</span> <span class="punct">}</span>
+<span class="offending"><span class="linenum">53</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent=</span> <span class="punct">}</span></span>
+<span class="linenum">54</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:ancestors</span> <span class="punct">}</span>
+<span class="linenum">55</span>    <span class="ident">it</span> <span class="punct">&quot;</span><span class="string">cannot be its own parent</span><span class="punct">&quot;</span> <span class="keyword">do</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('11.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should respond to #ancestors</span>
+      <div class="failure" id="failure_5">
+        <div class="message"><pre>expected #&lt;Tag id: 5, parent_id: nil, position: nil, children_count: nil, ancestors_count: nil, descendants_count: nil, hidden: nil, title: &quot;title&quot;, description: &quot;description&quot;, removable: true, created_at: &quot;2009-06-08 20:00:31&quot;, updated_at: &quot;2009-06-08 20:00:31&quot;&gt; to respond to :ancestors</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:54:</pre></div>
+    <pre class="ruby"><code><span class="linenum">52</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent</span> <span class="punct">}</span>
+<span class="linenum">53</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:parent=</span> <span class="punct">}</span>
+<span class="offending"><span class="linenum">54</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="ident">should</span> <span class="ident">respond_to</span> <span class="symbol">:ancestors</span> <span class="punct">}</span></span>
+<span class="linenum">55</span>    <span class="ident">it</span> <span class="punct">&quot;</span><span class="string">cannot be its own parent</span><span class="punct">&quot;</span> <span class="keyword">do</span>
+<span class="linenum">56</span>      <span class="attribute">@tag</span><span class="punct">.</span><span class="ident">parent</span> <span class="punct">=</span> <span class="attribute">@tag</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('13.3');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">cannot be its own parent</span>
+      <div class="failure" id="failure_6">
+        <div class="message"><pre>undefined method `parent=' for #&lt;Tag:0x2086428&gt;</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/attribute_fu/lib/attribute_fu/associations.rb:28:in `method_missing'
+/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:56:</pre></div>
+    <pre class="ruby"><code><span class="linenum">26</span>      <span class="keyword">end</span>
+<span class="linenum">27</span>      
+<span class="offending"><span class="linenum">28</span>      <span class="keyword">super</span></span>
+<span class="linenum">29</span>    <span class="keyword">end</span>
+<span class="linenum">30</span>    </code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('15.5');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">can change parent</span>
+      <div class="failure" id="failure_7">
+        <div class="message"><pre>expected no Exception, got #&lt;NoMethodError: undefined method `parent=' for #&lt;Tag:0x207b94c&gt;&gt;</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:61:</pre></div>
+    <pre class="ruby"><code><span class="linenum">59</span>    <span class="ident">it</span> <span class="punct">&quot;</span><span class="string">can change parent</span><span class="punct">&quot;</span> <span class="keyword">do</span>
+<span class="linenum">60</span>      <span class="attribute">@tag2</span> <span class="punct">=</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">create</span>
+<span class="offending"><span class="linenum">61</span>      <span class="ident">lambda</span> <span class="punct">{</span> <span class="attribute">@tag</span><span class="punct">.</span><span class="ident">parent</span> <span class="punct">=</span> <span class="attribute">@tag2</span> <span class="punct">}.</span><span class="ident">should_not</span> <span class="ident">raise_error</span></span>
+<span class="linenum">62</span>      <span class="attribute">@tag</span><span class="punct">.</span><span class="ident">parent</span><span class="punct">.</span><span class="ident">should</span> <span class="punct">==</span> <span class="attribute">@tag2</span>
+<span class="linenum">63</span>    <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('17.7');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">can leave its parent and become root</span>
+      <div class="failure" id="failure_8">
+        <div class="message"><pre>undefined method `parent=' for #&lt;Tag:0x205d398&gt;</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/attribute_fu/lib/attribute_fu/associations.rb:28:in `method_missing'
+/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:66:</pre></div>
+    <pre class="ruby"><code><span class="linenum">26</span>      <span class="keyword">end</span>
+<span class="linenum">27</span>      
+<span class="offending"><span class="linenum">28</span>      <span class="keyword">super</span></span>
+<span class="linenum">29</span>    <span class="keyword">end</span>
+<span class="linenum">30</span>    </code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('20.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">will be valid when #new'd and assigned own parent (but not yet saved)</span>
+      <div class="failure" id="failure_9">
+        <div class="message"><pre>undefined method `parent=' for #&lt;Tag:0x204ba44&gt;</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/attribute_fu/lib/attribute_fu/associations.rb:28:in `method_missing'
+/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:75:</pre></div>
+    <pre class="ruby"><code><span class="linenum">26</span>      <span class="keyword">end</span>
+<span class="linenum">27</span>      
+<span class="offending"><span class="linenum">28</span>      <span class="keyword">super</span></span>
+<span class="linenum">29</span>    <span class="keyword">end</span>
+<span class="linenum">30</span>    </code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('22.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should not allow destruction if unremovable</span>
+      <div class="failure" id="failure_10">
+        <div class="message"><pre>expected false, got #&lt;Tag id: 12, parent_id: nil, position: nil, children_count: nil, ancestors_count: nil, descendants_count: nil, hidden: nil, title: &quot;title&quot;, description: &quot;description&quot;, removable: false, created_at: &quot;2009-06-08 20:00:31&quot;, updated_at: &quot;2009-06-08 20:00:31&quot;&gt;</pre></div>
+        <div class="backtrace"><pre>/Users/Ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_tree_spec.rb:80:</pre></div>
+    <pre class="ruby"><code><span class="linenum">78</span>    <span class="ident">it</span> <span class="punct">&quot;</span><span class="string">should not allow destruction if unremovable</span><span class="punct">&quot;</span> <span class="keyword">do</span>
+<span class="linenum">79</span>      <span class="attribute">@tag</span><span class="punct">.</span><span class="ident">removable</span> <span class="punct">=</span> <span class="constant">false</span>
+<span class="offending"><span class="linenum">80</span>      <span class="attribute">@tag</span><span class="punct">.</span><span class="ident">destroy</span><span class="punct">.</span><span class="ident">should</span> <span class="ident">be</span> <span class="constant">false</span></span>
+<span class="linenum">81</span>    <span class="keyword">end</span>
+<span class="linenum">82</span>  <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_2">Tag tree</dt>
+    <script type="text/javascript">makeRed('example_group_2');</script>
+    <script type="text/javascript">moveProgressBar('24.4');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_11">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('26.6');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should tidy up orphaned objects</span>
+      <div class="failure" id="failure_12">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('28.8');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be capable of mass child reassignment</span>
+      <div class="failure" id="failure_13">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('31.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">node 'root' has 2 children</span>
+      <div class="failure" id="failure_14">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('33.3');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">node 'root' has 3 descendants</span>
+      <div class="failure" id="failure_15">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('35.5');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">node 'tag_one's parent is  node 'root'</span>
+      <div class="failure" id="failure_16">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('37.7');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">node 'tag_one' has 1 sibling</span>
+      <div class="failure" id="failure_17">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('40.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">node 'tag_two_one' has 2 ancestors</span>
+      <div class="failure" id="failure_18">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_3">Tag ordering#move_down</dt>
+    <script type="text/javascript">makeRed('example_group_3');</script>
+    <script type="text/javascript">moveProgressBar('42.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should change position of non-bottom tag when moved down</span>
+      <div class="failure" id="failure_19">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('44.4');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should change position of displaced tag when non-bottom tag is moved down</span>
+      <div class="failure" id="failure_20">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('46.6');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should not move the top tag</span>
+      <div class="failure" id="failure_21">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_4">Tag ordering#move_up</dt>
+    <script type="text/javascript">makeRed('example_group_4');</script>
+    <script type="text/javascript">moveProgressBar('48.8');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should change position of non-top tag</span>
+      <div class="failure" id="failure_22">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('51.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should change position of tag above</span>
+      <div class="failure" id="failure_23">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('53.3');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should not move the top tag</span>
+      <div class="failure" id="failure_24">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_5">Tag ordering</dt>
+    <script type="text/javascript">makeRed('example_group_5');</script>
+    <script type="text/javascript">moveProgressBar('55.5');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should order roots by position</span>
+      <div class="failure" id="failure_25">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('57.7');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should order children by position</span>
+      <div class="failure" id="failure_26">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('60.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should order siblings by position</span>
+      <div class="failure" id="failure_27">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('62.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">can reorder tags</span>
+      <div class="failure" id="failure_28">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('64.4');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">can reorder root tags</span>
+      <div class="failure" id="failure_29">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('66.6');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">shouldn't move a tag with no siblings</span>
+      <div class="failure" id="failure_30">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('68.8');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_31">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('71.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_32">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('73.3');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be maintained through a mass assignment</span>
+      <div class="failure" id="failure_33">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_6">Tag db triggers</dt>
+    <script type="text/javascript">makeYellow('example_group_6');</script>
+    <script type="text/javascript">moveProgressBar('75.5');</script>
+    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should still delete children when deleted (PENDING: db triggers need to get created)</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_7">Tag validations</dt>
+    <script type="text/javascript">makeRed('example_group_7');</script>
+    <script type="text/javascript">moveProgressBar('77.7');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_34">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('80.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_35">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('82.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_36">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_8">Tag associated object</dt>
+    <script type="text/javascript">makeRed('example_group_8');</script>
+    <script type="text/javascript">moveProgressBar('84.4');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_37">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('86.6');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be able to have tags</span>
+      <div class="failure" id="failure_38">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:31', E'root', E'tag 1.1', E'2009-06-08 20:00:31', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('88.8');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should update when a tag is destroyed</span>
+      <div class="failure" id="failure_39">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:32', E'root', E'tag 1.1', E'2009-06-08 20:00:32', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('91.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should leave tag intact after themselves being destroyed</span>
+      <div class="failure" id="failure_40">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:32', E'root', E'tag 1.1', E'2009-06-08 20:00:32', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_9">Tag instance</dt>
+    <script type="text/javascript">makeRed('example_group_9');</script>
+    <script type="text/javascript">moveProgressBar('93.3');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should be able to give hierarchical title</span>
+      <div class="failure" id="failure_41">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:32', E'root', E'tag 1.1', E'2009-06-08 20:00:32', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_10">Tag model</dt>
+    <script type="text/javascript">makeRed('example_group_10');</script>
+    <script type="text/javascript">moveProgressBar('95.5');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_42">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:32', E'root', E'tag 1.1', E'2009-06-08 20:00:32', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('97.7');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_43">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:32', E'root', E'tag 1.1', E'2009-06-08 20:00:32', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should  false</span>
+      <div class="failure" id="failure_44">
+        <div class="message"><pre>PGError: ERROR:  column &quot;parent&quot; of relation &quot;tags&quot; does not exist
+LINE 1: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;tit...
+                                                      ^
+: INSERT INTO &quot;tags&quot; (&quot;position&quot;, &quot;created_at&quot;, &quot;parent&quot;, &quot;title&quot;, &quot;updated_at&quot;, &quot;id&quot;, &quot;description&quot;) VALUES (1, E'2009-06-08 20:00:32', E'root', E'tag 1.1', E'2009-06-08 20:00:32', 1014408319, E'second level, first tag.')</pre></div>
+        <div class="backtrace"><pre></pre></div>
+    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.973568 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "45 examples, 44 failures, 1 pending";</script>
+</div>
+</div>
+</body>
+</html>
