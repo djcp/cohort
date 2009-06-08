@@ -36,6 +36,10 @@ Rails::Initializer.run do |config|
   config.gem 'calendar_date_select'
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
 
+  config.gem "rspec",            :lib => false
+  config.gem "rspec-rails",      :lib => false
+  config.gem "remarkable_rails", :lib => false
+
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
