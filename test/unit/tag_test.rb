@@ -1,47 +1,52 @@
 require 'test_helper'
 
 class TagTest < ActiveSupport::TestCase
+  context "Tags" do
+    should_have_many :taggings
+    should_have_many :contacts
+    
+    setup do
+      @tag = get_a_tag
+    end
 
-  test "tag acts as list" do
-    t = get_a_tag
-    assert_respond_to t, :move_higher
+    should "act as list" do
+      assert_respond_to @tag, :move_higher
+    end
+
+    should "act as tree" do
+      assert_respond_to @tag, :children
+    end
+    
+    context "with contacts" do
+      setup do
+        @contact = get_a_contact
+      end
+      should "be able to have a contact" do
+        assert @contact.tags.count == 0
+        @contact.tags = [@tag]
+        assert @contact.save
+        assert @contact.tags.count == 1
+      end
+
+      should "be able to delete tag" do
+        @contact.tags = [@tag]
+        @contact.save
+        assert @contact.tags.length == 1
+        assert @tag.destroy
+        @contact.reload
+        assert @contact.tags.length == 0
+      end
+
+      should "can delete a contact with a tag" do
+        @contact.tags = [@tag]
+        @contact.save
+        @contact.reload
+        assert @contact.destroy
+      end
+    end
   end
-
-  test "tag acts as tree" do
-    t = get_a_tag
-    assert_respond_to t, :children
-  end
-
-  test "tag can have a contact" do
-    c = get_a_contact
-    t = get_a_tag
-    assert c.tags.length == 0
-    c.tags = [t]
-    assert c.save
-    assert c.tags.length == 1
-  end
-
-  test "can delete tag" do
-    c = get_a_contact
-    t = get_a_tag
-    c.tags = [t]
-    c.save
-    assert c.tags.length == 1
-    assert t.destroy
-    c.reload
-    assert c.tags.length == 0
-  end
-
-  test "can delete a contact with a tag" do
-    c = get_a_contact
-    t = get_a_tag
-    c.tags = [t]
-    c.save
-    c.reload
-    assert c.destroy
-  end
-
-  test "can reorder tags" do
+  
+  should "can reorder tags" do
     t = Tag.find 5
     assert t.position == 1
     assert t.move_lower
@@ -49,12 +54,12 @@ class TagTest < ActiveSupport::TestCase
     assert t.position == 2
   end
 
-  test "tag has children" do
+  should "tag has children" do
     t = Tag.find 4
     assert t.children.length == 2
   end
 
-  test "can reassign parent" do
+  should "can reassign parent" do
     t = Tag.find 5
     tparent = Tag.find 1
     t.parent = tparent
@@ -64,7 +69,7 @@ class TagTest < ActiveSupport::TestCase
     assert tparent.children.find(t)
   end
 
-  test "can orphan tag" do
+  should "can orphan tag" do
     t = Tag.find 5
     t.parent = nil
     assert t.save
@@ -72,7 +77,7 @@ class TagTest < ActiveSupport::TestCase
     assert t.parent == nil
   end
 
-  test "can mass reassign children" do
+  should "can mass reassign children" do
     t = Tag.find 4
     children = t.children
     tccount = children.length
@@ -83,5 +88,5 @@ class TagTest < ActiveSupport::TestCase
     t2.reload
     assert (t2.children.length == tccount + t2ccount)
   end
-
+    
 end

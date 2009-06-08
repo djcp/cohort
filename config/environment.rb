@@ -34,6 +34,7 @@ Rails::Initializer.run do |config|
   config.gem 'ferret'
   config.gem 'fastercsv'
   config.gem 'calendar_date_select'
+  config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

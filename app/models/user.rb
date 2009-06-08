@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   protected
   def self.authenticate(username,password)
-    if COHORT_AUTH_CLASS.authenticate(username,password)
+    if CohortAuthDummy.authenticate(username,password)
       # We've auth'd. Autocreate the user if they don't exist.
       u = self.find_by_username(username)
       if u.blank?

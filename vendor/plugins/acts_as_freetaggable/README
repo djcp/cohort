@@ -1,0 +1,20 @@
+ActsAsFreetaggable
+==================
+
+Introduction goes here.
+
+
+Example
+=======
+
+Example goes here.
+
+Testing
+=====
+
+`rake freetaggable:specs` from RAILS_ROOT should work. At the moment
+there is a bug where after a few successful test runs something mucks
+up the inclusion of has_many_polymorphs and the tests won't run until
+you reinstall the plugin
+
+Copyright (c) 2009 Ryan Neufeld, released under the MIT license

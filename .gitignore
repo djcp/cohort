@@ -4,3 +4,6 @@ db/schema.rb
 config/database.yml
 .rake_tasks
 index/
+.DS_Store
+tmp
+*~
