@@ -7,7 +7,7 @@
     <%= f.text_area :description, :size => '40x4' %>
     </p>
     <p class="field"><label for="tag_parent_id">Parent tag:</label>
-    <%= f.select :parent_id, Tag.select_options,{},:disabled => !@tag.removable %>
+    <%= f.select :parent_id, Tag.parent_select_options,{},:disabled => !@tag.removable %>
     </p>
     <%= submit_tag @tag.new_record? ? "Add Tag" : "Edit Tag" %>
   <% end %>

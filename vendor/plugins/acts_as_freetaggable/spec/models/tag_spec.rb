@@ -1,12 +1,11 @@
 require File.join(File.dirname(__FILE__), "/../spec_helper")
 
-if defined?(Comment) and defined?(Contact)
-  class Tag
-    has_many_polymorphs :freetaggables, :from => [:contacts], :through => :taggings
-    # # has_many polymorphs DOES work with seperate listings
-    has_many_polymorphs :freetaggables, :from => [:comments], :through => :taggings
-  end
+class Tag
+  has_many_polymorphs :freetaggables, :from => [:contacts], :through => :taggings
+  # # has_many polymorphs DOES work with seperate listings
+  has_many_polymorphs :freetaggables, :from => [:comments], :through => :taggings
 end
+
 describe Tag do
   fixtures :tags
 

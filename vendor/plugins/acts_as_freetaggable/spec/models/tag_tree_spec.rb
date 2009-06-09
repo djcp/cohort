@@ -40,6 +40,7 @@ describe Tag do
     it "node 'tag_two_one' has 2 ancestors" do
       @tag_two_one.ancestors.count.should be 2
     end
+
   end
 
   context "tree node" do
@@ -78,6 +79,16 @@ describe Tag do
     it "should not allow destruction if unremovable" do
       @tag.removable = false
       @tag.destroy.should be false
+    end
+    
+    it { should respond_to :depth }
+    it "should know its depth" do
+      @root = Tag.create(:title => "root", :description => "Root")
+      @child = Tag.create(:title => "child", :description => "Root")
+      @root.children << @child
+      [@root,@child].each(&:save).each(&:reload)
+      @root.depth.should be 0
+      @child.depth.should be 1
     end
   end
 end

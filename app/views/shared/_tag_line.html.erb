@@ -1,4 +1,4 @@
-<span class="tag-edit-control"><% unless tag_line.immutable %>
+<span class="tag-edit-control"><% if tag_line.removable %>
 <%= link_to(icon(:cross), {:action => :destroy, :id => tag_line}, {:method => :post, :confirm => 'Are you sure? Deleting this tag will remove *all* traces of it.', :title => "Delete this tag permanently."}) -%>
 <% else %>
 <%= image_tag 'transparent-icon.png' %>

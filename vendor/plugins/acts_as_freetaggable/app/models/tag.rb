@@ -43,16 +43,31 @@ class Tag < ActiveRecord::Base
     end
   end
 
+  def depth
+    self.ancestors_count
+  end
+  
+  # Not quite efficient yet, just does the job
+  def self.parent_select_options
+    options = [['-- No Parent --', nil]]
+    Tag.recurse_for_parent_select_options(Tag.roots,options)
+    return options
+  end
+  
   private
 
+  def self.recurse_for_parent_select_options(nodes,options)
+    nodes.each do |node|
+      prefix = node.depth > 0 ? ' -' * node.depth + ' ' : ''
+      options << [ prefix + node.title, node.id]
+      Tag.recurse_for_parent_select_options(node.children,options)
+    end
+  end
 end
+
 #
 # class Tag < ActiveRecord::Base
-#   include CohortArInstanceMixin
-#   extend CohortArClassMixin
-#   # Many validations are handled by the redhill schema_validations plugin.
-#   has_many :log_items, :as => :item, :dependent => :destroy
-#
+
 #   def self.create_auto_tag(reason = 'Import')
 #     Tag.create(:tag => "Autotag: #{reason} - #{Time.now.to_s(:long)}", :parent => self.get_autotag_root_tag)
 #   end
