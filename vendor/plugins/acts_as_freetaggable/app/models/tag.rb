@@ -90,15 +90,4 @@ end
 #   def self.get_autotag_root_tag
 #     self.find(:first, :conditions => ['tag = ? and parent_id =?','Autotags',self.get_special_root_tag.id])
 #   end
-#
-#   def name_for_display
-#     self.hierarchical_title
-#   end
-#
-#   def self.select_options
-#      #YAGNI?
-#   end
-#
-#   def self.recurse_for_select_options(tree,parent_id,depth,options)
-#      #YAGNI?
-#   end
+

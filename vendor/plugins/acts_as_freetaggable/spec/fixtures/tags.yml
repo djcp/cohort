@@ -1,0 +1,47 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# Tree layout
+#===============
+#
+# - root
+#     \---tag_tag_one
+#      \--tag_two
+#           \--tag_two_one
+#
+# - root2
+#     \---tag_three
+#
+
+root:
+  title: Root
+  position: 1
+  description: A root tag
+
+tag_one:
+  title: tag 1.1
+  position: 1
+  description: second level, first tag.
+  parent: root
+
+tag_two:
+  title: tag 1.2
+  position: 2
+  description: second level, second tag.
+  parent: root
+  
+tag_two_one:
+  title: tag 1.2.1
+  position: 1
+  description: third level, third tag.
+  parent: tag_two
+
+root2:
+  title: Another Root
+  position: 2
+  description: Another root tag
+
+tag_three:
+  title: tag 2.1
+  position: 1
+  description: second level, first tag.
+  parent: root2

@@ -12,7 +12,6 @@ describe "Tag Model" do
       first.children << second
       [root,first,second].each(&:save)
       @parents = Tag.parent_select_options
-      puts "asdfalsdfjl;asdjfl;asjdf;ljs"
     end
     it { Tag.should respond_to :parent_select_options }
     it "should have a no-parent root tag as the first option" do
