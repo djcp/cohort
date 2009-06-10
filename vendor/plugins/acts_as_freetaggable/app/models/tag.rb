@@ -47,6 +47,13 @@ class Tag < ActiveRecord::Base
     self.ancestors_count
   end
   
+  def first?
+    self.position == 1
+  end
+  
+  def last?
+    self.position > (self.siblings.map(&:position).max || 0)
+  end
   # Not quite efficient yet, just does the job
   def self.parent_select_options
     options = [['-- No Parent --', nil]]

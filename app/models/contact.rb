@@ -29,7 +29,7 @@ class Contact < ActiveRecord::Base
   end
 
   def my_tags
-    self.tags.collect{|t| t.tag}.join(' ')
+    self.tags.collect{|t| t.title}.join(' ')
   end
 
   def my_notes
