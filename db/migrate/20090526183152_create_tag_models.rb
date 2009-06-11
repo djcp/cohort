@@ -9,13 +9,14 @@ class CreateTagModels < ActiveRecord::Migration
 
       t.string :title
       t.string :description
+      t.string :tag_path
       t.boolean :removable, :default => true
 
       t.timestamps
     end
 
     create_table :taggings do |t|
-      t.references :freetaggable, :polymorphic => true
+      t.references :freetaggable, :polymorphic => true, :references => nil
       t.references :tag
       t.timestamps
     end

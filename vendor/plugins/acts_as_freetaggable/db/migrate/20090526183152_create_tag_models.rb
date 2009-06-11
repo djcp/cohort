@@ -9,6 +9,7 @@ class CreateTagModels < ActiveRecord::Migration
 
       t.string :title
       t.string :description
+      t.string :tag_path
       t.boolean :removable, :default => true
 
       t.timestamps

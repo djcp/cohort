@@ -19,7 +19,8 @@ class Tag < ActiveRecord::Base
   # has_many_polymorphs :freetaggables, :from => [:comments], :through => :taggings
 
   before_destroy :removable?
-
+  before_save :update_tag_path
+  
   def removable?
     self.removable
   end
@@ -65,6 +66,10 @@ class Tag < ActiveRecord::Base
 
   private
 
+  def update_tag_path
+    self.tag_path = hierarchical_title
+  end  
+    
   def self.recurse_for_parent_select_options(nodes,options)
     nodes.each do |node|
       prefix = node.depth > 0 ? ' -' * node.depth + ' ' : ''
