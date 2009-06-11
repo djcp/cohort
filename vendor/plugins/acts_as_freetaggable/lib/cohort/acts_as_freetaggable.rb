@@ -4,12 +4,18 @@ module Cohort
     def self.included(klass)
       klass.extend(ClassMethods)
     end
-  
+
     module ClassMethods
       def acts_as_freetaggable(options={})
+        debugger
         klass = self.to_s.pluralize.underscore.to_sym
+        puts klass
         Tag.class_eval do
           has_many_polymorphs :freetaggables, :from => [klass], :through => :taggings
+        end
+        self.class_eval do
+          has_many :taggings, :as => :freetaggable, :dependent => :destroy
+          has_many :tags, :through => :taggings
         end
       end
     end

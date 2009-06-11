@@ -38,8 +38,9 @@ module ApplicationHelper
   end
 
   def create_compact_object_widget(object_type, object, action)
+    debugger
     widget = "<div>"
-    indicator = "#{icon(object_type.to_sym)} #{object_type.pluralize} #{'(<span id="contact-' + object_type + '-count-'  + object.id.to_s + '">' + object.send(object_type.pluralize).length.to_s + '</span>)'}"
+    indicator = "#{icon(object_type.to_sym)} #{object_type.pluralize} #{'(<span id="contact-' + object_type + '-count-'  + object.id.to_s + '">' + object.send(object_type.pluralize).count.to_s + '</span>)'}"
     widget += link_to_function(indicator,"Modalbox.show('#{url_for(:controller => '/admin/contact', :action => action, :id => object.id, :context => 'modalbox')}',{title: '#{object_type.titleize.pluralize} for #{h object.name_for_display}', width: '800'})")
     widget += "</div>"
   end
@@ -56,14 +57,14 @@ module ApplicationHelper
   end
 
   def sanitized_url_params
-    url_params = params 
+    url_params = params
     url_params.delete('authenticity_token')
     url_params.delete('commit')
     url_params
   end
 
   def show_help_link(help_page = 'general', title = 'General Help')
-    link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/help', :action => help_page)}',{title: '#{title}', width: '800'})") 
+    link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/help', :action => help_page)}',{title: '#{title}', width: '800'})")
   end
 
 end

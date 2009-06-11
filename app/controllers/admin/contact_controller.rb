@@ -34,7 +34,7 @@ class Admin::ContactController < Admin::ModelAbstractController
     render :partial => 'shared/manage_tags', :layout => (request.xhr? ? false : true), :locals => {:contact_line => @object, :standalone => true}
   end
 
-  def edit 
+  def edit
     model = self.model
     @object = model.find_by_id(params[:id]) || model.new
 
@@ -57,7 +57,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
 
       @object.tag_ids = deduped_tags || []
-  
+
       @object.notes << new_notes
 
       if flash[:ceerror].blank? and @object.save
@@ -179,7 +179,7 @@ class Admin::ContactController < Admin::ModelAbstractController
     # Add the new addresses, with some error checking.
     # Ensure that only one address is a primary, across both the new and old addresses.
     # I suspect this will be much easier in rails 2.3 because of the :autosave association attribute.
-    # 
+    #
     new_email_is_primary = nil
 
     number_new_emails.each{|i|
@@ -192,7 +192,7 @@ class Admin::ContactController < Admin::ModelAbstractController
         }
         #logger.warn(new_email.inspect + "\n")
         ce = ContactEmail.new(new_email)
-        if ! ce.valid? 
+        if ! ce.valid?
           object.errors.add_to_base(ce.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>'))
           flash[:ceerror] = (flash[:ceerror].blank? ? '' : flash[:ceerror]) + ce.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>')
         else
@@ -241,6 +241,7 @@ class Admin::ContactController < Admin::ModelAbstractController
 
   # This will auto-vivify tags that we haven't seen yet.
   def parse_tag_list(param)
+    param[:tags_to_parse] ||= ''
     param[:tags_to_parse].split(',').each do |tag|
       matchval = tag.match(/\(id\:(\d+)\)$/)
       if matchval

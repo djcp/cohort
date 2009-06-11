@@ -1,4 +1,6 @@
 class Tag < ActiveRecord::Base
+  has_many :taggings, :dependent => :destroy
+
   validates_presence_of :title
   validates_length_of :title, :maximum => 200
   validates_length_of :description, :maximum => 1000
@@ -46,11 +48,11 @@ class Tag < ActiveRecord::Base
   def depth
     self.ancestors_count
   end
-  
+
   def first?
     self.position == 1
   end
-  
+
   def last?
     self.position > (self.siblings.map(&:position).max || 0)
   end
@@ -60,7 +62,7 @@ class Tag < ActiveRecord::Base
     Tag.recurse_for_parent_select_options(Tag.roots,options)
     return options
   end
-  
+
   private
 
   def self.recurse_for_parent_select_options(nodes,options)
