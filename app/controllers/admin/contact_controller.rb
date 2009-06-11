@@ -92,7 +92,7 @@ class Admin::ContactController < Admin::ModelAbstractController
 
       tags_to_search_for = []
       @included_tags_for_output.each do |tag|
-        tags_to_search_for << tag.get_all_children
+        tags_to_search_for << tag.descendants
       end
       final_tags_to_include = [tags_to_search_for,@included_tags_for_output].flatten.uniq.compact
       unless final_tags_to_include.blank?
@@ -108,7 +108,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       @excluded_tags_for_output = [existing_excluded_tags,exclude_tags].flatten.uniq.compact.collect{|tid| Tag.find(tid.to_i)} ||[]
       tags_to_exclude = []
       @excluded_tags_for_output.each do |tag|
-        tags_to_exclude << tag.get_all_children
+        tags_to_exclude << tag.descendants
       end
       final_tags_to_exclude = [@excluded_tags_for_output,tags_to_exclude].flatten.uniq.compact
       unless final_tags_to_exclude.blank?
