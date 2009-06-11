@@ -1,4 +1,4 @@
-log/
+log/*
 db/schema.rb
 .gitignore*
 config/database.yml
@@ -7,3 +7,4 @@ index/
 .DS_Store
 tmp
 *~
+*.log
