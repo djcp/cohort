@@ -5,11 +5,12 @@ namespace :freetaggable do
   task :install => [:symlink_plugins, :copy_migrations]
 
   desc "Symlink ActsAsFreetaggable's plugins to your vendor/plugins folder -- unless they already exist"
-  task :symlink_plugins => :environment do # this doesn't really _need_ environment but not sure how to get Rails.root otherwise
+  task :symlink_plugins do
+    require 'pathname'
     puts "Symlinking plugins to RAILS_ROOT/vendor/plugins..."
     Dir["#{File.dirname(__FILE__)}/../vendor/plugins/*"].each do |plugin_path|
       plugin = plugin_path.split('/').last
-      target = Rails.root + "vendor/plugins/#{plugin}"
+      target = Pathname.new("#{RAILS_ROOT}/vendor/plugins/#{plugin}")
       if target.exist?
         puts " #{plugin} already exists, skipping."
       else
