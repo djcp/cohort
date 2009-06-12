@@ -22,12 +22,12 @@ class Admin::ContactController < Admin::ModelAbstractController
     if request.post?
       new_tags = []
       current_tags = (params[:contact] ? params[:contact][:tag_ids] : [])
-      parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :vivify => true)
+      parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :autocreate => true)
       deduped_tags = [
         (new_tags and new_tags.collect{|t|t.to_i}),
         (current_tags and current_tags.collect{|t|t.to_i})
       ].flatten.uniq.compact
-      #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
+      logger.warn('Deduped Tags: ' + deduped_tags.inspect)
       @object.tag_ids = deduped_tags || []
       @object.save
     end
@@ -45,7 +45,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       current_tags = params[:contact][:tag_ids]
 
       new_tags = []
-      parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :vivify => true)
+      parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :autocreate => true)
       emails = deal_with_email @object
       new_notes = deal_with_notes @object
 
@@ -87,7 +87,7 @@ class Admin::ContactController < Admin::ModelAbstractController
     if params[:tags_to_include] or params[:included_tags]
       include_tags = []
       existing_included_tags = params[:included_tags]
-      parse_tag_list(:tags_to_parse => params[:tags_to_include] || '', :tag_list => include_tags, :vivify => false)
+      parse_tag_list(:tags_to_parse => params[:tags_to_include] || '', :tag_list => include_tags, :autocreate => false)
       @included_tags_for_output = [existing_included_tags,include_tags].flatten.uniq.compact.collect{|tid| Tag.find(tid.to_i)} ||[]
 
       tags_to_search_for = []
@@ -104,7 +104,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       exclude_tags = []
       @excluded_tags_for_output = []
       existing_excluded_tags = params[:excluded_tags]
-      parse_tag_list(:tags_to_parse => params[:tags_to_exclude], :tag_list => exclude_tags, :vivify => false)
+      parse_tag_list(:tags_to_parse => params[:tags_to_exclude], :tag_list => exclude_tags, :autocreate => false)
       @excluded_tags_for_output = [existing_excluded_tags,exclude_tags].flatten.uniq.compact.collect{|tid| Tag.find(tid.to_i)} ||[]
       tags_to_exclude = []
       @excluded_tags_for_output.each do |tag|
@@ -239,17 +239,17 @@ class Admin::ContactController < Admin::ModelAbstractController
 
   end
 
-  # This will auto-vivify tags that we haven't seen yet.
+  # This will auto-create tags that we haven't seen yet.
   def parse_tag_list(param)
     param[:tags_to_parse] ||= ''
     param[:tags_to_parse].split(',').each do |tag|
       matchval = tag.match(/\(id\:(\d+)\)$/)
       if matchval
         param[:tag_list] << matchval[1].to_i
-      elsif param[:vivify] && param[:vivify] == true
+      elsif param[:autocreate] && param[:autocreate] == true
         begin
           unless tag.blank?
-            nt = Tag.create(:tag => tag, :parent => Tag.get_uncategorized_root_tag)
+            nt = Tag.create(:title => tag)
             param[:tag_list] << nt.id
           end
         rescue Exception => exc

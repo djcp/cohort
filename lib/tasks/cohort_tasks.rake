@@ -1,4 +1,5 @@
-# desc "Explaining what the task does"
+## desc "Explaining what the task does"
+#
 # task :fckeditor do
 #   # Task goes here
 # end
@@ -14,7 +15,7 @@ namespace :cohort do
     columns = Contact.columns.collect{|c| c.name}
     columns.delete('id')
 
-    import_tag = Tag.create_auto_tag
+#    import_tag = Tag.create(:title => 'Auto import')
     u = User.get_import_user
 
     FasterCSV.foreach("tmp/import.csv", {:headers => true,:header_converters => :symbol}) do |row|
@@ -35,7 +36,7 @@ namespace :cohort do
           c.contact_emails << ce
         end
       end
-      c.tags << import_tag
+#      c.tags << import_tag
       if c.valid?
         c.save
       else
