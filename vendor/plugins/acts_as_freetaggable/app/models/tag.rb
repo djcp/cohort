@@ -4,7 +4,7 @@ class Tag < ActiveRecord::Base
 
   validates_presence_of :title
   validates_length_of :title, :maximum => 200
-  validates_length_of :description, :maximum => 1000
+  validates_length_of :description, :maximum => 1000, :allow_blank => true
   # Where things have gone/moved to
   # #validate no longer needed due to acts_as_category
   # before_destroy :forbid... is now before_destroy :removable?
