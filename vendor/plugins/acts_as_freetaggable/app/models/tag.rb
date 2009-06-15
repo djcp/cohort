@@ -1,6 +1,5 @@
 class Tag < ActiveRecord::Base
   unloadable
-  has_many :taggings, :dependent => :destroy
 
   validates_presence_of :title
   validates_length_of :title, :maximum => 200
@@ -48,7 +47,7 @@ class Tag < ActiveRecord::Base
   end
 
   def depth
-    self.ancestors_count
+    self.ancestors.count
   end
 
   def first?
