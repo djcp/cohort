@@ -1,4 +1,5 @@
 class Tag < ActiveRecord::Base
+  unloadable
   has_many :taggings, :dependent => :destroy
 
   validates_presence_of :title
@@ -20,7 +21,7 @@ class Tag < ActiveRecord::Base
 
   before_destroy :removable?
   before_save :update_tag_path
-  
+
   def removable?
     self.removable
   end
@@ -68,8 +69,8 @@ class Tag < ActiveRecord::Base
 
   def update_tag_path
     self.tag_path = hierarchical_title
-  end  
-    
+  end
+
   def self.recurse_for_parent_select_options(nodes,options)
     nodes.each do |node|
       prefix = node.depth > 0 ? ' -' * node.depth + ' ' : ''
