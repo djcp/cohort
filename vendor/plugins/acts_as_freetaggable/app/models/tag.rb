@@ -18,7 +18,7 @@ class Tag < ActiveRecord::Base
   # # has_many polymorphs DOES work with seperate listings
   # has_many_polymorphs :freetaggables, :from => [:comments], :through => :taggings
 
-  before_destroy :removable?
+  before_destroy :removable?, :correct_sibling_position
   before_save :update_tag_path
 
   def removable?
@@ -75,6 +75,18 @@ class Tag < ActiveRecord::Base
       prefix = node.depth > 0 ? ' -' * node.depth + ' ' : ''
       options << [ prefix + node.title, node.id]
       Tag.recurse_for_parent_select_options(node.children,options)
+    end
+  end
+
+  def correct_sibling_position
+    if( not last? ) #i.e. there are tags above me in position
+      correctees = siblings.find_all do |sibling|
+        sibling.position > self.position
+      end
+      correctees.each do |sibling|
+        sibling.position -= 1
+        sibling.save
+      end
     end
   end
 end
