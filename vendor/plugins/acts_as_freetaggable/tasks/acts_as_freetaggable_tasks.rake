@@ -15,7 +15,9 @@ namespace :freetaggable do
         puts " #{plugin} already exists, skipping."
       else
         puts " Symlinked \n\t#{plugin_path}\n to\n\t#{target}"
-        target.make_symlink(plugin_path)
+        Dir.chdir("#{RAILS_ROOT}/vendor/plugins") do
+          File.symlink("acts_as_freetaggable/vendor/plugins/#{plugin}","#{plugin}")
+        end
       end
     end
   end
