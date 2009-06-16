@@ -140,18 +140,27 @@ table.notes-list{
   width: 95%;
 }
 
+tr.note td{
+  border-bottom: 1px dotted #cccccc;
+  padding-top: 15px;
+}
+
+tr.note div.meta{
+  color: #aaaaaa;
+}
+
 .saved-searches{
   border-color: #8D0003;
 }
 
 .shown{
   padding: 3px 3px 3px 20px;
-  background: url('../icons/arrow_down.png') left center no-repeat; 
+  background: url('../images/twisty_down.png') left center no-repeat; 
 }
 
 .hidden{
   padding: 3px 3px 3px 20px;
-	background: url('../icons/arrow_right.png') left center no-repeat; 
+	background: url('../images/twisty_right.png') left center no-repeat; 
 }
 
 h3 {
@@ -203,6 +212,17 @@ h3 {
   height: 23em;
   float: left;
   margin-right: 10px;
+}
+
+.contact-details div.list{
+  width: 48%;
+  float: left;
+  margin-left: 10px;
+}
+
+.contact-details div.list .list-content{
+  height: 15em;
+  overflow: auto;
 }
 
 .dashboard-list ul{
