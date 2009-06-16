@@ -18,7 +18,7 @@ class Admin::BulkActionController < Admin::BaseController
   def bulk_tag_remove
     if request.post?
     tags = []
-      parse_bulk_tag_list(:tags => params[:bulk_remove_tags], :tag_list => tags, :vivify => false)
+      parse_bulk_tag_list(:tags => params[:bulk_remove_tags], :tag_list => tags, :autocreate => false)
       contact_ids = params[:contact_ids]
       contact_ids.each do |cid|
         c = Contact.find_by_id cid
@@ -56,7 +56,7 @@ class Admin::BulkActionController < Admin::BaseController
   def bulk_tag
     if request.post?
       new_tags = []
-      parse_bulk_tag_list(:tags => params[:bulk_apply_tags], :tag_list => new_tags, :vivify => true)
+      parse_bulk_tag_list(:tags => params[:bulk_apply_tags], :tag_list => new_tags, :autocreate => true)
       contact_ids = params[:contact_ids]
       contact_ids.each do |cid|
         c = Contact.find_by_id cid
@@ -80,10 +80,10 @@ class Admin::BulkActionController < Admin::BaseController
       matchval = tag.match(/\(id\:(\d+)\)$/)
       if matchval
         param[:tag_list] << matchval[1].to_i
-      elsif param[:vivify] && param[:vivify] == true
+      elsif param[:autocreate] && param[:autocreate] == true
         begin
           unless tag.blank?
-            nt = Tag.create(:tag => tag, :parent => Tag.get_uncategorized_root_tag)
+            nt = Tag.create(:title => tag)
             param[:tag_list] << nt.id
           end
         rescue Exception => exc
