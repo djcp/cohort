@@ -1,15 +1,5 @@
 <%= render :partial => '/shared/form_header' %>
 <% form_for :contact do|f| %>
-
-  <% unless @contact.new_record? %>
-    <div class="contact-details">
-      <div class="notes-tags">
-        <%= create_compact_object_widget('note',@contact,:manage_notes) %>
-        <%= create_compact_object_widget('tag',@contact,:manage_tags) %>
-      </div>
-    </div>
-  <% end %>
-
   <h2 id="flyout-contact-personal-info" class="toggle shown">Personal Info</h2>
   <div id="flyout-contact-personal-info-actions" class="toggle-target defaultopen">
     <% %W|first_name last_name title organization|.each do|field| %>

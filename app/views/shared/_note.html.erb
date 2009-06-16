@@ -1,23 +1,20 @@
 <tr class="note" id="note-<%= note.id %>">
-  <td>
+  <td valign="top">
     <%= link_to_remote(icon(:cross), {:complete => "$('contact-note-count-#{note.contact.id}').update(parseInt($('contact-note-count-#{note.contact.id}').innerHTML) - 1);Modalbox.resizeToContent()", :update => "existing-notes-#{note.contact.id}", :url => {:controller => 'admin/note', :action => :destroy, :id => note}, :method => :post, :confirm => 'Are you sure?'}) -%>
   </td>
-  <td>
-    <%= RedCloth.new(note.note).to_html %>
+  <td valign="top">
+    <%= h note.note %>
+    <div class="meta"><%= note.created_at_for_display %> by <%= note.user.username %></div>
   </td>
-  <td>
+  <td valign="top">
     <% unless note.priority.blank? %>
       <%= note.priority %>
     <% end %>
   </td>
-  <td>
+  <td valign="top">
     <% unless note.follow_up.blank? %>
       <%= note.follow_up_for_display %>
     <% end %>
-  </td>
-  <td>
-    <strong>Added at:</strong> <%= note.created_at_for_display %><br />
-    <strong>By:</strong> <%= note.user.username %></strong>
   </td>
 </tr>
 <% if new_object_id == note.id %>

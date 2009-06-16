@@ -1,35 +1,64 @@
 <div class="contact-details">
 
-<h1><%= @contact.name_for_display %> <span style="font-size: smaller;"><%= link_to('edit', :controller => "/admin/contact", :action => :edit, :id => @contact) %></h1>
-<dl>
-  <% unless @contact.contact_emails.blank? %>
-    <dt>Email (bold is primary):</dt>
-    <dd><strong><%= mail_to(@contact.get_primary_email.email) %>, <%= @contact.get_primary_email.email_type %></strong></dd>
-    <% unless @contact.get_non_primary_emails.blank? %>
-      <% @contact.get_non_primary_emails.each do|ce| %>
-        <dd><%= mail_to(ce.email) %>, <%= ce.email_type %></dd>
+  <h1><%= @contact.name_for_display %> <span style="font-size: smaller;"><%= link_to('edit', :controller => "/admin/contact", :action => :edit, :id => @contact) %></h1>
+    <dl>
+      <% unless @contact.contact_emails.blank? %>
+        <dt>Primary email:</dt>
+        <dd><strong><%= mail_to(@contact.get_primary_email.email) %>, <%= @contact.get_primary_email.email_type %></strong></dd>
       <% end %>
+      <% ['organization','title','phone'].each do |field| %>
+        <% unless @contact.send(field).blank? %>
+          <dt><%= field.titleize %>:</dt>
+          <dd><%= @contact.send(field) %></dd>
+        <% end %>
+      <% end %>
+    </dl>
+    <% unless @contact.tags.blank? %>
+      <p><strong>Tags:</strong>
+      <%= render :partial => 'shared/tag_display', :collection => @contact.tags %>
+      </p>
     <% end %>
-  <% end %>
-  <% ['organization','title','phone'].each do |field| %>
-    <% unless @contact.send(field).blank? %>
-      <dt><%= field.titleize %>:</dt>
-      <dd><%= @contact.send(field) %></dd>
-    <% end %>
-  <% end %>
-</dl>
-<% unless @contact.tags.blank? %>
-  <p><strong>Tags:</strong>
-    <%= render :partial => 'shared/tag_display', :collection => @contact.tags %>
-  </p>
-<% end %>
 
-<h2 id="flyout-note-list" class="toggle">Notes</h2>
-<div id="flyout-note-list-actions" class="toggle-target">
-  <%= render :partial => 'shared/manage_notes' %> 
-</div>
+    <h2 id="flyout-note-list" class="toggle shown">Notes</h2>
+    <div id="flyout-note-list-actions" class="toggle-target">
+      <%= render :partial => 'shared/note_list' %>
+    </div>
 
-<h2>Log</h2>
-<h2>Address info</h2>
-<h2>Contact Info</h2>
-</div>
+    <div class="list">
+      <h2 id="flyout-address" class="toggle shown">Address info</h2>
+      <div id="flyout-address-actions" class="toggle-target list-content">
+        <dl>
+          <dt>Address:</dt>
+          <dd>
+          <% ['street1','street2'].each do |column| %>
+            <% unless @contact.send(column).blank? %>
+              <%= h @contact.send(column) %><br />
+            <% end %>
+          <% end %>
+          <%= h @contact.city %>, <%= h @contact.state %> <%= h @contact.zip %> <%= h @contact.country.upcase %><br/>
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="list">
+      <h2 id="flyout-contact-info" class="toggle list shown">Contact Info</h2>
+      <div id="flyout-contact-info-actions" class="toggle-target list-content">
+        <dl>
+          <% ['personal_url','work_url'].each do |column| %>
+            <% unless @contact.send(column).blank? %>
+            <dt><%= column.titleize %>:</dt>
+            <dd><%= @contact.send(column) %></dd>
+          <% end %>
+        <% end %>
+        <% unless @contact.get_non_primary_emails.blank? %>
+          <dt>Other Email addresses:</dt>
+          <% @contact.get_non_primary_emails.each do|ce| %>
+            <dd><%= mail_to(ce.email) %>, <%= ce.email_type %></dd>
+          <% end %>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+
+  </div>

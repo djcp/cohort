@@ -1,4 +1,15 @@
 <%= render :partial => 'shared/search_form', :locals => {:update => 'contacts-update'} %>
+<%= render :partial => 'shared/manage_tags', :locals => {:contact_line => @contact, :standalone => true, :init_observer => true} %>
+
+<div id="note-details-<%= @contact.id %>" class="note-details">
+  <h3>Add Note:</h3>
+  <p class="field">
+  <div id="contact-notes-error" class="error"></div>
+  <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
+    <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => "existing-notes-#{@contact.id}", :failure_update => "contact-notes-error", :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
+  <% end %>
+  </p>
+</div>
 <div class="new-object">
   <%= link_to(icon(:add) + ' New contact', :controller => '/admin/contact', :action => :edit) %>
 </div>
