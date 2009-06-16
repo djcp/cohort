@@ -1,11 +1,12 @@
 <%= render :partial => 'shared/search_form', :locals => {:update => 'contacts-update'} %>
 <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => @contact, :standalone => true, :init_observer => true} %>
+
 <div id="note-details-<%= @contact.id %>" class="note-details">
-  <h3>Notes: <span id="contact-notes-count"><%= @contact.notes.count %></span></h3>
+  <h3>Add Note:</h3>
   <p class="field">
   <div id="contact-notes-error" class="error"></div>
   <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
-    <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => "contact-notes-count", :failure_update => "contact-notes-error", :size => '40x4', :update_counts_only => 1, :no_ajax => false}%>
+    <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => "existing-notes-#{@contact.id}", :failure_update => "contact-notes-error", :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
   <% end %>
   </p>
 </div>
