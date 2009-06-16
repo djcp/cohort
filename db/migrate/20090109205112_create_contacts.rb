@@ -3,17 +3,18 @@ class CreateContacts < ActiveRecord::Migration
 
     create_table :contacts do |t|
       t.column :first_name, :string, :limit => 100
+      t.column :middle_name, :string, :limit => 100
       t.column :last_name, :string, :limit => 100
-      t.column :organization, :string, :limit => 100
-      t.column :title, :string, :limit => 100
+      t.column :organization, :string, :limit => 250
+      t.column :title, :string, :limit => 250
       t.column :work_url, :string, :limit => 300
       t.column :personal_url, :string, :limit => 300
       t.column :street1, :string, :limit => 100
       t.column :street2, :string, :limit => 100
       t.column :city, :string, :limit => 100
-      t.column :state, :string, :limit => 2
-      t.column :zip, :string, :limit => 15
-      t.column :country, :string, :limit => 2
+      t.column :state, :string, :limit => 50
+      t.column :zip, :string, :limit => 30
+      t.column :country, :string, :limit => 100
       t.column :phone, :string, :limit => 25
       t.timestamps
     end
