@@ -4,7 +4,7 @@ describe "Tag Model" do
   context "#parent_select_options" do
     before(:all) do
       # A bit of setup, acts_as_category columns don't get filled in by fixtures
-      Tag.all.each(&:delete)
+      Tag.all.each(&:destroy)
       second = Tag.create(:title => "second", :description => "")
       first = Tag.create(:title => "first", :description => "")
       root = Tag.create(:title => "root", :description => "")

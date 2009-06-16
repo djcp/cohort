@@ -3,8 +3,9 @@ require File.join(File.dirname(__FILE__), "/../spec_helper")
 describe Tag do
   #Through all the stuff I did I found that ordering requires #reloads to truly work as expected. Without them orderings don't come through properly
   context "ordering" do
-    fixtures :tags
-
+    before(:all) do
+      @tags = construct_tree
+    end
     it "should order roots by position" do
       root_positions = Tag.roots.map(&:position)
       lambda { root_positions.sort }.should_not change(root_positions, :first)
@@ -42,10 +43,10 @@ describe Tag do
     it "shouldn't move a tag with no siblings" do
       tag_to_move = @root2.children.first
       @root2.children.count.should be 1
-      lambda { tag_to_move.move_up }.should_not change(tag_to_move, :position)
+      lambda { tag_to_move.move_up }.should_not change { tag_to_move.position }
     end
 
-    it { should respond_to :move_up }
+    it { @tag_one.should respond_to :move_up }
     context "#move_up" do
       it "should change position of non-top tag" do
         tag_to_move = @root.children.second
@@ -62,7 +63,7 @@ describe Tag do
       end
     end
 
-    it { should respond_to :move_down }
+    it { @tag_one.should respond_to :move_down }
     context "#move_down" do
       it "should change position of non-bottom tag when moved down" do
         tag_to_move = @root.children.first
@@ -92,6 +93,8 @@ describe Tag do
       @root.children.each_with_index do |child,i|
         child.id.should be expected_root_kids[i].id
       end
+      Tag.all.each(&:destroy)
+      construct_tree
     end
   end
 end

@@ -3,12 +3,14 @@ require File.join(File.dirname(__FILE__), "/../spec_helper")
 describe Tag do
   VALID_ATTRIBUTES = { :title => "title", :description => "description" }
   context "tree" do
-    fixtures :tags
-
+    after(:each) do
+      Tag.all.each(&:destroy)
+    end
     subject { Tag }
     specify { should respond_to :roots }
 
     it "should tidy up orphaned objects" do
+      construct_tree
       # Note #delete does _NOT_ trigger children deletion
       parent = Tag.create! VALID_ATTRIBUTES
       child_id = parent.children.create!(VALID_ATTRIBUTES).id
@@ -18,6 +20,7 @@ describe Tag do
       lambda { Tag.find grand_child_id }.should raise_error
     end
     it "should be capable of mass child reassignment" do
+      construct_tree
       root2_count = @root2.children.count
       root1_count = @root.children.count
       assert @root.children << @root2.children #don't put me in a lambda
@@ -25,22 +28,6 @@ describe Tag do
       @root.save; @root.reload
       @root.children.count.should be root1_count + root2_count
     end
-    it "node 'root' has 2 children" do
-      @root.children.count.should be 2
-    end
-    it "node 'root' has 3 descendants" do
-      @root.descendants.count.should be 3
-    end
-    it "node 'tag_one's parent is  node 'root'" do
-      @tag_one.parent.should == @root
-    end
-    it "node 'tag_one' has 1 sibling" do
-      @tag_one.siblings.count.should be 1
-    end
-    it "node 'tag_two_one' has 2 ancestors" do
-      @tag_two_one.ancestors.count.should be 2
-    end
-
   end
 
   context "tree node" do
@@ -80,7 +67,7 @@ describe Tag do
       @tag.removable = false
       @tag.destroy.should be false
     end
-    
+
     it { should respond_to :depth }
     it "should know its depth" do
       @root = Tag.create(:title => "root", :description => "Root")
@@ -92,3 +79,4 @@ describe Tag do
     end
   end
 end
+

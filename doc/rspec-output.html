@@ -181,276 +181,407 @@ a {
 <div class="results">
 <div class="example_group">
   <dl>
-  <dt id="example_group_1">Tag tree node</dt>
-    <script type="text/javascript">moveProgressBar('2.1');</script>
+  <dt id="example_group_1">Tag db triggers</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('example_group_1');</script>
+    <script type="text/javascript">moveProgressBar('2.4');</script>
+    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should still delete children when deleted (PENDING: db triggers need to get created)</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_2">Tag Model#parent_select_options</dt>
+    <script type="text/javascript">moveProgressBar('4.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should respond to #parent_select_options</span></dd>
+    <script type="text/javascript">moveProgressBar('7.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should have a no-parent root tag as the first option</span></dd>
+    <script type="text/javascript">moveProgressBar('9.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should have the 'root' tag in second</span></dd>
+    <script type="text/javascript">moveProgressBar('12.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should have the 'first' tag in third</span></dd>
+    <script type="text/javascript">moveProgressBar('14.6');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should have the 'second' tag in fourth</span></dd>
+  </dl>
+</div>
+<div class="example_group">
+  <dl>
+  <dt id="example_group_3">Tag tree node</dt>
+    <script type="text/javascript">moveProgressBar('17.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should respond to #children</span></dd>
-    <script type="text/javascript">moveProgressBar('4.3');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should respond to #descendants</span></dd>
-    <script type="text/javascript">moveProgressBar('6.5');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should respond to #parent</span></dd>
-    <script type="text/javascript">moveProgressBar('8.6');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should respond to #parent=</span></dd>
-    <script type="text/javascript">moveProgressBar('10.8');</script>
-    <dd class="spec passed"><span class="passed_spec_name">should respond to #ancestors</span></dd>
-    <script type="text/javascript">moveProgressBar('13.0');</script>
-    <dd class="spec passed"><span class="passed_spec_name">cannot be its own parent</span></dd>
-    <script type="text/javascript">moveProgressBar('15.2');</script>
-    <dd class="spec passed"><span class="passed_spec_name">can change parent</span></dd>
-    <script type="text/javascript">moveProgressBar('17.3');</script>
-    <dd class="spec passed"><span class="passed_spec_name">can leave its parent and become root</span></dd>
     <script type="text/javascript">moveProgressBar('19.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should respond to #descendants</span></dd>
+    <script type="text/javascript">moveProgressBar('21.9');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should respond to #parent</span></dd>
+    <script type="text/javascript">moveProgressBar('24.3');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should respond to #parent=</span></dd>
+    <script type="text/javascript">moveProgressBar('26.8');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should respond to #ancestors</span></dd>
+    <script type="text/javascript">moveProgressBar('29.2');</script>
+    <dd class="spec passed"><span class="passed_spec_name">cannot be its own parent</span></dd>
+    <script type="text/javascript">moveProgressBar('31.7');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can change parent</span></dd>
+    <script type="text/javascript">moveProgressBar('34.1');</script>
+    <dd class="spec passed"><span class="passed_spec_name">can leave its parent and become root</span></dd>
+    <script type="text/javascript">moveProgressBar('36.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">will be valid when #new'd and assigned own parent (but not yet saved)</span></dd>
-    <script type="text/javascript">moveProgressBar('21.7');</script>
+    <script type="text/javascript">moveProgressBar('39.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not allow destruction if unremovable</span></dd>
-    <script type="text/javascript">moveProgressBar('23.9');</script>
+    <script type="text/javascript">moveProgressBar('41.4');</script>
     <dd class="spec passed"><span class="passed_spec_name">should respond to #depth</span></dd>
-    <script type="text/javascript">moveProgressBar('26.0');</script>
+    <script type="text/javascript">moveProgressBar('43.9');</script>
     <dd class="spec passed"><span class="passed_spec_name">should know its depth</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_2">Tag tree</dt>
-    <script type="text/javascript">moveProgressBar('28.2');</script>
+  <dt id="example_group_4">Tag tree</dt>
+    <script type="text/javascript">moveProgressBar('46.3');</script>
     <dd class="spec passed"><span class="passed_spec_name">should respond to #roots</span></dd>
-    <script type="text/javascript">moveProgressBar('30.4');</script>
+    <script type="text/javascript">moveProgressBar('48.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">should tidy up orphaned objects</span></dd>
-    <script type="text/javascript">moveProgressBar('32.6');</script>
+    <script type="text/javascript">moveProgressBar('51.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">should be capable of mass child reassignment</span></dd>
-    <script type="text/javascript">moveProgressBar('34.7');</script>
-    <dd class="spec passed"><span class="passed_spec_name">node 'root' has 2 children</span></dd>
-    <script type="text/javascript">moveProgressBar('36.9');</script>
-    <dd class="spec passed"><span class="passed_spec_name">node 'root' has 3 descendants</span></dd>
-    <script type="text/javascript">moveProgressBar('39.1');</script>
-    <dd class="spec passed"><span class="passed_spec_name">node 'tag_one's parent is  node 'root'</span></dd>
-    <script type="text/javascript">moveProgressBar('41.3');</script>
-    <dd class="spec passed"><span class="passed_spec_name">node 'tag_one' has 1 sibling</span></dd>
-    <script type="text/javascript">moveProgressBar('43.4');</script>
-    <dd class="spec passed"><span class="passed_spec_name">node 'tag_two_one' has 2 ancestors</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_3">Tag validations</dt>
-    <script type="text/javascript">moveProgressBar('45.6');</script>
+  <dt id="example_group_5">Tag validations</dt>
+    <script type="text/javascript">moveProgressBar('53.6');</script>
     <dd class="spec passed"><span class="passed_spec_name">should require title to be set</span></dd>
-    <script type="text/javascript">moveProgressBar('47.8');</script>
+    <script type="text/javascript">moveProgressBar('56.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should ensure length of title is maximum 200 characters</span></dd>
     <script type="text/javascript">makeRed('rspec-header');</script>
-    <script type="text/javascript">makeRed('example_group_3');</script>
-    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <script type="text/javascript">makeRed('example_group_5');</script>
+    <script type="text/javascript">moveProgressBar('58.5');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should ensure length of description is maximum 1000 characters</span>
       <div class="failure" id="failure_1">
         <div class="message"><pre>Expected Tag to be valid when description length is 1000 characters</pre></div>
-        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_spec.rb:53:</pre></div>
-    <pre class="ruby"><code><span class="linenum">51</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="symbol">:description</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">hi</span><span class="punct">&quot;).</span><span class="ident">should</span> <span class="ident">validate_presence_of</span> <span class="symbol">:title</span> <span class="punct">}</span>
-<span class="linenum">52</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">hi</span><span class="punct">&quot;).</span><span class="ident">should</span> <span class="ident">validate_length_of</span> <span class="symbol">:title</span><span class="punct">,</span> <span class="symbol">:maximum</span> <span class="punct">=&gt;</span> <span class="number">200</span> <span class="punct">}</span>
-<span class="offending"><span class="linenum">53</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">hi</span><span class="punct">&quot;).</span><span class="ident">should</span> <span class="ident">validate_length_of</span> <span class="symbol">:description</span><span class="punct">,</span> <span class="symbol">:maximum</span> <span class="punct">=&gt;</span> <span class="number">1000</span> <span class="punct">}</span></span>
-<span class="linenum">54</span>  <span class="keyword">end</span></code></pre>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_spec.rb:56:</pre></div>
+    <pre class="ruby"><code><span class="linenum">54</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">new</span><span class="punct">.</span><span class="ident">should</span> <span class="ident">validate_presence_of</span> <span class="symbol">:title</span> <span class="punct">}</span>
+<span class="linenum">55</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">new</span><span class="punct">.</span><span class="ident">should</span> <span class="ident">validate_length_of</span> <span class="symbol">:title</span><span class="punct">,</span> <span class="symbol">:maximum</span> <span class="punct">=&gt;</span> <span class="number">200</span> <span class="punct">}</span>
+<span class="offending"><span class="linenum">56</span>    <span class="ident">it</span> <span class="punct">{</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">'</span><span class="string">hi</span><span class="punct">').</span><span class="ident">should</span> <span class="ident">validate_length_of</span> <span class="symbol">:description</span><span class="punct">,</span> <span class="symbol">:maximum</span> <span class="punct">=&gt;</span> <span class="number">1000</span> <span class="punct">}</span></span>
+<span class="linenum">57</span>  <span class="keyword">end</span></code></pre>
       </div>
     </dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_4">Tag instance</dt>
-    <script type="text/javascript">moveProgressBar('52.1');</script>
+  <dt id="example_group_6">Tag instance</dt>
+    <script type="text/javascript">moveProgressBar('60.9');</script>
     <dd class="spec passed"><span class="passed_spec_name">should be able to give hierarchical title</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_5">Tag model</dt>
-    <script type="text/javascript">moveProgressBar('54.3');</script>
+  <dt id="example_group_7">Tag model</dt>
+    <script type="text/javascript">moveProgressBar('63.4');</script>
     <dd class="spec passed"><span class="passed_spec_name">should have many taggings</span></dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_6">Tag Model#parent_select_options</dt>
-    <script type="text/javascript">makeRed('example_group_6');</script>
-    <script type="text/javascript">moveProgressBar('54.3');</script>
-    <dd class="spec failed">
-      <span class="failed_spec_name">before(:all)</span>
-      <div class="failure" id="failure_2">
-        <div class="message"><pre>PGError: ERROR:  update or delete on table &quot;tags&quot; violates foreign key constraint &quot;tags_parent_id_fkey&quot; on table &quot;tags&quot;
-DETAIL:  Key (id)=(291909616) is still referenced from table &quot;tags&quot;.
-: DELETE FROM &quot;tags&quot; WHERE (&quot;id&quot; IN (291909616)) </pre></div>
-        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_parents_select_option_spec.rb:7:in `each'
-/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_parents_select_option_spec.rb:7:</pre></div>
-    <pre class="ruby"><code><span class="linenum">5</span>    <span class="ident">before</span><span class="punct">(</span><span class="symbol">:all</span><span class="punct">)</span> <span class="keyword">do</span>
-<span class="linenum">6</span>      <span class="comment"># A bit of setup, acts_as_category columns don't get filled in by fixtures</span>
-<span class="offending"><span class="linenum">7</span>      <span class="constant">Tag</span><span class="punct">.</span><span class="ident">all</span><span class="punct">.</span><span class="ident">each</span><span class="punct">(&amp;</span><span class="symbol">:delete</span><span class="punct">)</span></span>
-<span class="linenum">8</span>      <span class="ident">second</span> <span class="punct">=</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">create</span><span class="punct">(</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">second</span><span class="punct">&quot;,</span> <span class="symbol">:description</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string"></span><span class="punct">&quot;)</span>
-<span class="linenum">9</span>      <span class="ident">first</span> <span class="punct">=</span> <span class="constant">Tag</span><span class="punct">.</span><span class="ident">create</span><span class="punct">(</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">first</span><span class="punct">&quot;,</span> <span class="symbol">:description</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string"></span><span class="punct">&quot;)</span></code></pre>
-      </div>
-    </dd>
-  </dl>
-</div>
-<div class="example_group">
-  <dl>
-  <dt id="example_group_7">Tag ordering#move_down</dt>
-    <script type="text/javascript">makeRed('example_group_7');</script>
-    <script type="text/javascript">moveProgressBar('56.5');</script>
+  <dt id="example_group_8">Tag ordering#move_down</dt>
+    <script type="text/javascript">makeRed('example_group_8');</script>
+    <script type="text/javascript">moveProgressBar('65.8');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should change position of non-bottom tag when moved down</span>
-      <div class="failure" id="failure_3">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      <div class="failure" id="failure_2">
+        <div class="message"><pre>You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.position</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:41:in `move_down'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:73:
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:73:</pre></div>
+    <pre class="ruby"><code><span class="linenum">39</span>
+<span class="linenum">40</span>  <span class="keyword">def </span><span class="method">move_down</span>
+<span class="offending"><span class="linenum">41</span>    <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">&lt;</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">last</span><span class="punct">.</span><span class="ident">position</span></span>
+<span class="linenum">42</span>      <span class="ident">tag_below</span> <span class="punct">=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">reject</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">tag</span><span class="punct">|</span> <span class="ident">tag</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">!=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">+</span> <span class="number">1</span><span class="punct">}[</span><span class="number">0</span><span class="punct">]</span>
+<span class="linenum">43</span>      <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="ident">tag_below</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">=</span> <span class="ident">tag_below</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span></code></pre>
       </div>
     </dd>
-    <script type="text/javascript">moveProgressBar('58.6');</script>
+    <script type="text/javascript">moveProgressBar('68.2');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should change position of displaced tag when non-bottom tag is moved down</span>
-      <div class="failure" id="failure_4">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      <div class="failure" id="failure_3">
+        <div class="message"><pre>You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.position</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:41:in `move_down'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:78:
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:78:</pre></div>
+    <pre class="ruby"><code><span class="linenum">39</span>
+<span class="linenum">40</span>  <span class="keyword">def </span><span class="method">move_down</span>
+<span class="offending"><span class="linenum">41</span>    <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">&lt;</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">last</span><span class="punct">.</span><span class="ident">position</span></span>
+<span class="linenum">42</span>      <span class="ident">tag_below</span> <span class="punct">=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">reject</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">tag</span><span class="punct">|</span> <span class="ident">tag</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">!=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">+</span> <span class="number">1</span><span class="punct">}[</span><span class="number">0</span><span class="punct">]</span>
+<span class="linenum">43</span>      <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="ident">tag_below</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">=</span> <span class="ident">tag_below</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span></code></pre>
       </div>
     </dd>
-    <script type="text/javascript">moveProgressBar('60.8');</script>
+    <script type="text/javascript">moveProgressBar('70.7');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should not move the top tag</span>
-      <div class="failure" id="failure_5">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      <div class="failure" id="failure_4">
+        <div class="message"><pre>Couldn't find Tag with ID=1044</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:207:in `permitted?'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:281:in `self_and_siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:274:in `siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:58:in `last?'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:82:in `correct_sibling_position'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:in `each'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:</pre></div>
+    <pre class="ruby"><code><span class="linenum">205</span>        <span class="comment"># Returns +true+ if category is visible/permitted, otherwise +false+.</span>
+<span class="linenum">206</span>        <span class="keyword">def </span><span class="method">permitted?</span>
+<span class="offending"><span class="linenum">207</span>          <span class="keyword">return</span> <span class="constant">false</span> <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">).</span><span class="ident">read_attribute</span><span class="punct">(</span><span class="ident">hidden_column</span><span class="punct">)</span> <span class="keyword">and</span> <span class="punct">!</span><span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">permissions</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">)</span>          </span>
+<span class="linenum">208</span>          <span class="ident">node</span> <span class="punct">=</span> <span class="constant">self</span>
+<span class="linenum">209</span>          <span class="keyword">while</span> <span class="ident">node</span><span class="punct">.</span><span class="ident">parent</span> <span class="keyword">do</span></code></pre>
       </div>
     </dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_8">Tag ordering#move_up</dt>
-    <script type="text/javascript">makeRed('example_group_8');</script>
-    <script type="text/javascript">moveProgressBar('63.0');</script>
+  <dt id="example_group_9">Tag ordering#move_up</dt>
+    <script type="text/javascript">makeRed('example_group_9');</script>
+    <script type="text/javascript">moveProgressBar('73.1');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should change position of non-top tag</span>
-      <div class="failure" id="failure_6">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      <div class="failure" id="failure_5">
+        <div class="message"><pre>You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.position</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:35:in `move_up'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:56:
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:56:</pre></div>
+    <pre class="ruby"><code><span class="linenum">33</span>    <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">&gt;</span> <span class="number">1</span> <span class="comment"># We can't move something up if its at the top!</span>
+<span class="linenum">34</span>      <span class="ident">tag_above</span> <span class="punct">=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">reject</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">tag</span><span class="punct">|</span> <span class="ident">tag</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">!=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">}[</span><span class="number">0</span><span class="punct">]</span>
+<span class="offending"><span class="linenum">35</span>      <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">=</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span></span>
+<span class="linenum">36</span>      <span class="punct">[</span><span class="constant">self</span><span class="punct">,</span><span class="ident">tag_above</span><span class="punct">].</span><span class="ident">each</span><span class="punct">(&amp;</span><span class="symbol">:save</span><span class="punct">)</span>
+<span class="linenum">37</span>    <span class="keyword">end</span></code></pre>
       </div>
     </dd>
-    <script type="text/javascript">moveProgressBar('65.2');</script>
+    <script type="text/javascript">moveProgressBar('75.6');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should change position of tag above</span>
-      <div class="failure" id="failure_7">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      <div class="failure" id="failure_6">
+        <div class="message"><pre>You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.position</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:35:in `move_up'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:61:
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:61:</pre></div>
+    <pre class="ruby"><code><span class="linenum">33</span>    <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">&gt;</span> <span class="number">1</span> <span class="comment"># We can't move something up if its at the top!</span>
+<span class="linenum">34</span>      <span class="ident">tag_above</span> <span class="punct">=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">reject</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">tag</span><span class="punct">|</span> <span class="ident">tag</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">!=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">}[</span><span class="number">0</span><span class="punct">]</span>
+<span class="offending"><span class="linenum">35</span>      <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">=</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span></span>
+<span class="linenum">36</span>      <span class="punct">[</span><span class="constant">self</span><span class="punct">,</span><span class="ident">tag_above</span><span class="punct">].</span><span class="ident">each</span><span class="punct">(&amp;</span><span class="symbol">:save</span><span class="punct">)</span>
+<span class="linenum">37</span>    <span class="keyword">end</span></code></pre>
       </div>
     </dd>
-    <script type="text/javascript">moveProgressBar('67.3');</script>
+    <script type="text/javascript">moveProgressBar('78.0');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should not move the top tag</span>
-      <div class="failure" id="failure_8">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      <div class="failure" id="failure_7">
+        <div class="message"><pre>You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.position</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:35:in `move_up'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:65:
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:65:</pre></div>
+    <pre class="ruby"><code><span class="linenum">33</span>    <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">&gt;</span> <span class="number">1</span> <span class="comment"># We can't move something up if its at the top!</span>
+<span class="linenum">34</span>      <span class="ident">tag_above</span> <span class="punct">=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">reject</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">tag</span><span class="punct">|</span> <span class="ident">tag</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">!=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">}[</span><span class="number">0</span><span class="punct">]</span>
+<span class="offending"><span class="linenum">35</span>      <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">=</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span></span>
+<span class="linenum">36</span>      <span class="punct">[</span><span class="constant">self</span><span class="punct">,</span><span class="ident">tag_above</span><span class="punct">].</span><span class="ident">each</span><span class="punct">(&amp;</span><span class="symbol">:save</span><span class="punct">)</span>
+<span class="linenum">37</span>    <span class="keyword">end</span></code></pre>
       </div>
     </dd>
   </dl>
 </div>
 <div class="example_group">
   <dl>
-  <dt id="example_group_9">Tag ordering</dt>
-    <script type="text/javascript">makeRed('example_group_9');</script>
-    <script type="text/javascript">moveProgressBar('69.5');</script>
-    <dd class="spec failed">
-      <span class="failed_spec_name">should order roots by position</span>
-      <div class="failure" id="failure_9">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
-      </div>
-    </dd>
-    <script type="text/javascript">moveProgressBar('71.7');</script>
-    <dd class="spec failed">
-      <span class="failed_spec_name">should order children by position</span>
-      <div class="failure" id="failure_10">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
-      </div>
-    </dd>
-    <script type="text/javascript">moveProgressBar('73.9');</script>
-    <dd class="spec failed">
-      <span class="failed_spec_name">should order siblings by position</span>
-      <div class="failure" id="failure_11">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
-      </div>
-    </dd>
-    <script type="text/javascript">moveProgressBar('76.0');</script>
-    <dd class="spec failed">
-      <span class="failed_spec_name">can reorder tags</span>
-      <div class="failure" id="failure_12">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
-      </div>
-    </dd>
-    <script type="text/javascript">moveProgressBar('78.2');</script>
-    <dd class="spec failed">
-      <span class="failed_spec_name">can reorder root tags</span>
-      <div class="failure" id="failure_13">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
-      </div>
-    </dd>
+  <dt id="example_group_10">Tag ordering</dt>
+    <script type="text/javascript">makeRed('example_group_10');</script>
     <script type="text/javascript">moveProgressBar('80.4');</script>
     <dd class="spec failed">
+      <span class="failed_spec_name">should order roots by position</span>
+      <div class="failure" id="failure_8">
+        <div class="message"><pre>Couldn't find Tag with ID=1068</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:207:in `permitted?'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:281:in `self_and_siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:274:in `siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:58:in `last?'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:82:in `correct_sibling_position'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:in `each'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:</pre></div>
+    <pre class="ruby"><code><span class="linenum">205</span>        <span class="comment"># Returns +true+ if category is visible/permitted, otherwise +false+.</span>
+<span class="linenum">206</span>        <span class="keyword">def </span><span class="method">permitted?</span>
+<span class="offending"><span class="linenum">207</span>          <span class="keyword">return</span> <span class="constant">false</span> <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">).</span><span class="ident">read_attribute</span><span class="punct">(</span><span class="ident">hidden_column</span><span class="punct">)</span> <span class="keyword">and</span> <span class="punct">!</span><span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">permissions</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">)</span>          </span>
+<span class="linenum">208</span>          <span class="ident">node</span> <span class="punct">=</span> <span class="constant">self</span>
+<span class="linenum">209</span>          <span class="keyword">while</span> <span class="ident">node</span><span class="punct">.</span><span class="ident">parent</span> <span class="keyword">do</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('82.9');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should order children by position</span>
+      <div class="failure" id="failure_9">
+        <div class="message"><pre>Couldn't find Tag with ID=1074</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:207:in `permitted?'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:281:in `self_and_siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:274:in `siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:58:in `last?'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:82:in `correct_sibling_position'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:in `each'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:</pre></div>
+    <pre class="ruby"><code><span class="linenum">205</span>        <span class="comment"># Returns +true+ if category is visible/permitted, otherwise +false+.</span>
+<span class="linenum">206</span>        <span class="keyword">def </span><span class="method">permitted?</span>
+<span class="offending"><span class="linenum">207</span>          <span class="keyword">return</span> <span class="constant">false</span> <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">).</span><span class="ident">read_attribute</span><span class="punct">(</span><span class="ident">hidden_column</span><span class="punct">)</span> <span class="keyword">and</span> <span class="punct">!</span><span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">permissions</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">)</span>          </span>
+<span class="linenum">208</span>          <span class="ident">node</span> <span class="punct">=</span> <span class="constant">self</span>
+<span class="linenum">209</span>          <span class="keyword">while</span> <span class="ident">node</span><span class="punct">.</span><span class="ident">parent</span> <span class="keyword">do</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('85.3');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should order siblings by position</span>
+      <div class="failure" id="failure_10">
+        <div class="message"><pre>Couldn't find Tag without an ID</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:207:in `permitted?'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:in `each'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:</pre></div>
+    <pre class="ruby"><code><span class="linenum">205</span>        <span class="comment"># Returns +true+ if category is visible/permitted, otherwise +false+.</span>
+<span class="linenum">206</span>        <span class="keyword">def </span><span class="method">permitted?</span>
+<span class="offending"><span class="linenum">207</span>          <span class="keyword">return</span> <span class="constant">false</span> <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">).</span><span class="ident">read_attribute</span><span class="punct">(</span><span class="ident">hidden_column</span><span class="punct">)</span> <span class="keyword">and</span> <span class="punct">!</span><span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">permissions</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">)</span>          </span>
+<span class="linenum">208</span>          <span class="ident">node</span> <span class="punct">=</span> <span class="constant">self</span>
+<span class="linenum">209</span>          <span class="keyword">while</span> <span class="ident">node</span><span class="punct">.</span><span class="ident">parent</span> <span class="keyword">do</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('87.8');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">can reorder tags</span>
+      <div class="failure" id="failure_11">
+        <div class="message"><pre>You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.position</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:41:in `move_down'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:28:</pre></div>
+    <pre class="ruby"><code><span class="linenum">39</span>
+<span class="linenum">40</span>  <span class="keyword">def </span><span class="method">move_down</span>
+<span class="offending"><span class="linenum">41</span>    <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">&lt;</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">last</span><span class="punct">.</span><span class="ident">position</span></span>
+<span class="linenum">42</span>      <span class="ident">tag_below</span> <span class="punct">=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">reject</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">tag</span><span class="punct">|</span> <span class="ident">tag</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">!=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">+</span> <span class="number">1</span><span class="punct">}[</span><span class="number">0</span><span class="punct">]</span>
+<span class="linenum">43</span>      <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="ident">tag_below</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">=</span> <span class="ident">tag_below</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('90.2');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">can reorder root tags</span>
+      <div class="failure" id="failure_12">
+        <div class="message"><pre>Couldn't find Tag with ID=1092</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:207:in `permitted?'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:281:in `self_and_siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:274:in `siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:58:in `last?'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:82:in `correct_sibling_position'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:in `each'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:</pre></div>
+    <pre class="ruby"><code><span class="linenum">205</span>        <span class="comment"># Returns +true+ if category is visible/permitted, otherwise +false+.</span>
+<span class="linenum">206</span>        <span class="keyword">def </span><span class="method">permitted?</span>
+<span class="offending"><span class="linenum">207</span>          <span class="keyword">return</span> <span class="constant">false</span> <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">).</span><span class="ident">read_attribute</span><span class="punct">(</span><span class="ident">hidden_column</span><span class="punct">)</span> <span class="keyword">and</span> <span class="punct">!</span><span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">permissions</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">)</span>          </span>
+<span class="linenum">208</span>          <span class="ident">node</span> <span class="punct">=</span> <span class="constant">self</span>
+<span class="linenum">209</span>          <span class="keyword">while</span> <span class="ident">node</span><span class="punct">.</span><span class="ident">parent</span> <span class="keyword">do</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('92.6');</script>
+    <dd class="spec failed">
       <span class="failed_spec_name">shouldn't move a tag with no siblings</span>
+      <div class="failure" id="failure_13">
+        <div class="message"><pre>You have a nil object when you didn't expect it!
+The error occurred while evaluating nil.position</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:35:in `move_up'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:49:
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:49:</pre></div>
+    <pre class="ruby"><code><span class="linenum">33</span>    <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">&gt;</span> <span class="number">1</span> <span class="comment"># We can't move something up if its at the top!</span>
+<span class="linenum">34</span>      <span class="ident">tag_above</span> <span class="punct">=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">siblings</span><span class="punct">.</span><span class="ident">reject</span> <span class="punct">{</span> <span class="punct">|</span><span class="ident">tag</span><span class="punct">|</span> <span class="ident">tag</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">!=</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">}[</span><span class="number">0</span><span class="punct">]</span>
+<span class="offending"><span class="linenum">35</span>      <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span> <span class="punct">=</span> <span class="ident">tag_above</span><span class="punct">.</span><span class="ident">position</span><span class="punct">,</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">position</span></span>
+<span class="linenum">36</span>      <span class="punct">[</span><span class="constant">self</span><span class="punct">,</span><span class="ident">tag_above</span><span class="punct">].</span><span class="ident">each</span><span class="punct">(&amp;</span><span class="symbol">:save</span><span class="punct">)</span>
+<span class="linenum">37</span>    <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('95.1');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should respond to #move_up</span>
       <div class="failure" id="failure_14">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+        <div class="message"><pre>Couldn't find Tag with ID=1104</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:207:in `permitted?'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:281:in `self_and_siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:274:in `siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:58:in `last?'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:82:in `correct_sibling_position'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:in `each'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:</pre></div>
+    <pre class="ruby"><code><span class="linenum">205</span>        <span class="comment"># Returns +true+ if category is visible/permitted, otherwise +false+.</span>
+<span class="linenum">206</span>        <span class="keyword">def </span><span class="method">permitted?</span>
+<span class="offending"><span class="linenum">207</span>          <span class="keyword">return</span> <span class="constant">false</span> <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">).</span><span class="ident">read_attribute</span><span class="punct">(</span><span class="ident">hidden_column</span><span class="punct">)</span> <span class="keyword">and</span> <span class="punct">!</span><span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">permissions</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">)</span>          </span>
+<span class="linenum">208</span>          <span class="ident">node</span> <span class="punct">=</span> <span class="constant">self</span>
+<span class="linenum">209</span>          <span class="keyword">while</span> <span class="ident">node</span><span class="punct">.</span><span class="ident">parent</span> <span class="keyword">do</span></code></pre>
       </div>
     </dd>
-    <script type="text/javascript">moveProgressBar('82.6');</script>
+    <script type="text/javascript">moveProgressBar('97.5');</script>
     <dd class="spec failed">
-      <span class="failed_spec_name">should have many taggings</span>
+      <span class="failed_spec_name">should respond to #move_down</span>
       <div class="failure" id="failure_15">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+        <div class="message"><pre>Couldn't find Tag with ID=1110</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:207:in `permitted?'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+(eval):23:in `children'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:281:in `self_and_siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_category/lib/active_record/acts/category.rb:274:in `siblings'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:58:in `last?'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/app/models/tag.rb:82:in `correct_sibling_position'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:in `each'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:10:</pre></div>
+    <pre class="ruby"><code><span class="linenum">205</span>        <span class="comment"># Returns +true+ if category is visible/permitted, otherwise +false+.</span>
+<span class="linenum">206</span>        <span class="keyword">def </span><span class="method">permitted?</span>
+<span class="offending"><span class="linenum">207</span>          <span class="keyword">return</span> <span class="constant">false</span> <span class="keyword">if</span> <span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">).</span><span class="ident">read_attribute</span><span class="punct">(</span><span class="ident">hidden_column</span><span class="punct">)</span> <span class="keyword">and</span> <span class="punct">!</span><span class="constant">self</span><span class="punct">.</span><span class="ident">class</span><span class="punct">.</span><span class="ident">permissions</span><span class="punct">.</span><span class="ident">include?</span><span class="punct">(</span><span class="constant">self</span><span class="punct">.</span><span class="ident">id</span><span class="punct">)</span>          </span>
+<span class="linenum">208</span>          <span class="ident">node</span> <span class="punct">=</span> <span class="constant">self</span>
+<span class="linenum">209</span>          <span class="keyword">while</span> <span class="ident">node</span><span class="punct">.</span><span class="ident">parent</span> <span class="keyword">do</span></code></pre>
       </div>
     </dd>
-    <script type="text/javascript">moveProgressBar('84.7');</script>
-    <dd class="spec failed">
-      <span class="failed_spec_name">should have many taggings</span>
-      <div class="failure" id="failure_16">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
-      </div>
-    </dd>
-    <script type="text/javascript">moveProgressBar('86.9');</script>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should be maintained through a mass assignment</span>
-      <div class="failure" id="failure_17">
-        <div class="message"><pre>Couldn't find Tag with ID=1014408319</pre></div>
-        <div class="backtrace"><pre></pre></div>
-    <pre class="ruby"><code><span class="linenum">-1</span><span class="comment"># Couldn't get snippet for </span></code></pre>
+      <div class="failure" id="failure_16">
+        <div class="message"><pre>expected 1119, got 1116</pre></div>
+        <div class="backtrace"><pre>/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:97:
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/will_paginate/lib/will_paginate/finder.rb:167:in `method_missing'
+/Users/ryan/Development/gsoc/cohort/fork/vendor/plugins/acts_as_freetaggable/tasks/../spec/models/tag_ordering_spec.rb:96:</pre></div>
+    <pre class="ruby"><code><span class="linenum">95</span>      <span class="attribute">@root2</span><span class="punct">.</span><span class="ident">children</span><span class="punct">.</span><span class="ident">count</span><span class="punct">.</span><span class="ident">should</span> <span class="ident">be</span> <span class="number">0</span>
+<span class="linenum">96</span>      <span class="attribute">@root</span><span class="punct">.</span><span class="ident">children</span><span class="punct">.</span><span class="ident">each_with_index</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">child</span><span class="punct">,</span><span class="ident">i</span><span class="punct">|</span>
+<span class="offending"><span class="linenum">97</span>        <span class="ident">child</span><span class="punct">.</span><span class="ident">id</span><span class="punct">.</span><span class="ident">should</span> <span class="ident">be</span> <span class="ident">expected_root_kids</span><span class="punct">[</span><span class="ident">i</span><span class="punct">].</span><span class="ident">id</span></span>
+<span class="linenum">98</span>      <span class="keyword">end</span>
+<span class="linenum">99</span>      <span class="constant">Tag</span><span class="punct">.</span><span class="ident">all</span><span class="punct">.</span><span class="ident">each</span><span class="punct">(&amp;</span><span class="symbol">:destroy</span><span class="punct">)</span></code></pre>
       </div>
     </dd>
   </dl>
 </div>
-<div class="example_group">
-  <dl>
-  <dt id="example_group_10">Tag db triggers</dt>
-    <script type="text/javascript">makeYellow('example_group_10');</script>
-    <script type="text/javascript">moveProgressBar('89.1');</script>
-    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should still delete children when deleted (PENDING: db triggers need to get created)</span></dd>
-  </dl>
-</div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.789642 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "41 examples, 17 failures, 1 pending";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>11.481789 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "41 examples, 16 failures, 1 pending";</script>
 </div>
 </div>
 </body>
