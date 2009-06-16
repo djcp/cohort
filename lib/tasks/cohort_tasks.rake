@@ -15,7 +15,7 @@ namespace :cohort do
     columns = Contact.columns.collect{|c| c.name}
     columns.delete('id')
 
-#    import_tag = Tag.create(:title => 'Auto import')
+    import_tag = Tag.create(:title => 'Auto import')
     u = User.get_import_user
 
     FasterCSV.foreach("tmp/import.csv", {:headers => true,:header_converters => :symbol}) do |row|
@@ -36,8 +36,9 @@ namespace :cohort do
           c.contact_emails << ce
         end
       end
-#      c.tags << import_tag
       if c.valid?
+        c.save
+        c.tags << import_tag
         c.save
       else
         puts 'Invalid: ' + c.errors.full_messages.join(' ') 
