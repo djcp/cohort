@@ -9,8 +9,6 @@ if defined?(Comment) and defined?(Contact)
 end
 
 describe Tag do
-  fixtures :tags
-
   context "model" do
     specify { Tag.should have_many :taggings}
 
@@ -21,12 +19,13 @@ describe Tag do
       context "associated object" do
         before (:each) do
           @object = Contact.create
+          @root = Tag.create(:title => 'root')
           @object.tags << @root
         end
         subject { @object }
         it { should respond_to :tags }
         it "should be able to have tags" do
-          lambda { @object.tags << Tag.create(:title => "title", :description => "description") }.should change(@object.tags, :count).by(1)
+          lambda { @object.tags << Tag.create(:title => "title") }.should change(@object.tags, :count).by(1)
         end
         it "should update when a tag is destroyed" do
           @root.destroy
@@ -43,14 +42,18 @@ describe Tag do
 
   context "instance" do
     it "should be able to give hierarchical title" do
-      @tag_one.hierarchical_title.should == "Root -> tag 1.1"
+      root = Tag.create(:title => 'Root')
+      one = Tag.create(:title => 'tag 1.1')
+      root.children << one
+      one.reload
+      one.hierarchical_title.should == "Root -> tag 1.1"
     end
   end
 
   describe "validations" do
-    it { Tag.new(:description => "hi").should validate_presence_of :title }
-    it { Tag.new(:title => "hi").should validate_length_of :title, :maximum => 200 }
-    it { Tag.new(:title => "hi").should validate_length_of :description, :maximum => 1000 }
+    it { Tag.new.should validate_presence_of :title }
+    it { Tag.new.should validate_length_of :title, :maximum => 200 }
+    it { Tag.new(:title => 'hi').should validate_length_of :description, :maximum => 1000 }
   end
 
 
