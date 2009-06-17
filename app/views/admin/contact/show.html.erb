@@ -6,7 +6,7 @@
         <dt>Primary email:</dt>
         <dd><strong><%= mail_to(@contact.get_primary_email.email) %>, <%= @contact.get_primary_email.email_type %></strong></dd>
       <% end %>
-      <% ['organization','title','phone'].each do |field| %>
+      <% ['organization','title','work_phone','home_phone','mobile_phone','fax'].each do |field| %>
         <% unless @contact.send(field).blank? %>
           <dt><%= field.titleize %>:</dt>
           <dd><%= @contact.send(field) %></dd>

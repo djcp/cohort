@@ -22,12 +22,6 @@ class DoSpecialDbMagic < ActiveRecord::Migration
     %W|freetaggable_id freetaggable_type tag_id created_at updated_at|.each do |column|
       add_index :taggings, column
     end
-    special = Tag.create(:title => 'Special', :removable => false)
-    autotags = Tag.create(:title => 'Autotags', :removable => false, :parent => special)
-    never_email = Tag.create(:title => 'Never Email', :removable => false, :parent => special)
-    never_contact = Tag.create(:title => 'Never Contact', :removable => false, :parent => special)
-    never_phone = Tag.create(:title => 'Never Phone', :removable => false, :parent => special)
-    uncategorized = Tag.create(:title => 'Uncategorized', :removable => false)
   end
 
   def self.down

@@ -12,10 +12,10 @@ class CreateContacts < ActiveRecord::Migration
       t.column :personal_url, :string, :limit => 300
       t.column :other_url, :string, :limit => 300
 
-      t.column :work_phone, :string, :limit => 30
-      t.column :home_phone, :string, :limit => 30 
-      t.column :mobile_phone, :string, :limit => 25
-      t.column :fax, :string, :limit => 30
+      t.column :work_phone, :string, :limit => 50
+      t.column :home_phone, :string, :limit => 50 
+      t.column :mobile_phone, :string, :limit => 50
+      t.column :fax, :string, :limit => 50
 
       t.timestamps
     end
