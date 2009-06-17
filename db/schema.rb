@@ -11,6 +11,29 @@
 
 ActiveRecord::Schema.define(:version => 20090605202730) do
 
+  create_table "contact_addresses", :force => true do |t|
+    t.integer  "contact_id",                                     :null => false
+    t.string   "street1",      :limit => 100
+    t.string   "street2",      :limit => 100
+    t.string   "city",         :limit => 100
+    t.string   "state",        :limit => 50
+    t.string   "zip",          :limit => 30
+    t.string   "country",      :limit => 100
+    t.string   "address_type", :limit => 100
+    t.boolean  "is_primary",                  :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_addresses", ["address_type"], :name => "index_contact_addresses_on_address_type"
+  add_index "contact_addresses", ["city"], :name => "index_contact_addresses_on_city"
+  add_index "contact_addresses", ["country"], :name => "index_contact_addresses_on_country"
+  add_index "contact_addresses", ["is_primary"], :name => "index_contact_addresses_on_is_primary"
+  add_index "contact_addresses", ["state"], :name => "index_contact_addresses_on_state"
+  add_index "contact_addresses", ["street1"], :name => "index_contact_addresses_on_street1"
+  add_index "contact_addresses", ["street2"], :name => "index_contact_addresses_on_street2"
+  add_index "contact_addresses", ["zip"], :name => "index_contact_addresses_on_zip"
+
   create_table "contact_emails", :force => true do |t|
     t.integer  "contact_id",                                   :null => false
     t.string   "email",      :limit => 200,                    :null => false
@@ -27,31 +50,26 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
 
   create_table "contacts", :force => true do |t|
     t.string   "first_name",   :limit => 100
+    t.string   "middle_name",  :limit => 100
     t.string   "last_name",    :limit => 100
-    t.string   "organization", :limit => 100
-    t.string   "title",        :limit => 100
+    t.string   "organization", :limit => 250
+    t.string   "title",        :limit => 250
     t.string   "work_url",     :limit => 300
     t.string   "personal_url", :limit => 300
-    t.string   "street1",      :limit => 100
-    t.string   "street2",      :limit => 100
-    t.string   "city",         :limit => 100
-    t.string   "state",        :limit => 2
-    t.string   "zip",          :limit => 15
-    t.string   "country",      :limit => 2
-    t.string   "phone",        :limit => 25
+    t.string   "other_url",    :limit => 300
+    t.string   "work_phone",   :limit => 30
+    t.string   "home_phone",   :limit => 30
+    t.string   "mobile_phone", :limit => 25
+    t.string   "fax",          :limit => 30
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "contacts", ["city"], :name => "index_contacts_on_city"
-  add_index "contacts", ["country"], :name => "index_contacts_on_country"
   add_index "contacts", ["first_name"], :name => "index_contacts_on_first_name"
+  add_index "contacts", ["home_phone"], :name => "index_contacts_on_home_phone"
   add_index "contacts", ["last_name"], :name => "index_contacts_on_last_name"
-  add_index "contacts", ["phone"], :name => "index_contacts_on_phone"
-  add_index "contacts", ["state"], :name => "index_contacts_on_state"
-  add_index "contacts", ["street1"], :name => "index_contacts_on_street1"
-  add_index "contacts", ["street2"], :name => "index_contacts_on_street2"
-  add_index "contacts", ["zip"], :name => "index_contacts_on_zip"
+  add_index "contacts", ["mobile_phone"], :name => "index_contacts_on_mobile_phone"
+  add_index "contacts", ["work_phone"], :name => "index_contacts_on_work_phone"
 
   create_table "log_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -150,6 +168,8 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
   add_index "users", ["superadmin"], :name => "index_users_on_superadmin"
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
+  add_foreign_key "contact_addresses", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_addresses_contact_id_fkey"
+
   add_foreign_key "contact_emails", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_emails_contact_id_fkey"
 
   add_foreign_key "log_items", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "log_items_user_id_fkey"
@@ -164,5 +184,9 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
   add_foreign_key "taggings", ["tag_id"], "tags", ["id"], :name => "taggings_tag_id_fkey"
 
   add_foreign_key "tags", ["parent_id"], "tags", ["id"], :name => "tags_parent_id_fkey"
+
+  create_view "pg_buffercache", "SELECT p.bufferid, p.relfilenode, p.reltablespace, p.reldatabase, p.relblocknumber, p.isdirty, p.usagecount FROM pg_buffercache_pages() p(bufferid integer, relfilenode oid, reltablespace oid, reldatabase oid, relblocknumber bigint, isdirty boolean, usagecount smallint);"
+  create_view "pg_freespacemap_pages", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.relblocknumber, p.bytes FROM pg_freespacemap_pages() p(reltablespace oid, reldatabase oid, relfilenode oid, relblocknumber bigint, bytes integer);"
+  create_view "pg_freespacemap_relations", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.avgrequest, p.interestingpages, p.storedpages, p.nextpage FROM pg_freespacemap_relations() p(reltablespace oid, reldatabase oid, relfilenode oid, avgrequest integer, interestingpages integer, storedpages integer, nextpage integer);"
 
 end
