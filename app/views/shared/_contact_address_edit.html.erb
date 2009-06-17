@@ -1,0 +1,20 @@
+<tr id="<%= contact_address_edit.id %>" class="address-row">
+  <%= hidden_field_tag 'contact_address_ids[]', contact_address_edit.id %>
+  <td>
+    Address Type <select name="contact_address[<%= contact_address_edit.id %>][address_type]">
+    <%= options_for_select(ContactAddress.options_for_select,contact_address_edit.address_type) %>
+  </select><br/>
+    Address Line 1 <%= text_field_tag 'contact_address[' + contact_address_edit.id.to_s + '][street1]', contact_address_edit.street1 %><br />
+    Address Line 2 <%= text_field_tag 'contact_address[' + contact_address_edit.id.to_s + '][street2]', contact_address_edit.street2 %><br />
+    City <%= text_field_tag "contact_address[#{contact_address_edit.id}][city]", contact_address_edit.city %>
+    State <%= text_field_tag "contact_address[#{contact_address_edit.id}][state]", contact_address_edit.state %><br/>
+    Zip <%= text_field_tag "contact_address[#{contact_address_edit.id}][zip]", contact_address_edit.zip %>
+    Country <%= text_field_tag "contact_address[#{contact_address_edit.id}][country]", contact_address_edit.country %>
+  </td>
+  <td>
+    <%= radio_button_tag 'contact_address[is_primary]', contact_address_edit.id, contact_address_edit.is_primary %><label for="contact_address_is_primary_<%= contact_address_edit.id %>">primary address?</label>
+  </td>
+  <td>
+    <%= check_box_tag 'contact_address[' + contact_address_edit.id.to_s + '][delete]' %><label for="contact_address_<%= contact_address_edit.id %>_delete">delete?</label>
+  </td>
+</tr>

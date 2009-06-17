@@ -225,6 +225,10 @@ h3 {
   overflow: auto;
 }
 
+.address-row td{
+  padding-bottom: 15px;
+}
+
 .dashboard-list ul{
   clear: both;
   list-style-type: none;

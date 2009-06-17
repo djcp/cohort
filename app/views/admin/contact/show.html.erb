@@ -28,15 +28,18 @@
       <h2 id="flyout-address" class="toggle shown">Address info</h2>
       <div id="flyout-address-actions" class="toggle-target list-content">
         <dl>
-          <dt>Address:</dt>
-          <dd>
-          <% ['street1','street2'].each do |column| %>
-            <% unless @contact.send(column).blank? %>
-              <%= h @contact.send(column) %><br />
+          <% @contact.contact_addresses.find(:all, :order => 'is_primary desc').each do |ca| %>
+            <dt>Address <% if ca.is_primary %> &mdash; <strong>Primary</strong><% end %>:</dt>
+            <dd>
+            <% ['street1','street2'].each do |column| %>
+              <% unless ca.send(column).blank? %>
+                <%= h ca.send(column) %><br />
+              <% end %>
             <% end %>
+            <%= h ca.city %>, <%= h ca.state %> <%= h ca.zip %> <%= h ca.country.upcase %>
+            <p><strong>Address Type:</strong> <%= ContactAddress::ADDRESS_TYPES[ca.address_type] %></p>
+            </dd>
           <% end %>
-          <%= h @contact.city %>, <%= h @contact.state %> <%= h @contact.zip %> <%= h @contact.country.upcase %><br/>
-          </dd>
         </dl>
       </div>
     </div>

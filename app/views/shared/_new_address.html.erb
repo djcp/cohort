@@ -1,0 +1,16 @@
+<% new_address = new_address.to_s %>
+<tr id="address-row<%= new_address %>" class="address-row">
+  <%= hidden_field_tag 'new_addresses[]', new_address %>
+  <td>
+    Address Type <select name="new_address[<%= new_address %>][address_type]">
+      <%= options_for_select(ContactAddress.options_for_select, ((params[:new_address] and params[:new_address][new_address]) ? params[:new_address][new_address][:address_type] : '')) %>
+    </select><br/>
+    Address Line 1 <%= text_field_tag "new_address[#{new_address}][street1]", ((params[:new_address] and params[:new_address][new_address]) ? params[:new_address][new_address][:street1] : '' ) %><br />
+    Address Line 2 <%= text_field_tag "new_address[#{new_address}][street2]", ((params[:new_address] and params[:new_address][new_address]) ? params[:new_address][new_address][:street2] : '' ) %><br />
+    City <%= text_field_tag "new_address[#{new_address}][city]", ((params[:new_address] and params[:new_address][new_address]) ? params[:new_address][new_address][:city] : '' ) %>
+    State <%= text_field_tag "new_address[#{new_address}][state]", ((params[:new_address] and params[:new_address][new_address]) ? params[:new_address][new_address][:state] : '' ) %><br/>
+    Zip <%= text_field_tag "new_address[#{new_address}][zip]", ((params[:new_address] and params[:new_address][new_address]) ? params[:new_address][new_address][:zip] : '' ) %>
+    Country <%= text_field_tag "new_address[#{new_address}][country]", ((params[:new_address] and params[:new_address][new_address]) ? params[:new_address][new_address][:country] : '' ) %>
+  </td>
+  <td><%= radio_button_tag('new_address[is_primary]', new_address, ((params[:new_address] and params[:new_address][:is_primary] == new_address) ? true :false )) %><label for="new_address_is_primary_<%= new_address %>">primary address</label></td>
+</tr>

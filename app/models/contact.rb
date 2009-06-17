@@ -1,12 +1,13 @@
 class Contact < ActiveRecord::Base
   # Many validations are handled by the redhill schema_validations plugin.
-  acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_tag_ids, :my_emails, :my_notes], :remote => true)
+  acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_tag_ids, :my_emails, :my_notes, :my_addresses], :remote => true)
   acts_as_freetaggable
   include CohortArInstanceMixin
   extend CohortArClassMixin
   has_many :log_items, :as => :item, :dependent => :destroy
   has_many :notes, :order => 'position desc'
   has_many :contact_emails, :validate => true
+  has_many :contact_addresses, :validate => true
 
   def name_for_display
     dname = [self.first_name, self.last_name].flatten.join(' ')
@@ -41,6 +42,10 @@ class Contact < ActiveRecord::Base
 
   def my_emails
     self.contact_emails.collect{|e| e.email}.join(' ')
+  end
+
+  def my_addresses
+    self.contact_addresses.collect{|ca| "#{ca.street1} #{ca.street2} #{ca.city} #{ca.state} #{ca.zip} #{ca.country}"}.join(' ')
   end
 
 end

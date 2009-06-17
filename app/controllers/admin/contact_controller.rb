@@ -47,6 +47,7 @@ class Admin::ContactController < Admin::ModelAbstractController
       new_tags = []
       parse_tag_list(:tags_to_parse => params[:new_tags],:tag_list => new_tags, :autocreate => true)
       emails = deal_with_email @object
+      addresses = deal_with_addresses @object
       new_notes = deal_with_notes @object
 
       deduped_tags = [
@@ -60,19 +61,32 @@ class Admin::ContactController < Admin::ModelAbstractController
 
       @object.notes << new_notes
 
-      if flash[:ceerror].blank? and @object.save
+      if flash[:ceerror].blank? and flash[:caerror].blank? and @object.save
         unless emails.blank?
-          emails.each{|em|
+          emails.each do |em|
             unless @object.contact_emails.exists?(em)
               @object.contact_emails << em
             end
-          }
+          end
         end
+        unless addresses.blank?
+          addresses.each do |ca|
+            unless @object.contact_addresses.exists?(ca)
+              @object.contact_addresses << ca
+            end
+          end
+        end
+        @existing_addresses_to_destroy.each{|ca|ca.destroy}
+        @object.contact_addresses.each{|ca|
+          ca.save
+        }
         @existing_emails_to_destroy.each{|e|e.destroy}
         @object.contact_emails.each{|ce|
           ce.save
         }
         redirect_to :action => :index and return
+      else
+        logger.warn(@object.errors.inspect)
       end
     end
   end
@@ -236,7 +250,89 @@ class Admin::ContactController < Admin::ModelAbstractController
       end
     end
     return deduped_emails
+  end
 
+  def deal_with_addresses(object)
+    flash[:caerror] = nil
+    number_new_addresses = params[:new_addresses]
+    existing_addresses = params[:contact_address_ids]
+    new_addresses = []
+    existing_addresses = []
+    @existing_addresses_to_destroy = []
+    deduped_addresses = []
+
+    #so we need to:
+    # Delete existing addresses that've been checked as needing deletion
+    # Add the new addresses, with some error checking.
+    # Ensure that only one address is a primary, across both the new and old addresses.
+    # I suspect this will be much easier in rails 2.3 because of the :autosave association attribute.
+    #
+    new_address_is_primary = nil
+
+    number_new_addresses.each do |i|
+      unless params[:new_address][i][:street1].blank?
+        new_address = {
+          :address_type => params[:new_address][i][:address_type],
+          :street1 => params[:new_address][i][:street1],
+          :street2 => params[:new_address][i][:street2],
+          :city => params[:new_address][i][:city],
+          :state => params[:new_address][i][:state],
+          :zip => params[:new_address][i][:zip],
+          :country => params[:new_address][i][:country],
+          :is_primary => ((params[:new_address][:is_primary] == i) ? true : false),
+          :contact => object
+        }
+        logger.warn(new_address.inspect + "\n")
+        ca = ContactAddress.new(new_address)
+        if ! ca.valid?
+          object.errors.add_to_base(ca.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>'))
+          flash[:caerror] = (flash[:caerror].blank? ? '' : flash[:caerror]) + ca.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>')
+        else
+          if ca.is_primary
+            new_address_is_primary = true
+          end
+          deduped_addresses << ca
+        end
+      end
+    end
+
+    existing_address_is_primary = nil
+    object.contact_addresses.each do |ca|
+      if params[:contact_address][ca.id.to_s][:delete].to_i == 1
+        @existing_addresses_to_destroy << ca
+      else
+        ca.street1 = params[:contact_address][ca.id.to_s][:street1]
+        ca.street2 = params[:contact_address][ca.id.to_s][:street2]
+        ca.city = params[:contact_address][ca.id.to_s][:city]
+        ca.state = params[:contact_address][ca.id.to_s][:state]
+        ca.zip = params[:contact_address][ca.id.to_s][:zip]
+        ca.country = params[:contact_address][ca.id.to_s][:country]
+        ca.address_type = params[:contact_address][ca.id.to_s][:address_type]
+
+        if new_address_is_primary
+          ca.is_primary = false
+        else
+          ca.is_primary = ((params[:contact_address][:is_primary].to_i == ca.id) ? true : false)
+        end
+
+        if ! ca.valid?
+          object.errors.add_to_base(ca.errors.collect{|attribute,msg| "#{attribute}  #{msg}"}.join('<br/>'))
+          flash[:error] = (flash[:caerror].blank? ? '' : flash[:caerror]) + ca.errors.collect{|attribute,msg| "#{attribute} #{msg}"}.join('<br/>')
+        end
+        existing_addresses << ca
+      end
+    end
+    deduped_addresses << existing_addresses
+    deduped_addresses.flatten!
+
+    has_primary = false
+    deduped_addresses.collect{|ca| has_primary = ca.is_primary}
+    unless has_primary
+      unless deduped_addresses.blank?
+        deduped_addresses.first.is_primary = true
+      end
+    end
+    return deduped_addresses
   end
 
   # This will auto-create tags that we haven't seen yet.
