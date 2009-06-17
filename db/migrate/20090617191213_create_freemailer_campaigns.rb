@@ -4,7 +4,7 @@ class CreateFreemailerCampaigns < ActiveRecord::Migration
       t.text :subject
       t.string :title
       t.text :body_template
-      t.integer :sender_id
+      t.integer :sender_id, :references => :users
 
       t.timestamps
     end

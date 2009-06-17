@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090605202730) do
+ActiveRecord::Schema.define(:version => 20090617191423) do
 
   create_table "contact_addresses", :force => true do |t|
     t.integer  "contact_id",                                     :null => false
@@ -70,6 +70,23 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
   add_index "contacts", ["last_name"], :name => "index_contacts_on_last_name"
   add_index "contacts", ["mobile_phone"], :name => "index_contacts_on_mobile_phone"
   add_index "contacts", ["work_phone"], :name => "index_contacts_on_work_phone"
+
+  create_table "freemailer_campaign_contacts", :force => true do |t|
+    t.integer  "freemailer_campaign_id"
+    t.integer  "contact_id"
+    t.string   "delivery_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "freemailer_campaigns", :force => true do |t|
+    t.text     "subject"
+    t.string   "title"
+    t.text     "body_template"
+    t.integer  "sender_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "log_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -171,6 +188,11 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
   add_foreign_key "contact_addresses", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_addresses_contact_id_fkey"
 
   add_foreign_key "contact_emails", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_emails_contact_id_fkey"
+
+  add_foreign_key "freemailer_campaign_contacts", ["freemailer_campaign_id"], "freemailer_campaigns", ["id"], :name => "freemailer_campaign_contacts_freemailer_campaign_id_fkey"
+  add_foreign_key "freemailer_campaign_contacts", ["contact_id"], "contacts", ["id"], :name => "freemailer_campaign_contacts_contact_id_fkey"
+
+  add_foreign_key "freemailer_campaigns", ["sender_id"], "users", ["id"], :name => "freemailer_campaigns_sender_id_fkey"
 
   add_foreign_key "log_items", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "log_items_user_id_fkey"
 
