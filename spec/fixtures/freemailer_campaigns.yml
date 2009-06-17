@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  subject: MyText
+  title: MyString
+  body_template: MyText
+  sender_id: 1
+
+two:
+  subject: MyText
+  title: MyString
+  body_template: MyText
+  sender_id: 1

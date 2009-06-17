@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :freemailer_campaign_contacts
+
+  map.resources :freemailer_campaigns
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

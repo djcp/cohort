@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  freemailer_campaign_id: 1
+  contact_id: 1
+  delivery_status: MyString
+
+two:
+  freemailer_campaign_id: 1
+  contact_id: 1
+  delivery_status: MyString

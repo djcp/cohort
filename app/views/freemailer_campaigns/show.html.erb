@@ -1,0 +1,23 @@
+<p>
+  <b>Subject:</b>
+  <%=h @freemailer_campaign.subject %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @freemailer_campaign.title %>
+</p>
+
+<p>
+  <b>Body template:</b>
+  <%=h @freemailer_campaign.body_template %>
+</p>
+
+<p>
+  <b>Sender:</b>
+  <%=h @freemailer_campaign.sender_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_freemailer_campaign_path(@freemailer_campaign) %> |
+<%= link_to 'Back', freemailer_campaigns_path %>
