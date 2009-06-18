@@ -5,12 +5,17 @@ Tag.class_eval do
   extend CohortArClassMixin
   has_many :log_items, :as => :item, :dependent => :destroy
 
+  before_destroy :allow_delete_of_removable_objects
+  
   def move_higher
     self.move_up
   end
+
   def move_lower
     self.move_down
   end
+  
+
 end
 
 Tagging.class_eval do

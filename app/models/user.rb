@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :log_items, :as => :item
 
-  before_destroy :forbid_delete_of_immutable_objects
+  before_destroy :allow_delete_of_removable_objects
 
   def self.get_import_user
     self.find_by_username('importer')
