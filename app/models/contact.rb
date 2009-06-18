@@ -1,4 +1,6 @@
 class Contact < ActiveRecord::Base
+  has_many :freemailer_campaign_contacts
+  has_many :freemailer_campaigns, :through => :freemailer_campaign_contacts
   # Many validations are handled by the redhill schema_validations plugin.
   acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_tag_ids, :my_emails, :my_notes, :my_addresses], :remote => true)
   acts_as_freetaggable

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :freemailer_campaigns, :as => :sender
+
   include CohortArInstanceMixin
   # Many validations are handled by the redhill schema_validations plugin.
   has_many :notes
