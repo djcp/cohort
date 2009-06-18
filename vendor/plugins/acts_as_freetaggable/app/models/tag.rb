@@ -47,7 +47,7 @@ class Tag < ActiveRecord::Base
   end
 
   def depth
-    self.ancestors.count
+    self.ancestors.length
   end
 
   def first?
