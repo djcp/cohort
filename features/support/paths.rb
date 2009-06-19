@@ -7,10 +7,12 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
+
     when /the homepage/
       '/'
-    
+    when /the contact dashboard page/
+      '/admin/contact/dashboard'
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
