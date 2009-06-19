@@ -3,10 +3,10 @@
     <%= check_box_tag 'contact_ids[]', contact_line.id, false, :class=> 'contact-selector' %>
   </td>
   <td valign="top">
-    <%= link_to icon('cross'), {:action => :destroy, :id => contact_line}, {:method => :post, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
+    <%= link_to icon('cross'), contact_url(contact_line), {:method => :delete, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
   </td>
   <td class="name" valign="top">
-    <%= link_to contact_line.name_for_display, :action => :show, :id => contact_line %><br/>
+    <%= link_to contact_line.name_for_display, contact_url(contact_line) %><br/>
   </td>
   <td valign="top">
     <%= contact_line.updated_at.to_date.to_s(:long_ordinal) %>

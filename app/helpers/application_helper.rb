@@ -38,10 +38,9 @@ module ApplicationHelper
   end
 
   def create_compact_object_widget(object_type, object, action)
-    debugger
     widget = "<div>"
     indicator = "#{icon(object_type.to_sym)} #{object_type.pluralize} #{'(<span id="contact-' + object_type + '-count-'  + object.id.to_s + '">' + object.send(object_type.pluralize).count.to_s + '</span>)'}"
-    widget += link_to_function(indicator,"Modalbox.show('#{url_for(:controller => '/admin/contact', :action => action, :id => object.id, :context => 'modalbox')}',{title: '#{object_type.titleize.pluralize} for #{h object.name_for_display}', width: '800'})")
+    widget += link_to_function(indicator,"Modalbox.show('#{url_for(:controller => '/contacts', :action => action, :id => object.id, :context => 'modalbox')}',{title: '#{object_type.titleize.pluralize} for #{h object.name_for_display}', width: '800'})")
     widget += "</div>"
   end
 

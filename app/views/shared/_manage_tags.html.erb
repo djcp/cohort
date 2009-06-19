@@ -1,6 +1,6 @@
 <div id="tag-details-<%= contact_line.id %>" class="tag-details">
   <% if standalone %>
-    <%= form_remote_tag :url => url_for(:controller => '/admin/contact', :action => :manage_tags, :id => contact_line), :update => "tag-details-#{contact_line.id}" %>
+    <%= form_remote_tag :url => url_for(:controller => '/contacts', :action => :manage_tags, :id => contact_line), :update => "tag-details-#{contact_line.id}" %>
   <% end %>
   <h3>Tags: <span id="tag-count-<%= contact_line.id %>" class="tag-count"><span id="tag-count-count-<%= contact_line.id %>"><%= contact_line.tags.length.to_s %></span></span></h3>
   <ul class="pui-autocomplete-holder" style="border: none;" id="existing-tags-<%= contact_line.id %>">

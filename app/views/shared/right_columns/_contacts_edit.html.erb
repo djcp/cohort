@@ -1,4 +1,5 @@
 <%= render :partial => 'shared/search_form', :locals => {:update => 'contacts-update'} %>
+
 <%= render :partial => 'shared/manage_tags', :locals => {:contact_line => @contact, :standalone => true, :init_observer => true} %>
 
 <div id="note-details-<%= @contact.id %>" class="note-details">
@@ -10,6 +11,7 @@
   <% end %>
   </p>
 </div>
+
 <div class="new-object">
-  <%= link_to(icon(:add) + ' New contact', :controller => '/admin/contact', :action => :edit) %>
+  <%= link_to(icon(:add) + ' New contact', new_contact_url) %>
 </div>
