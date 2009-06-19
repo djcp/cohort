@@ -20,11 +20,7 @@ class Admin::BulkActionController < Admin::BaseController
     tags = []
       parse_bulk_tag_list(:tags => params[:bulk_remove_tags], :tag_list => tags, :autocreate => false)
       contact_ids = params[:contact_ids]
-      contact_ids.each do |cid|
-        c = Contact.find_by_id cid
-        if c == nil
-          next
-        end
+      Contact.find_all_by_id(contact_ids).each do |c|
         ctids = c.tag_ids
         tags.each do |t|
           ctids.delete(t)
@@ -40,13 +36,12 @@ class Admin::BulkActionController < Admin::BaseController
   def bulk_contact_delete
     if request.post?
       contact_ids = params[:contact_ids]
-      contact_ids.each do |cid|
-        begin
-          c = Contact.find(cid)
+      begin
+        Contact.find(contact_ids).each do |c|
           c.destroy
-        rescue Exception => exc
-          flash[:error] = "There was an error creating that tag: #{exc.message}"
         end
+      rescue Exception => exc
+          flash[:error] = "There was an error creating that tag: #{exc.message}"
       end
       flash[:notice] = 'Those contacts have been permanently deleted.'
     end
@@ -58,11 +53,7 @@ class Admin::BulkActionController < Admin::BaseController
       new_tags = []
       parse_bulk_tag_list(:tags => params[:bulk_apply_tags], :tag_list => new_tags, :autocreate => true)
       contact_ids = params[:contact_ids]
-      contact_ids.each do |cid|
-        c = Contact.find_by_id cid
-        if c == nil
-          next
-        end
+      Contact.find_all_by_id(contact_ids, :include => :tags).each do |c|
         tag_ids = c.tag_ids
         tag_ids << new_tags
         c.tag_ids = tag_ids.uniq.compact
