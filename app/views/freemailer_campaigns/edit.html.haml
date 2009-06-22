@@ -7,6 +7,10 @@
     %br
     = f.text_field :title
   %p
+    Contacts:
+    %br
+    = @freemailer_campaign.contact_names
+  %p
     = f.label :subject
     %br
     = f.text_field :subject

@@ -56,7 +56,7 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
 </div>
 
   <h4 id="flyout-bulk-create-mail-campaign" class="toggle hidden tags sub-action"><%= icon(:email_add) %> Create Mail Campaign</h4>
-  <div id="flyout-bulk-create-mail-campaign" class="toggle-target tags sub-action" style="display: none;">
+  <div id="flyout-bulk-create-mail-campaign-actions" class="toggle-target tags sub-action" style="display: none;">
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_create_campaign), :id => 'bulk-create-campaign') do %>
     <label for="title">Title:</label> <%= text_field_tag 'title',"#{@session_user.username} - #{Date.today}" %><br/>
     <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>

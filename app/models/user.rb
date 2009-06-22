@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :freemailer_campaigns, :as => :sender
+  has_many :freemailer_campaigns, :foreign_key => 'sender_id'
 
   include CohortArInstanceMixin
   # Many validations are handled by the redhill schema_validations plugin.
