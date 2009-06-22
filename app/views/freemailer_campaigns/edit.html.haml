@@ -1,0 +1,21 @@
+%h1
+  Editing freemailer_campaign
+- form_for(@freemailer_campaign) do |f|
+  = f.error_messages
+  %p
+    = f.label :title
+    %br
+    = f.text_field :title
+  %p
+    = f.label :subject
+    %br
+    = f.text_field :subject
+  %p
+    = f.label :body_template
+    %br
+    = f.text_area :body_template
+  %p
+    = f.submit 'Update'
+= link_to 'Show', @freemailer_campaign
+|
+= link_to 'Back', freemailer_campaigns_path

@@ -1,0 +1,31 @@
+%h1
+  Listing freemailer_campaigns
+%table
+  %tr
+    %th
+      Subject
+    %th
+      Title
+    %th
+      Body template
+    %th
+      Sender
+  - @freemailer_campaigns.each do |freemailer_campaign|
+  %tr
+    %td
+      = h freemailer_campaign.subject
+    %td
+      = h freemailer_campaign.title
+    %td
+      = h freemailer_campaign.body_template[0..75]
+    %td
+      = h freemailer_campaign.sender
+    %td
+      = link_to 'Show', freemailer_campaign
+    %td
+      = link_to 'Edit', edit_freemailer_campaign_path(freemailer_campaign)
+    %td
+      = link_to 'Destroy', freemailer_campaign, :confirm => 'Are you sure?', :method => :delete
+
+%br
+= link_to 'New freemailer_campaign', new_freemailer_campaign_path

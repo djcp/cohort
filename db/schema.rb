@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(:version => 20090617191423) do
   end
 
   create_table "freemailer_campaigns", :force => true do |t|
-    t.text     "subject"
+    t.string   "subject"
     t.string   "title"
     t.text     "body_template"
     t.integer  "sender_id"

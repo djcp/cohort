@@ -1,0 +1,23 @@
+%p
+  %b
+    Title:
+  = h @freemailer_campaign.title
+%p
+  %b
+    Contacts:
+  =@freemailer_campaign.contact_names
+%p
+  %b
+    Subject:
+  = h @freemailer_campaign.subject
+%p
+  %b
+    Body template:
+  = h @freemailer_campaign.body_template
+%p
+  %b
+    Sender:
+  = h @freemailer_campaign.sender_id
+= link_to 'Edit', edit_freemailer_campaign_path(@freemailer_campaign)
+|
+= link_to 'Back', freemailer_campaigns_path
