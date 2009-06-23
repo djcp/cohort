@@ -24,6 +24,10 @@ document.observe("dom:loaded", function() {
   if($$('.dashboard-list')){
     observe_dashboard_lists();
   }
+  
+  if ($$('bulk-create-campaign')){
+    bulk_actions_create_campaign();
+  }
 
 });
 
@@ -65,6 +69,17 @@ function count_selected_contacts(formId){
         }         
         });
       return select_count;
+}
+
+function bulk_actions_create_campaign(){
+  $('bulk-create-campaign').observe('submit', function(form) {
+    var select_count = count_selected_contacts('bulk-create-campaign');
+    
+    if(select_count == 0){
+      $('flyout-bulk-create-campaign').insert(new Element('p', { 'class': 'notification'} ).update('Please select some contacts to add to the email campaign.'));
+      Event.stop(form);
+    }
+  });
 }
 
 function bulk_actions_apply_tags(){

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   before_destroy :forbid_delete_of_immutable_objects
 
+  attr_accessor :current_campaign
   def self.get_import_user
     self.find_by_username('importer')
   end
