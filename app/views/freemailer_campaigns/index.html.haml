@@ -1,19 +1,19 @@
 %h1
-  Listing freemailer_campaigns
+  Your Mailing Campaigns
 %table
   %tr
-    %th
-      Subject
-    %th
-      Title
-    %th
-      Body template
+    %th Subject
+    %th Title
+    %th Contacts
+    %th Body template
   - @freemailer_campaigns.each do |freemailer_campaign|
     %tr
       %td
         = h freemailer_campaign.subject
       %td
         = h freemailer_campaign.title
+      %td
+        == (#{freemailer_campaign.contacts.count}) #{freemailer_campaign.contact_names}
       %td
         - if freemailer_campaign.body_template
           = h freemailer_campaign.body_template[0..75]

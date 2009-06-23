@@ -22,16 +22,6 @@ class FreemailerCampaignsController < ApplicationController
     end
   end
 
-  # GET /freemailer_campaigns/new
-  # GET /freemailer_campaigns/new.xml
-  def new
-    @freemailer_campaign = FreemailerCampaign.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @freemailer_campaign }
-    end
-  end
-
   # GET /freemailer_campaigns/1/edit
   def edit
   end
