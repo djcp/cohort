@@ -1,5 +1,6 @@
 class FreemailerCampaignsController < ApplicationController
   before_filter :is_admin
+  before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit]
   # GET /freemailer_campaigns
   # GET /freemailer_campaigns.xml
   def index
@@ -15,8 +16,6 @@ class FreemailerCampaignsController < ApplicationController
   # GET /freemailer_campaigns/1
   # GET /freemailer_campaigns/1.xml
   def show
-    @freemailer_campaign = FreemailerCampaign.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @freemailer_campaign }
@@ -27,7 +26,6 @@ class FreemailerCampaignsController < ApplicationController
   # GET /freemailer_campaigns/new.xml
   def new
     @freemailer_campaign = FreemailerCampaign.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @freemailer_campaign }
@@ -36,7 +34,6 @@ class FreemailerCampaignsController < ApplicationController
 
   # GET /freemailer_campaigns/1/edit
   def edit
-    @freemailer_campaign = FreemailerCampaign.find(params[:id])
   end
 
   # POST /freemailer_campaigns
@@ -59,8 +56,6 @@ class FreemailerCampaignsController < ApplicationController
   # PUT /freemailer_campaigns/1
   # PUT /freemailer_campaigns/1.xml
   def update
-    @freemailer_campaign = FreemailerCampaign.find(params[:id])
-
     respond_to do |format|
       if @freemailer_campaign.update_attributes(params[:freemailer_campaign])
         flash[:notice] = 'FreemailerCampaign was successfully updated.'
@@ -76,12 +71,21 @@ class FreemailerCampaignsController < ApplicationController
   # DELETE /freemailer_campaigns/1
   # DELETE /freemailer_campaigns/1.xml
   def destroy
-    @freemailer_campaign = FreemailerCampaign.find(params[:id])
     @freemailer_campaign.destroy
 
     respond_to do |format|
       format.html { redirect_to(freemailer_campaigns_url) }
       format.xml  { head :ok }
+    end
+  end
+  
+  private
+  
+  def only_load_campaigns_user_owns
+    @freemailer_campaign = FreemailerCampaign.find(params[:id])
+    if @freemailer_campaign.sender != @session_user
+      flash[:error] = "You do not own the freemailer campaign you are trying to access"
+      redirect_to freemailer_campaigns_url
     end
   end
 end
