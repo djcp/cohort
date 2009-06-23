@@ -11,7 +11,7 @@
   <% end %>
 <script type="text/javascript" language="javascript">
     document.observe('dom:loaded',function(){
-  var ac = new UI.AutoComplete('bulk_apply_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  var ac = new UI.AutoComplete('bulk_apply_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/tags', :action => :json_tags %>' });
   ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
   .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
   });
@@ -27,7 +27,7 @@
   <% end %>
 <script type="text/javascript" language="javascript">
     document.observe('dom:loaded',function(){
-  var ac = new UI.AutoComplete('bulk_remove_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/admin/tag', :action => :json_tags %>' });
+  var ac = new UI.AutoComplete('bulk_remove_tags',{shadow: "auto_complete", tokens: ',', url: '<%= url_for :controller => '/tags', :action => :json_tags %>' });
   ac.observe('input:empty', function(event) {event.memo.autocomplete.showMessage("Please type a tag.")})
   .observe('selection:empty', function(event) {event.memo.autocomplete.showMessage("Not found")});
   });

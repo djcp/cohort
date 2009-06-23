@@ -1,2 +1,9 @@
-<h1>Tags#index</h1>
-<p>Find me in app/views/tags/index.html.erb</p>
+<h1>Tags</h1>
+<div id="admin-list" class="tag-tree">
+  <%= display_tree_recursive(@tree,nil) {|node| render :partial => '/shared/tag_line', :object => node } %>
+</div>
+<div class="new-object">
+  <%= icon(:tag_blue) %> <%= link_to('New tag', new_tag_url()) %>
+</div>
+
+<p><%= icon(:tag_red) %> <a href="#" id="tag-edit-control">Hide tag edit controls</a></p>

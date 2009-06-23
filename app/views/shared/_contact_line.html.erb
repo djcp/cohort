@@ -19,7 +19,7 @@
     <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.length %></span><br/><%= link_to("view", :controller => '/admin/note', :action => :contact, :id => contact_line) %>
   </td>
   <td valign="top">
-    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/admin/tag', :action => :json_tags)}')") %>
+    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/tags', :action => :json_tags)}')") %>
     <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.length %></span>
   </td>
 </tr>

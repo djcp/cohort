@@ -1,4 +1,4 @@
 <li class="item">
-<span class="tag-display"><span><%= link_to(tagging.tag.hierarchical_title, :controller => '/admin/contact', 'included_tags[]' => tagging.tag.id) %></span></span> on <%= h tagging.freetaggable.name_for_display %><br />
+<span class="tag-display"><span><%= link_to(tagging.tag.hierarchical_title, :controller => '/contacts', 'included_tags[]' => tagging.tag.id) %></span></span> on <%= h tagging.freetaggable.name_for_display %><br />
 <div class="details" style="display: none;"><%= h tagging.send(display_method) %></div>
 </li>
