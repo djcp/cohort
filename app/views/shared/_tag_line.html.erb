@@ -7,4 +7,4 @@
 <% unless tag_line.last? %><%= link_to icon(:arrow_down), :action => :move_lower, :id => tag_line %><% else %><%= image_tag 'transparent-icon.png' %><% end -%>
   <%= link_to("#{icon(:add)}", {:action => :edit, :parent_id => tag_line}, {:title => 'Add a child tag under this tag.'}) %>
   <%= link_to("#{icon(:tag_blue_edit)}" , :action => :edit, :id => tag_line) -%>
-</span><%= link_to(tag_line.title, {:controller => '/admin/contact', :action => :index, 'included_tags[]' => tag_line}, {:title => "Search for contacts tagged with " + tag_line.title} ) %>
+</span><%= link_to(tag_line.title, {:controller => '/contacts' , 'included_tags[]' => tag_line}, {:title => "Search for contacts tagged with " + tag_line.title} ) %>

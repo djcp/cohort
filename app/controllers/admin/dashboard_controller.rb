@@ -6,4 +6,7 @@ class Admin::DashboardController < Admin::BaseController
   def contacts
   end
 
+  def tags
+  end
+
 end
