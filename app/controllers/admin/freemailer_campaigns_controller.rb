@@ -3,7 +3,6 @@ class FreemailerCampaignsController < ApplicationController
   # GET /freemailer_campaigns
   # GET /freemailer_campaigns.xml
   def index
-    debugger
     @freemailer_campaigns = FreemailerCampaign.find(:all,
       :conditions => { :sender_id => @session_user.id })
 
