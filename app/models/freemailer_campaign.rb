@@ -8,4 +8,12 @@ class FreemailerCampaign < ActiveRecord::Base
   def contact_names
     contacts.map(&:name_for_display).join(', ')
   end
+  
+  def status
+    if sent
+      'Sent'
+    else
+      'Unsent'
+    end
+  end
 end

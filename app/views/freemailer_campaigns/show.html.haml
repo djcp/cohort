@@ -1,5 +1,5 @@
 %h1
-  = h @freemailer_campaign.title
+  == #{h @freemailer_campaign.title} (#{@freemailer_campaign.status})
 %p
   %b
     Contacts:
@@ -12,7 +12,11 @@
   %b
     Body template:
   = h @freemailer_campaign.body_template
-
+- if @freemailer_campaign.sent
+  = link_to 'Status', :action => 'status'
+- else
+  = link_to 'Send', :action => 'send'
+|
 = link_to 'Edit', edit_freemailer_campaign_path(@freemailer_campaign)
 |
 = link_to 'Back', freemailer_campaigns_path

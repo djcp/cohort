@@ -6,6 +6,7 @@
     %th Title
     %th Contacts
     %th Body template
+    %th Status
   - @freemailer_campaigns.each do |freemailer_campaign|
     %tr
       %td
@@ -17,6 +18,12 @@
       %td
         - if freemailer_campaign.body_template
           = h freemailer_campaign.body_template[0..75]
+      %td 
+        - if freemailer_campaign.sent
+          Sent
+        - else
+          Unsent.
+          = link_to 'Send?', :action => 'send'
       %td
         = link_to 'Show', freemailer_campaign
       %td

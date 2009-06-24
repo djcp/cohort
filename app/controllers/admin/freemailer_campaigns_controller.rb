@@ -33,7 +33,7 @@ class FreemailerCampaignsController < ApplicationController
 
     respond_to do |format|
       if @freemailer_campaign.save
-        flash[:notice] = 'FreemailerCampaign was successfully created.'
+        flash[:notice] = 'Mailing Campaign was successfully created.'
         format.html { redirect_to(@freemailer_campaign) }
         format.xml  { render :xml => @freemailer_campaign, :status => :created, :location => @freemailer_campaign }
       else
@@ -48,7 +48,7 @@ class FreemailerCampaignsController < ApplicationController
   def update
     respond_to do |format|
       if @freemailer_campaign.update_attributes(params[:freemailer_campaign])
-        flash[:notice] = 'FreemailerCampaign was successfully updated.'
+        flash[:notice] = 'Mailing Campaign was successfully updated.'
         format.html { redirect_to(@freemailer_campaign) }
         format.xml  { head :ok }
       else
