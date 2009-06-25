@@ -1,5 +1,7 @@
 %h1
   Your Mailing Campaigns
+%h2
+  Active Campaign
 %table
   %tr
     %th Subject
@@ -23,7 +25,9 @@
           Sent
         - else
           Unsent.
-          = link_to 'Send?', :action => 'send'
+          = link_to 'Send?', freemailer_campaign_send_campaign_path(freemailer_campaign)
+      %td
+        = link_to 'Make Active', freemailer_campaign_make_active_path(freemailer_campaign)
       %td
         = link_to 'Show', freemailer_campaign
       %td

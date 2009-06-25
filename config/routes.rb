@@ -1,7 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :freemailer_campaign_contacts, :path_prefix => '/admin'
   # 
-  map.resources :freemailer_campaigns, :path_prefix => '/admin'
+  map.resources :freemailer_campaigns, :path_prefix => '/admin' do |campaign|
+    campaign.make_active 'make_active', :controller => 'freemailer_campaigns', 
+      :action => 'make_active', :method => 'get'
+    campaign.send_campaign      'send', :controller => 'freemailer_campaigns', 
+      :action => 'send',        :method => 'get'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090623195836) do
+ActiveRecord::Schema.define(:version => 20090625174247) do
 
   create_table "contact_addresses", :force => true do |t|
     t.integer  "contact_id",                                     :null => false
@@ -175,11 +175,12 @@ ActiveRecord::Schema.define(:version => 20090623195836) do
   add_index "tags", ["title"], :name => "index_tags_on_title"
 
   create_table "users", :force => true do |t|
-    t.string   "username",   :limit => 100,                    :null => false
-    t.boolean  "superadmin",                :default => false
-    t.boolean  "immutable",                 :default => false
+    t.string   "username",           :limit => 100,                    :null => false
+    t.boolean  "superadmin",                        :default => false
+    t.boolean  "immutable",                         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "active_campaign_id"
   end
 
   add_index "users", ["immutable"], :name => "index_users_on_immutable"
@@ -207,6 +208,8 @@ ActiveRecord::Schema.define(:version => 20090623195836) do
   add_foreign_key "taggings", ["tag_id"], "tags", ["id"], :name => "taggings_tag_id_fkey"
 
   add_foreign_key "tags", ["parent_id"], "tags", ["id"], :name => "tags_parent_id_fkey"
+
+  add_foreign_key "users", ["active_campaign_id"], "freemailer_campaigns", ["id"], :name => "users_active_campaign_id_fkey"
 
   create_view "pg_buffercache", "SELECT p.bufferid, p.relfilenode, p.reltablespace, p.reldatabase, p.relblocknumber, p.isdirty, p.usagecount FROM pg_buffercache_pages() p(bufferid integer, relfilenode oid, reltablespace oid, reldatabase oid, relblocknumber bigint, isdirty boolean, usagecount smallint);"
   create_view "pg_freespacemap_pages", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.relblocknumber, p.bytes FROM pg_freespacemap_pages() p(reltablespace oid, reldatabase oid, relfilenode oid, relblocknumber bigint, bytes integer);"

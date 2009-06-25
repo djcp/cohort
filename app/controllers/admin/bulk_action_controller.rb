@@ -75,13 +75,12 @@ class Admin::BulkActionController < Admin::BaseController
 
   def bulk_create_campaign
     if request.post?
-      @campaign = @session_user.current_campaign || FreemailerCampaign.new(:sender => @session_user, :title => params[:title])
+      @campaign = @session_user.active_campaign || FreemailerCampaign.new(:sender => @session_user, :title => params[:title])
       if @campaign.valid?
-        Contact.find_all_by_id(params[:contact_ids]).each do |contact|
-          @campaign.contacts << contact
-        end
+        @campaign.contacts << Contact.find_all_by_id(params[:contact_ids])
         @campaign.save
-        @session_user.current_campaign = @campaign
+        @session_user.active_campaign = @campaign
+        @session_user.save
         flash[:notice] = 'Campaign created. Now just fill in the rest!'
         redirect_to edit_freemailer_campaign_url @campaign and return
       else
