@@ -7,8 +7,8 @@ Due Date: <%= calendar_date_select_tag "note[follow_up]", '', :time => true, :mi
 <% unless no_ajax %>
   <br/>
   <%= submit_to_remote('create_note', 'Add Note', :url => {
-    :controller => '/admin/note', 
-    :action => 'edit', 
+    :controller => '/notes', 
+    :action => 'create', 
     :update_counts_only => update_counts_only},
     :update => {
     :success => success_update, 

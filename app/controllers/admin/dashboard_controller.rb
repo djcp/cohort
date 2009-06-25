@@ -9,4 +9,7 @@ class Admin::DashboardController < Admin::BaseController
   def tags
   end
 
+  def notes
+  end
+
 end

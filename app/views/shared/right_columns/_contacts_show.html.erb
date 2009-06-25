@@ -5,7 +5,7 @@
   <h3>Add Note:</h3>
   <p class="field">
   <div id="contact-notes-error" class="error"></div>
-  <% form_for url_for(:controller => "/admin/note", :action => :edit) do %>
+  <% form_for new_note_url do %>
     <%= render :partial => 'shared/new_note' , :locals => {:contact => @contact , :success_update => "existing-notes-#{@contact.id}", :failure_update => "contact-notes-error", :size => '40x4', :update_counts_only => 0, :no_ajax => false}%>
   <% end %>
   </p>

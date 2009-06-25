@@ -2,7 +2,7 @@
   <% if @alt_title.blank? %>
     <h1><%= h @title %></h1>
   <% else %>
-    <h1><%= h @title %> | <%= link_to(@alt_title, :action => @alt_action ) %></h1> 
+    <h1><%= h @title %> | <%= link_to(@alt_title, :action => @alt_action, :id => 'show' ) %></h1> 
   <% end %>
   <% unless @notes.blank? %>
     <table border="0">
