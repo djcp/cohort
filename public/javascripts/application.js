@@ -25,7 +25,30 @@ document.observe("dom:loaded", function() {
     observe_dashboard_lists();
   }
 
+  if($('contact-edit-form')){
+    observe_is_primary_radio_buttons();
+  }
+
 });
+
+function observe_is_primary_radio_buttons(){
+  $('contact-edit-form').select('[id*="is_primary_true"]').each(
+      function(el){
+      el.observe('click',function(){
+        var root_id = this.id;
+        var open_roots = root_id.replace(/\d+/,'\\d+');
+        var regex = new RegExp(open_roots,'i');
+        $('contact-edit-form').select('[type=radio]').each(
+          function(el2){
+            if(el2.id.match(regex)){
+              if(el.id != el2.id){
+                el2.checked = false;
+              }
+            }
+          });
+        });
+      });
+}
 
 function observe_dashboard_lists(){
   $$('.dashboard-list li').each(function(el){

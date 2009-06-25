@@ -35,9 +35,33 @@ namespace :cohort do
         if rhash[col] && ! rhash[col].strip.blank?
           ce = ContactEmail.new(:email => rhash[col].strip, :email_type => 'unknown', :is_primary => ((col == :email) ? true : false ))
           if ! ce.valid?
-            puts "Invalid email address: #{ce.errors.full_messages.join(' ')}"
+            puts "Invalid email address: #{ce.errors.full_messages.join(' ')} : #{rhash[col]}"
           else
             c.contact_emails << ce
+          end
+        end
+      end
+
+      [:work_url, :personal_url, :other_url, :social_url, :blog_url, :rss_url,:atom_url].each do |col|
+        type = col.to_s.gsub(/_.+$/,'')
+        if rhash[col] && ! rhash[col].strip.blank?
+          cu = ContactUrl.new(:url => rhash[col].strip, :url_type => type, :is_primary => ((col == :work_url) ? true : false ))
+          if ! cu.valid?
+            puts "Invalid Url: #{cu.errors.full_messages.join(' ')}"
+          else
+            c.contact_urls << cu
+          end
+        end
+      end
+
+      [:work_phone, :fax, :mobile_phone, :home_phone].each do |col|
+        type = col.to_s.gsub(/_.+$/,'')
+        if rhash[col] && ! rhash[col].strip.blank?
+          cp = ContactPhone.new(:phone => rhash[col].strip, :phone_type => type, :is_primary => ((col == :work_phone) ? true : false ))
+          if ! cp.valid?
+            puts "Invalid Phone: #{cp.errors.full_messages.join(' ')}"
+          else
+            c.contact_phones << cp
           end
         end
       end

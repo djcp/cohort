@@ -1,0 +1,70 @@
+<div class="contact-details">
+
+  <h1><%= @contact.name_for_display %> <span style="font-size: smaller;"><%= link_to('edit', edit_contact_url(@contact) ) %></h1>
+    <dl>
+      <% ['organization','title'].each do |field| %>
+        <% unless @contact.send(field).blank? %>
+          <dt><%= field.titleize %>:</dt>
+          <dd><%= @contact.send(field) %></dd>
+        <% end %>
+      <% end %>
+      <% unless @contact.contact_emails.blank? %>
+        <dt>Primary email:</dt>
+        <dd><strong><%= mail_to(@contact.get_primary_email.email) %>, <%= @contact.get_primary_email.email_type %></strong></dd>
+      <% end %>
+      <% unless @contact.contact_phones.blank? %>
+        <dt>Primary phone:</dt>
+        <dd><strong><%= @contact.get_primary_phone.phone %>, <%= @contact.get_primary_phone.phone_type %></strong></dd>
+      <% end %>
+    </dl>
+
+    <h2 id="flyout-note-list" class="toggle shown">Notes</h2>
+    <div id="flyout-note-list-actions" class="toggle-target">
+      <%= render :partial => 'shared/note_list' %>
+    </div>
+
+    <div class="list">
+      <h2 id="flyout-address" class="toggle shown">Address info</h2>
+      <div id="flyout-address-actions" class="toggle-target list-content">
+        <dl>
+          <% @contact.contact_addresses.find(:all, :order => 'is_primary desc').each do |ca| %>
+            <dt>Address <% if ca.is_primary %> &mdash; <strong>primary</strong><% end %>:</dt>
+            <dd>
+            <% ['street1','street2'].each do |column| %>
+              <% unless ca.send(column).blank? %>
+                <%= h ca.send(column) %><br />
+              <% end %>
+            <% end %>
+            <%= h ca.city %>, <%= h ca.state %> <%= h ca.zip %> <%= h ca.country %>
+            <p><strong>Address Type:</strong> <%= ContactAddress::ADDRESS_TYPES[ca.address_type] %></p>
+            </dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+
+    <div class="list">
+      <h2 id="flyout-contact-info" class="toggle list shown">Contact Info</h2>
+      <div id="flyout-contact-info-actions" class="toggle-target list-content">
+        <% unless @contact.contact_urls.blank? %>
+          <h3>URLs</h3>
+          <dl>
+            <% @contact.contact_urls.each do |url| %>
+            <dt><%= url.url_type %> <% if url.is_primary %> &mdash; <strong>primary</strong><% end %>:</dt>
+              <dd><%= url.url %></dd>
+            <% end %>
+          </dl>
+        <% end %>
+        <% unless @contact.get_non_primary_emails.blank? %>
+          <h3>Email Addresses</h3>
+          <dl>
+            <dt>Other Email addresses:</dt>
+            <% @contact.get_non_primary_emails.each do|ce| %>
+              <dd><%= mail_to(ce.email) %>, <%= ce.email_type %></dd>
+            <% end %>
+          </dl>
+        <% end %>
+    </div>
+  </div>
+
+  </div>

@@ -1,0 +1,106 @@
+<%= error_messages_for :contact %>
+<fieldset class="form contact" id="contact-edit-form">
+
+  <legend><%= @contact.new_record? ? "Add Contact" : "Edit Contact \"#{h @contact.name_for_display}\"" %></legend>
+<% form_for @contact do|f| %>
+  <h2 id="flyout-contact-personal-info" class="toggle shown">Personal Info</h2>
+  <div id="flyout-contact-personal-info-actions" class="toggle-target defaultopen">
+    <% %W|first_name middle_name last_name title organization|.each do|field| %>
+      <p class="field"><%= f.label field.to_sym %>
+      <%= f.text_field field.to_sym %>
+      </p>
+    <% end %>
+  </div>
+
+  <h2 id="flyout-contact-address-info" class="toggle shown">Address Info</h2>
+  <div id="flyout-contact-address-info-actions" class="toggle-target defaultopen">
+    <h3>Addresses</h3>
+    <table border="0">
+      <% f.fields_for :contact_addresses do |caf| %>
+        <tr class="address-row">
+          <td>
+            <%= caf.label :address_type %> <%= caf.select :address_type, ContactAddress.options_for_select %><br />
+            <%= caf.label :street1, 'Address Line 1' %> <%= caf.text_field :street1 %><br />
+            <%= caf.label :street2, 'Address Line 2' %> <%= caf.text_field :street2 %><br />
+            <%= caf.label :city %> <%= caf.text_field :city, :size => 30 %>
+            <%= caf.label :state %> <%= caf.text_field :state, :size => 5 %><br/>
+            <%= caf.label :zip %> <%= caf.text_field :zip, :size => 15 %>
+            <%= caf.label :country %> <%= caf.text_field :country, :size => 10 %>
+          </td>
+          <td>
+            <%= caf.hidden_field :is_primary, :value => 'f' %>
+            <%= caf.radio_button :is_primary, true %><%= caf.label :is_primary_true, 'primary address?' %>
+          </td>
+          <td>
+            <% unless caf.object.new_record? %>
+              <%= caf.check_box :_delete %> <%= caf.label :_delete %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <h2 id="flyout-contact-contact-info" class="toggle shown">Contact Info</h2>
+  <div id="flyout-contact-contact-info-actions" class="toggle-target defaultopen">
+
+    <h3>Phone Numbers</h3>
+    <table border="0">
+      <% f.fields_for :contact_phones do |cp| %>
+        <tr>
+          <td><%= cp.label :phone %> <%= cp.text_field :phone %></td>
+          <td><%= cp.select :phone_type, ContactPhone.options_for_select %></td>
+          <td>
+            <%= cp.hidden_field :is_primary, :value => 'f' %>
+            <%= cp.radio_button :is_primary, true %><%= cp.label :is_primary_true, 'primary phone' %>
+          </td>
+          <td>
+            <% unless cp.object.new_record? %>
+              <%= cp.check_box :_delete %> <%= cp.label :_delete %> 
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <h3>URLs</h3>
+    <table border="0">
+      <% f.fields_for :contact_urls do |cu| %>
+        <tr>
+          <td><%= cu.label :url %> <%= cu.text_field :url %></td>
+          <td><%= cu.select :url_type, ContactUrl.options_for_select %></td>
+          <td>
+            <%= cu.hidden_field :is_primary, :value => 'f' %>
+            <%= cu.radio_button :is_primary, true %><%= cu.label :is_primary_true, 'primary url' %>
+          </td>
+          <td>
+            <% unless cu.object.new_record? %>
+              <%= cu.check_box :_delete %> <%= cu.label :_delete %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <h3>Email Addresses</h3>
+    <table border="0">
+      <% f.fields_for :contact_emails do |cef| %>
+        <tr>
+          <td><%= cef.label :email %> <%= cef.text_field :email %></td>
+          <td><%= cef.select :email_type, ContactEmail.options_for_select %></td>
+          <td>
+            <%= cef.hidden_field :is_primary, :value => 'f' %>
+            <%= cef.radio_button :is_primary, true %><%= cef.label :is_primary_true, 'primary address' %>
+          </td>
+          <td>
+            <% unless cef.object.new_record? %>
+              <%= cef.check_box :_delete %> <%= cef.label :_delete %> 
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <%= submit_tag(@contact.new_record? ? "Add Contact" : "Edit Contact") %>
+<% end %>
+</fieldset>

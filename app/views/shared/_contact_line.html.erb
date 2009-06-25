@@ -3,10 +3,10 @@
     <%= check_box_tag 'contact_ids[]', contact_line.id, false, :class=> 'contact-selector' %>
   </td>
   <td valign="top">
-    <%= link_to icon('cross'), {:action => :destroy, :id => contact_line}, {:method => :post, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
+    <%= link_to icon('cross'), contact_url(contact_line), {:method => :delete, :confirm => "Are you sure? This will delete all traces of this contact - taggings, notes, emails, etc."} %>
   </td>
   <td class="name" valign="top">
-    <%= link_to contact_line.name_for_display, :action => :show, :id => contact_line %><br/>
+    <%= link_to contact_line.name_for_display, contact_url(contact_line) %><br/>
   </td>
   <td valign="top">
     <%= contact_line.updated_at.to_date.to_s(:long_ordinal) %>
@@ -16,10 +16,10 @@
   </td>
   <td valign="top">
     <%= link_to_function(icon(:note), "toggle_notes_container('#{contact_line.id}')") %>
-    <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.length %></span><br/><%= link_to("view", :controller => '/admin/note', :action => :contact, :id => contact_line) %>
+    <span id="parent-note-count-<%= contact_line.id %>"><%= contact_line.notes.length %></span><br/><%= link_to("view", :controller => '/notes', :action => :contact, :id => contact_line) %>
   </td>
   <td valign="top">
-    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/admin/tag', :action => :json_tags)}')") %>
+    <%= link_to_function(icon(:tag_blue), "toggle_tag_container('#{contact_line.id}','#{url_for(:controller => '/tags', :action => :json_tags)}')") %>
     <span id="parent-tag-count-<%= contact_line.id %>"><%= contact_line.tags.length %></span>
   </td>
 </tr>
@@ -27,7 +27,7 @@
   <td colspan="7">
       <div class="note-count"><span id="note-count-<%= contact_line.id %>"><%= contact_line.notes.length.to_s %></span> note(s)</div>
       <div class="error" id="note-failure-<%= contact_line.id %>"></div>
-      <% form_tag url_for(:controller => '/admin/note', :action => :edit) do -%>
+      <% form_tag new_note_url do -%>
         <%= render(:partial => 'shared/new_note', :locals => {:contact => contact_line, :success_update => 'note-count-' + contact_line.id.to_s, :failure_update => 'note-failure-' + contact_line.id.to_s, :size => '60x5', :update_counts_only => 1, :no_ajax => false}) %>
       <% end -%>
   </td>
