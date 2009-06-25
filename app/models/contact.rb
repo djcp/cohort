@@ -16,7 +16,7 @@ class Contact < ActiveRecord::Base
     :reject_if => proc { |attributes| attributes['email'].blank? }
  
   accepts_nested_attributes_for :contact_addresses, :allow_destroy => true, 
-    :reject_if => proc { |attributes| attributes['street1'].blank? }
+    :reject_if => proc { |attributes| (attributes['city'].blank? or attributes['country'].blank?) ? true : false }
 
   accepts_nested_attributes_for :contact_urls, :allow_destroy => true, 
     :reject_if => proc { |attributes| attributes['url'].blank? }
