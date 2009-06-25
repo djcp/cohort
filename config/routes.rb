@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
     campaign.make_active 'make_active', :controller => 'freemailer_campaigns', 
       :action => 'make_active', :method => 'get'
     campaign.send_campaign      'send', :controller => 'freemailer_campaigns', 
-      :action => 'send',        :method => 'get'
+      :action => 'send_campaign',        :method => 'get'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

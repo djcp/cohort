@@ -77,7 +77,8 @@ class Admin::BulkActionController < Admin::BaseController
     if request.post?
       @campaign = @session_user.active_campaign || FreemailerCampaign.new(:sender => @session_user, :title => params[:title])
       if @campaign.valid?
-        @campaign.contacts << Contact.find_all_by_id(params[:contact_ids])
+        new_contacts = Contact.find_all_by_id(params[:contact_ids]) - @campaign.contacts
+        @campaign.contacts << new_contacts
         @campaign.save
         @session_user.active_campaign = @campaign
         @session_user.save

@@ -1,10 +1,15 @@
 class FreemailerCampaignsController < ApplicationController
   before_filter :is_admin
-  before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit, :make_active]
+  before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit, :make_active, :send]
   
   def make_active
     @freemailer_campaign.make_active_for_sender
     flash[:notice] = "Campaign has been made active."
+    redirect_to freemailer_campaigns_url
+  end
+  
+  def send_campaign
+    flash[:error] = "Not implemented yet!"
     redirect_to freemailer_campaigns_url
   end
   
