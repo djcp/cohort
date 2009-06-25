@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :log_items, :as => :item
 
-  before_destroy :forbid_delete_of_immutable_objects
+  before_destroy :allow_delete_of_removable_objects
 
   belongs_to :active_campaign, :class_name => "FreemailerCampaign"
   

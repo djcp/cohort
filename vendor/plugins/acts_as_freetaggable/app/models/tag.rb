@@ -26,7 +26,7 @@ class Tag < ActiveRecord::Base
   end
 
   def hierarchical_title #may also need #name_for_display
-    (ancestors.map(&:title) << self.title).join(' -> ')
+    self.ancestors.reverse.push(self).collect{|t| t.title}.join(' -> ')
   end
 
   def move_up
@@ -47,7 +47,7 @@ class Tag < ActiveRecord::Base
   end
 
   def depth
-    self.ancestors.count
+    self.ancestors.length
   end
 
   def first?

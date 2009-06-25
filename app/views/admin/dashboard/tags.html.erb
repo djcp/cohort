@@ -1,0 +1,28 @@
+<% @recent_tag_adds = Tag.recent_adds(5) %>
+<% unless @recent_tag_adds.blank? %>
+  <div class="dashboard-list">
+    <h2>Newest Tags</h2>
+    <ul>
+      <%= render :partial => 'shared/dashboard/tag', :collection => @recent_tag_adds, :locals => {:display_method => 'created_at_for_display'} %>
+    </ul>
+  </div>
+<% end %>
+
+<% @recent_taggings = Tagging.recent_adds(5) %>
+<% unless @recent_taggings.blank? %>
+  <div class="dashboard-list">
+    <h2>Recent Taggings</h2>
+    <ul>
+      <%= render :partial => 'shared/dashboard/tagging', :collection => @recent_taggings, :locals => {:display_method => 'created_at_for_display'} %>
+    </ul>
+  </div>
+<% end %>
+<div class="clear"></div>
+
+<div class="new-object">
+  <%= icon(:tag_blue) %> <%= link_to('New tag', new_tag_url) %>
+</div>
+
+<div>
+  <%= icon(:tag_red) %> <%= link_to('Manage tags', tags_url) %>
+</div>

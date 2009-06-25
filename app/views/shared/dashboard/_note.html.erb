@@ -1,5 +1,5 @@
 <li class="item">
-about <%= link_to(note.contact.name_for_display, :controller => '/admin/contact', :action => :show, :id => note.contact) %> &mdash; <em><%= link_to(note.note_excerpt, :controller => '/admin/note', :action => :show, :id => note) %></em><br />
+about <%= link_to(note.contact.name_for_display, contact_url(note.contact)) %> &mdash; <em><%= link_to(note.note_excerpt, note_url(note)) %></em><br />
 <div class="details" style="display: none;"><strong>from</strong> <%= note.user.username %> <strong>on</strong> <%= h note.send(display_method) %>
     <% unless note.priority.blank? %>
       <strong>Priority:</strong> <%= note.priority %>

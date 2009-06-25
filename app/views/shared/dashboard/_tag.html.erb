@@ -1,0 +1,4 @@
+<li class="item">
+<span class="tag-display"><span><%= link_to(tag.hierarchical_title, :controller => '/contacts', 'included_tags[]' => tag.id) %></span></span>  on <%= tag.taggings.length %> contacts.<br />
+<div class="details" style="display: none;"><%= h tag.send(display_method) %></div>
+</li>

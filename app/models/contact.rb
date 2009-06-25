@@ -8,11 +8,26 @@ class Contact < ActiveRecord::Base
   extend CohortArClassMixin
   has_many :log_items, :as => :item, :dependent => :destroy
   has_many :notes, :order => 'position desc'
+
   has_many :contact_emails, :validate => true
+  has_many :contact_urls, :validate => true
+  has_many :contact_phones, :validate => true
   has_many :contact_addresses, :validate => true
 
+  accepts_nested_attributes_for :contact_emails, :allow_destroy => true, 
+    :reject_if => proc { |attributes| attributes['email'].blank? }
+ 
+  accepts_nested_attributes_for :contact_addresses, :allow_destroy => true, 
+    :reject_if => proc { |attributes| attributes['street1'].blank? }
+
+  accepts_nested_attributes_for :contact_urls, :allow_destroy => true, 
+    :reject_if => proc { |attributes| attributes['url'].blank? }
+
+  accepts_nested_attributes_for :contact_phones, :allow_destroy => true, 
+    :reject_if => proc { |attributes| attributes['phone'].blank? }
+
   def name_for_display
-    dname = [self.first_name, self.last_name].flatten.join(' ')
+    dname = [self.first_name, self.middle_name, self.last_name].flatten.join(' ')
     (dname.blank?) ? 'unknown' : dname
   end
 
@@ -22,11 +37,26 @@ class Contact < ActiveRecord::Base
   end
 
   def get_primary_email
-    pe = self.contact_emails.find(:first, :conditions => ['is_primary is true'])
+    pe = self.contact_emails.find(:first, :order => 'is_primary desc, id')
   end
 
   def get_non_primary_emails
-    self.contact_emails.find(:all, :conditions => ['is_primary is false'])
+    pe = get_primary_email
+    npes = self.contact_emails.collect do|npe|
+      if npe != pe
+        npe
+      end
+    end
+    npes.compact!
+  end
+
+  def primary_phone 
+    pp = get_primary_phone
+    return pp && pp.phone
+  end
+
+  def get_primary_phone
+    pp = self.contact_phones.find(:first, :order => 'is_primary desc, id')
   end
 
   def my_tags
