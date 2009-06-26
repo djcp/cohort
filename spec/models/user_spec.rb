@@ -12,6 +12,6 @@ describe User do
   end
 
   it { should have_many :freemailer_campaigns }
-
+  it { should belong_to :active_campaign }
 
 end

@@ -27,8 +27,18 @@ class Contact < ActiveRecord::Base
     :reject_if => proc { |attributes| attributes['phone'].blank? }
 
   def name_for_display
-    dname = [self.first_name, self.middle_name, self.last_name].flatten.join(' ')
+    dname = [self.first_name, self.middle_name, self.last_name].flatten.reject(&:nil?).join(' ')
     (dname.blank?) ? 'unknown' : dname
+  end
+
+  def primary_address
+    pa = get_primary_address
+    return pa && "#{pa.street1}\n" + "#{if !pa.street2.squeeze.empty?; pa.street2 + "\n"; end;}" + 
+      "#{pa.city}, #{pa.state}  #{pa.zip}\n#{pa.country}"
+  end
+
+  def get_primary_address
+    pa = self.contact_addresses.find(:first, :order => 'is_primary desc, id')
   end
 
   def primary_email
