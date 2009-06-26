@@ -1,4 +1,5 @@
 log/*
+*.swp
 .gitignore*
 config/database.yml
 .rake_tasks
