@@ -1,4 +1,4 @@
-<%= error_messages_for :tag => @tag %>
+<%= error_messages_for :object => @tag %>
 <fieldset class="form tag">
   <legend><%= @tag.new_record? ? "Add Tag" : "Edit Tag \"#{h @tag.name_for_display}\"" %></legend>
   <% form_for @tag do|f| %>

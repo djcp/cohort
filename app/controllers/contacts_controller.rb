@@ -62,7 +62,7 @@ class ContactsController < ApplicationController
       end
     end
 
-    #logger.warn("Ferret search string: " + ferret_fields)
+    logger.warn("Ferret search string: " + ferret_fields)
 
     if params[:export].blank?
       if ferret_fields == '* '
@@ -72,7 +72,7 @@ class ContactsController < ApplicationController
       end
       render :layout => (request.xhr? ? false : true)
     else
-      contacts = Contact.find_with_ferret(ferret_fields)
+      contacts = Contact.find_with_ferret(ferret_fields, {:limit => :all})
       columns = Contact.columns.collect{|c|c.name}
       if params[:export] == 'csv'
         #De-normalize data because csv files can't be hierarchical like XML.

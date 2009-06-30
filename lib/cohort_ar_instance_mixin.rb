@@ -8,11 +8,11 @@ module CohortArInstanceMixin
   end
 
   def updated_at_for_display
-    self.updated_at.strftime('%b %d at %I:%M%p')
+    self.updated_at.to_s(:compact_datetime)
   end
 
   def created_at_for_display
-    self.created_at.strftime('%b %d at %I:%M%p')
+    self.created_at.to_s(:compact_datetime)
   end
 
   def diff_two_objects(object1 = self.new,object2 = self.new)

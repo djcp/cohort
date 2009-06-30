@@ -45,7 +45,7 @@ class NotesController < ApplicationController
       #logger.warn('fields to ferret: ' + ferret_fields)
       render :action => 'my', :layout => (request.xhr? ? false : true)
     else
-      notes = Note.find_with_ferret(ferret_fields)
+      notes = Note.find_with_ferret(ferret_fields, {:limit => :all})
       columns = Note.columns.collect{|c|c.name}
       if params[:export] == 'csv'
         additional_columns = ['primary_email','last_name','first_name']

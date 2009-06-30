@@ -42,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts
   map.resources :tags
   map.resources :notes
+  map.resources :saved_searches
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
