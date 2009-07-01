@@ -11,6 +11,10 @@ class FreemailerCampaign < ActiveRecord::Base
     contacts.map(&:name_for_display).join(', ').squeeze(' ')
   end
 
+  def contact_emails
+    self[:contacts].map(&:primary_email)
+  end
+
   def status
     if sent
       'Sent'
@@ -25,9 +29,9 @@ class FreemailerCampaign < ActiveRecord::Base
   end
 
   def preview
-    
+    fill_template(preview_user)
   end
-  
+
   private
 
   def preview_user
@@ -41,9 +45,23 @@ class FreemailerCampaign < ActiveRecord::Base
     }
   end
 
+  def fill_template_for_contact(person)
+    fill_template ({
+      'first name' => person.first_name,
+      'last name' => person.last_name,
+      'middle name' => person.middle_name,
+      'middle initial' => person.middle_name.first.upcase,
+      'name' => person.name_for_display,
+      'email' => person.primary_email,
+      'address' => person.primary_address
+    })
+  end
+
   def fill_template(user_hash)
     user_hash.default = ''
-    body_template.gsub /\{(.*)\}/, user_hash[$1].to_s
+    body_template.gsub(/\{(.*)\}/) do |item|
+      user_hash[$1].to_s
+    end
   end
 
   def remove_active_campaign

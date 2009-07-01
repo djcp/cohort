@@ -35,7 +35,6 @@ describe FreemailerCampaign do
     campaign.stub!(:contacts).and_return do
       [ Contact.new( :first_name => 'that', :last_name => 'guy' ),
         Contact.new( :first_name => 'this', :last_name => 'guy' )]
-
     end
     campaign.contact_names.should == "that guy, this guy"
   end
@@ -50,7 +49,7 @@ describe FreemailerCampaign do
 Doe!
 John Doe
 123 Some Pl.
-Where, Ever  90120
+Where, Ever  90210
 Canada
     EOS
   end
