@@ -2,6 +2,7 @@ class Freemailer < ActionMailer::Base
   
 
   def from_template(campaign, contact, sent_at = Time.now)
+    debugger
     subject    campaign.subject
     recipients contact.primary_email
     from       campaign.from

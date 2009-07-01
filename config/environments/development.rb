@@ -17,10 +17,13 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 config.action_mailer.smtp_settings = {
-  :address => 'smtp.example.com',
-  :port => 25, 
-  :domain => 'www.example.com',
-  :authentication => :login,
-  :user_name => 'example',
-  :password => 'ponies@ndUn1corns'
+  :enable_starttls_auto => true,
+  :address => 'smtp.gmail.com',
+  :port => 587,
+  :domain => 'gmail.com',
+  :authentication => :plain,
+  :user_name => 'cohort.crm',
+  :password => 'goocohort',
+  :dev_mailto => 'neufelry+cohort@gmail.com'
 }
+

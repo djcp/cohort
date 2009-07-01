@@ -32,6 +32,17 @@ class FreemailerCampaign < ActiveRecord::Base
     fill_template(preview_user)
   end
 
+  def send
+    if not sent
+      contacts.each do |contact|
+        begin
+          Freemailer.deliver_from_template(self,contact)
+        rescue
+          # Rescue errors and record them
+        end
+      end
+    end
+  end
   private
 
   def preview_user
