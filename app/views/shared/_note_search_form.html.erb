@@ -9,6 +9,7 @@
       <% end %>
       <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/help', :action => :search_help)}',{title: 'Search help', width: '800'})") %>
     </div>
-    <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %>
+    <%= text_field_tag :q, params[:q] %><%= submit_tag 'go' %><br />
+    <%= check_box_tag :my, true, (params[:my] ? true : false) %><%= label_tag :my, "Search only my notes" %>
   </div>
 <% end %>

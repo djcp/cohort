@@ -12,17 +12,17 @@ class NotesController < ApplicationController
     @title = 'Everyone\'s notes'
     @alt_title = 'My notes'
     @alt_action = :my
-    index(false,true)
+    index(false)
   end
 
   def my
     @title = 'My notes'
     @alt_action = :everyones
     @alt_title = 'Everyone\'s notes'
-    index
+    index(false,true)
   end
 
-  def index(contact_only = false, all_users = false)
+  def index(contact_only = false, mine_only = false)
     add_to_sortable_columns('notes', :model => Note, :field => :priority, :alias => :priority)
     add_to_sortable_columns('notes', :model => Note, :field => :contact_id, :alias => :contact)
     add_to_sortable_columns('notes', :model => Note, :field => :follow_up, :alias => :follow_up)
@@ -30,11 +30,11 @@ class NotesController < ApplicationController
     if contact_only
       #looking for a contact's notes
       ferret_fields += "contact_id: #{params[:id]} "
-    elsif all_users
-      #looking for everyone's notes. null conditions, just pass in the query. For now.
-    else
+    elsif mine_only or params[:my]
       #Looking for my notes.
       ferret_fields += "user_id: #{@session_user.id} "
+    else
+      #looking for everyone's notes. null conditions, just pass in the query. For now.
     end
     if params[:export].blank?
       if ferret_fields == '* '
