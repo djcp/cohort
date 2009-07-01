@@ -36,12 +36,14 @@ class Contact < ActiveRecord::Base
 
   def get_primary_email
     pe = nil
+
     self.contact_emails.collect do |ce| 
       if ce.is_primary == true 
         return ce
-        pe = ce
       end
+      pe = ce
     end
+
     return pe
   end
 
@@ -66,8 +68,8 @@ class Contact < ActiveRecord::Base
     self.contact_phones.collect do |cp| 
       if cp.is_primary == true 
         return cp
-        pp = cp
       end
+      pp = cp
     end
     return pp
   end
