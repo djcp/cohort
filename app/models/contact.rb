@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
   # Many validations are handled by the redhill schema_validations plugin.
-  acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_tag_ids, :my_emails, :my_notes, :my_addresses], :remote => true)
+  acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_tag_ids, :my_emails, :my_notes, :my_addresses, :my_urls], :remote => true)
   acts_as_freetaggable
   include CohortArInstanceMixin
   extend CohortArClassMixin
@@ -35,10 +35,18 @@ class Contact < ActiveRecord::Base
   end
 
   def get_primary_email
-    pe = self.contact_emails.find(:first, :order => 'is_primary desc, id')
+    pe = nil
+    self.contact_emails.collect do |ce| 
+      if ce.is_primary == true 
+        return ce
+        pe = ce
+      end
+    end
+    return pe
   end
 
   def get_non_primary_emails
+    #seems tortured, but will skip running additional SQL when the contact_email object have already been populated.
     pe = get_primary_email
     npes = self.contact_emails.collect do|npe|
       if npe != pe
@@ -54,7 +62,14 @@ class Contact < ActiveRecord::Base
   end
 
   def get_primary_phone
-    pp = self.contact_phones.find(:first, :order => 'is_primary desc, id')
+    pp = nil
+    self.contact_phones.collect do |cp| 
+      if cp.is_primary == true 
+        return cp
+        pp = cp
+      end
+    end
+    return pp
   end
 
   def my_tags
@@ -64,7 +79,6 @@ class Contact < ActiveRecord::Base
   def my_notes
     self.notes.collect{|n| n.note}.join(' ')
   end
-
 
   def my_tag_ids
     self.tags.collect{|t| t.id}.join(' ')
@@ -76,6 +90,10 @@ class Contact < ActiveRecord::Base
 
   def my_addresses
     self.contact_addresses.collect{|ca| "#{ca.street1} #{ca.street2} #{ca.city} #{ca.state} #{ca.zip} #{ca.country}"}.join(' ')
+  end
+
+  def my_urls
+    self.contact_urls.collect{|cu| "#{cu.url}"}.join(' ')
   end
 
 end

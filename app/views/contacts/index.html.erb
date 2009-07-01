@@ -1,6 +1,7 @@
 <div id="contacts-update">
   <h1>Contacts</h1>
   <% unless @contacts.blank? %>
+    <%= will_paginate @contacts, :params => {:q => params[:q]} %>
     <div id="admin-list">
       <table border="0" width="100%">
         <tr class="table-header">
