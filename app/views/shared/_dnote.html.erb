@@ -1,12 +1,6 @@
-<tr class="dnote" id="dnote-<%= dnote.id %>">
-  <td><%= link_to(icon(:cross), note_path(:redirect_after => url_for(params), :id => dnote), {:method => :delete, :confirm => 'Are you sure?'}) -%></td>
-  <td class="contact"><%= link_to dnote.contact.name_for_display, contact_url(dnote.contact) %></td>
-  <td class="priority level-<%= dnote.priority %>"><%= dnote.priority %></td>
-  <td class="follow-up"><%= dnote.follow_up %></td>
-</tr>
-<tr class="note-<%= dnote.id %>">
-  <td colspan="3">
-    <%= RedCloth.new(dnote.note).to_html %><br/>
-    <div class="meta"><strong>Added at:</strong> <%= dnote.created_at %> <strong>By:</strong> <%= dnote.user.username %></strong></div>
-  </td>
-</tr>
+<div class="note" id="note-<%= dnote.id %>">
+  <div class="meta"><%= link_to(icon(:cross), note_path(:redirect_after => url_for(params), :id => dnote), {:method => :delete, :confirm => 'Are you sure?'}) -%><%= link_to dnote.contact.name_for_display, contact_url(dnote.contact) %> : <%= dnote.created_at_for_display %> by <%= dnote.user.username %></strong>
+</div>
+<div class="meta"><% unless dnote.priority.blank? %><span class="priority level-<%= dnote.priority %>">Priority: <%= dnote.priority %></span> <% end %><% unless dnote.follow_up.blank? %><br/><span class="follow-up">Follow-up on <%= dnote.follow_up.to_s(:compact_datetime) %></span><% end %></div>
+  <div class="note-content"><%= RedCloth.new(dnote.note).to_html %></div>
+</div>

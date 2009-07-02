@@ -15,6 +15,7 @@ namespace :cohort do
     columns = Contact.columns.collect{|c| c.name}
     columns.delete('id')
 
+    #FIXME - pipe delimited
     import_tag = Tag.create(:title => 'Auto import')
     u = User.get_import_user
 
@@ -25,15 +26,17 @@ namespace :cohort do
         c[col.to_sym] = rhash[col.to_sym]
       end
 
-      [:notes,:notes_2,:notes_3,:notes_4].each do |col|
+      [:notes].each do |col|
         if rhash[col] && ! rhash[col].strip.blank?
+          #FIXME - Pipe delimiting.
           c.notes << Note.new(:contact => c, :note => rhash[col], :user => u)
         end
       end
 
-      [:email,:email_2,:email_3,:email_4].each do |col|
+      [:work_email,:personal_email,:unknown_email].each do |col|
+        type = col.to_s.gsub(/_.+$/,'')
         if rhash[col] && ! rhash[col].strip.blank?
-          ce = ContactEmail.new(:email => rhash[col].strip, :email_type => 'unknown', :is_primary => ((col == :email) ? true : false ))
+          ce = ContactEmail.new(:email => rhash[col].strip, :email_type => type , :is_primary => ((col == :work_email) ? true : false ))
           if ! ce.valid?
             puts "Invalid email address: #{ce.errors.full_messages.join(' ')} : #{rhash[col]}"
           else
@@ -67,7 +70,7 @@ namespace :cohort do
       end
 
       ['1','2','3','4'].each do |ad|
-        test_col = "address_#{ad}_street1"
+        test_col = "address_#{ad}_city"
         if rhash[test_col.to_sym] && ! rhash[test_col.to_sym].blank?
           ca = ContactAddress.new
           ['street1','street2','city','state','zip','country'].each do |col|

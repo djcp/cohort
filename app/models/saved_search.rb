@@ -2,7 +2,7 @@ class SavedSearch < ActiveRecord::Base
   belongs_to :user
   has_many :saved_search_runs
 
-  validates_format_of :name, :with => /^[a-z\d\-\., ]+$/i, :message => 'should contain only letters, numbers, spaces, and the following characters: , - . '
+  validates_format_of :name, :with => /^[a-z\d\-\, ]+$/i, :message => 'should contain only letters, numbers, spaces, hyphens and commas.'
 
   def self.select_options(global_search = true,user_id = nil)
     category_conditions = []

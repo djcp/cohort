@@ -12,7 +12,7 @@ lighter gray: #cccccc
  */
 
 body {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Arial, sans-serif;
   font-size: 90%;
   padding: 0;
   margin: 0;
@@ -145,8 +145,30 @@ tr.note td{
   padding-top: 15px;
 }
 
-tr.note div.meta{
-  color: #aaaaaa;
+div.note div.meta{
+  color: #222222;
+  font-size: smaller;
+}
+
+div.note{
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-color: #fff777;
+  border: #cccccc 2px;
+  border-style: none none solid solid;
+  margin: 10px;
+  padding: 15px;
+}
+
+div.note div.note-content{
+  height: 150px;
+  overflow:auto;
+}
+
+div.note .priority, div.note .follow-up{
+  font-weight: bold;
+  color: black;
 }
 
 .saved-searches{
@@ -236,6 +258,7 @@ h3 {
 
 .dashboard-list .details{
   margin-left: 2em;
+  font-size: smaller;
 }
 
 .dashboard-list .details div{

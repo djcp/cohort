@@ -4,7 +4,7 @@
   <strong>Search:</strong> 
   <% unless url_for == url_for(sanitized_url_params) %>
     <%= link_to(icon('script_link') + ' Permalink',url_for(sanitized_url_params)) %> 
-    <%= link_to(icon('script_save') + ' Save',:controller => '/admin/saved_search', :action => :edit, :search_url => url_for(sanitized_url_params)) %>
+    <%= link_to(icon('script_save') + ' Save', new_saved_search_path(:search_url => url_for(sanitized_url_params))) %>
     <%= link_to(icon('script_delete') + ' Reset',url_for) %> 
   <% end %>
   <%= link_to_function(icon('help') + ' Help',"Modalbox.show('#{url_for(:controller=> '/help', :action => :search_help)}',{title: 'Search help', width: '800'})") %>

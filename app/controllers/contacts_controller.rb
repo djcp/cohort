@@ -62,17 +62,17 @@ class ContactsController < ApplicationController
       end
     end
 
-    #logger.warn("Ferret search string: " + ferret_fields)
+    logger.warn("Ferret search string: " + ferret_fields)
 
     if params[:export].blank?
       if ferret_fields == '* '
         @contacts = Contact.paginate(:page => params[:page],:per_page => 50,:include => [:notes, :contact_emails,:tags], :order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc))
       else
-        @contacts = Contact.find_with_ferret(ferret_fields, {:page => params[:page],:per_page => 50},{:order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
+        @contacts = Contact.find_with_ferret(ferret_fields, {:page => params[:page],:per_page => 50},{:include => [:notes, :contact_emails, :tags], :order => sortable_order('contacts',:model => Contact,:field => 'updated_at',:sort_direction => :desc) })
       end
       render :layout => (request.xhr? ? false : true)
     else
-      contacts = Contact.find_with_ferret(ferret_fields)
+      contacts = Contact.find_with_ferret(ferret_fields, {:limit => :all})
       columns = Contact.columns.collect{|c|c.name}
       if params[:export] == 'csv'
         #De-normalize data because csv files can't be hierarchical like XML.
@@ -107,7 +107,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new
     @contact.attributes = params[:contact]
     if @contact.save
-      redirect_to '/' and return
+      redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
     else
       render :template => 'contacts/edit' and return
     end
@@ -135,7 +135,7 @@ class ContactsController < ApplicationController
     @contact.attributes = params[:contact]
     if @contact.save
       flash[:notice] = 'Saved!'
-      redirect_to '/' and return
+      redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
     else
       logger.warn('update failed.')
       render :template => 'contacts/edit' and return
@@ -147,7 +147,7 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
       @contact.destroy
       flash[:notice] = 'Gone!'
-      redirect_to '/' and return
+      redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
     rescue Exception => exc
       logger.error "Destroy failed #{exc.message}"
       flash[:error] = 'There was an error deleting that item. Sorry!'

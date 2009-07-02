@@ -32,7 +32,7 @@ class TagsController < ApplicationController
   end
 
   def new
-    @tag = Tag.new
+    @tag = Tag.new(:parent_id => params[:parent_id])
     render :template => 'tags/edit' and return 
   end
 
