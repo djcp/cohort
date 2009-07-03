@@ -32,7 +32,7 @@ class FreemailerCampaign < ActiveRecord::Base
     fill_template(preview_user)
   end
 
-  def send
+  def send_campaign
     if not sent
       contacts.each do |contact|
         begin
@@ -43,7 +43,6 @@ class FreemailerCampaign < ActiveRecord::Base
       end
     end
   end
-  private
 
   def preview_user
     {
@@ -70,10 +69,12 @@ class FreemailerCampaign < ActiveRecord::Base
 
   def fill_template(user_hash)
     user_hash.default = ''
-    body_template.gsub(/\{(.*)\}/) do |item|
+    body_template.gsub(/\[\[(.*)\]\]/) do |item|
       user_hash[$1].to_s
     end
   end
+
+  private
 
   def remove_active_campaign
     debugger
