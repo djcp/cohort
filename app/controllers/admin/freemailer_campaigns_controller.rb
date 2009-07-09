@@ -9,7 +9,9 @@ class FreemailerCampaignsController < ApplicationController
   end
   
   def send_campaign
-    flash[:error] = "Not implemented yet!"
+    campaign = @session_user.active_campaign
+    campaign.send_campaign
+    flash[:notice] = "Mail Campaign Sent."
     redirect_to freemailer_campaigns_url
   end
   

@@ -34,13 +34,16 @@ class FreemailerCampaign < ActiveRecord::Base
 
   def send_campaign
     if not sent
-      contacts.each do |contact|
+      freemailer_campaign_contacts.each do |contact_join|
         begin
-          Freemailer.deliver_from_template(self,contact)
-        rescue
-          # Rescue errors and record them
+          Freemailer.deliver_from_template(self,contact_join.contact)
+          contact_join.delivery_status = "Success"
+        rescue Net::SMTPError => e
+          contact_join.delivery_status = e.to_s
         end
       end
+      self[:sent] = true; self.save
+      puts self[:sent]
     end
   end
 
@@ -60,7 +63,7 @@ class FreemailerCampaign < ActiveRecord::Base
       'first name' => person.first_name,
       'last name' => person.last_name,
       'middle name' => person.middle_name,
-      'middle initial' => person.middle_name.first.upcase,
+      'middle initial' => (person.middle_name or '').first.upcase,
       'name' => person.name_for_display,
       'email' => person.primary_email,
       'address' => person.primary_address
@@ -69,7 +72,7 @@ class FreemailerCampaign < ActiveRecord::Base
 
   def fill_template(user_hash)
     user_hash.default = ''
-    body_template.gsub(/\[\[(.*)\]\]/) do |item|
+    body_template.gsub(/\[\[(.*?)\]\]/) do |item|
       user_hash[$1].to_s
     end
   end

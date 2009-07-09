@@ -1,29 +1,30 @@
 %h1
   Your Mailing Campaigns
-%h2
+%h3
   Active Campaign
-%p Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+%p
+  %b= @session_user.active_campaign.title
+%p
+  %b= @session_user.active_campaign.subject
+  %br
+  = text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :cols => 40
 %table
   %tr
-    %th Subject
     %th Title
+    %th Subject
     %th Contacts
     %th From
-    %th Body template
     %th Status
   - @freemailer_campaigns.each do |freemailer_campaign|
     %tr
       %td
-        = h freemailer_campaign.subject
-      %td
         = h freemailer_campaign.title
+      %td
+        = h freemailer_campaign.subject
       %td
         == (#{freemailer_campaign.contacts.count}) #{h freemailer_campaign.contact_names}
       %td
         = h freemailer_campaign.from
-      %td
-        - if freemailer_campaign.body_template
-          = h freemailer_campaign.body_template[0..75]
       %td
         - if freemailer_campaign.sent
           Sent
