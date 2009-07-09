@@ -28,6 +28,7 @@
       %td
         - if freemailer_campaign.sent
           Sent
+          = link_to "(#{freemailer_campaign.successfully_sent}/#{freemailer_campaign.contacts.count})"
         - else
           Unsent.
           = link_to 'Send?', freemailer_campaign_send_campaign_path(freemailer_campaign)

@@ -33,11 +33,13 @@ class FreemailerCampaign < ActiveRecord::Base
   end
 
   def send_campaign
+    debugger
     if not sent
       freemailer_campaign_contacts.each do |contact_join|
         begin
           Freemailer.deliver_from_template(self,contact_join.contact)
-          contact_join.delivery_status = "Success"
+          
+          contact_join.delivery_status = "Successful"; contact_join.save
         rescue Net::SMTPError => e
           contact_join.delivery_status = e.to_s
         end
@@ -75,6 +77,10 @@ class FreemailerCampaign < ActiveRecord::Base
     body_template.gsub(/\[\[(.*?)\]\]/) do |item|
       user_hash[$1].to_s
     end
+  end
+  
+  def successfully_sent
+    freemailer_campaign_contacts.reject {|sending| sending.delivery_status != "Successful"}.count
   end
 
   private
