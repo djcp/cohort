@@ -1,13 +1,15 @@
 %h1
   Your Mailing Campaigns
-%h3
-  Active Campaign
-%p
-  %b= @session_user.active_campaign.title
-%p
-  %b= @session_user.active_campaign.subject
-  %br
-  = text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :cols => 40
+- if @session_user.active_campaign
+  %h3
+    Active Campaign
+    = link_to '(clear active)', freemailer_campaign_clear_active_path
+  %p
+    %b= @session_user.active_campaign.title
+  %p
+    %b= @session_user.active_campaign.subject
+    %br
+    = text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :cols => 40
 %table
   %tr
     %th Title
@@ -33,7 +35,10 @@
           Unsent.
           = link_to 'Send?', freemailer_campaign_send_campaign_path(freemailer_campaign)
       %td
-        = link_to 'Make Active', freemailer_campaign_make_active_path(freemailer_campaign)
+        - if @session_user.active_campaign == freemailer_campaign
+          = link_to 'Clear Active)', freemailer_campaign_clear_active_path 
+        - else
+          = link_to 'Make Active', freemailer_campaign_make_active_path(freemailer_campaign)
       %td
         = link_to 'Show', freemailer_campaign
       %td

@@ -33,19 +33,18 @@ class FreemailerCampaign < ActiveRecord::Base
   end
 
   def send_campaign
-    debugger
-    if not sent
+    if not self[:sent]
       freemailer_campaign_contacts.each do |contact_join|
         begin
           Freemailer.deliver_from_template(self,contact_join.contact)
-          
           contact_join.delivery_status = "Successful"; contact_join.save
         rescue Net::SMTPError => e
+          debugger
           contact_join.delivery_status = e.to_s
         end
       end
       self[:sent] = true; self.save
-      puts self[:sent]
+      puts sent
     end
   end
 
@@ -82,8 +81,6 @@ class FreemailerCampaign < ActiveRecord::Base
   def successfully_sent
     freemailer_campaign_contacts.reject {|sending| sending.delivery_status != "Successful"}.count
   end
-
-  private
 
   def remove_active_campaign
     debugger

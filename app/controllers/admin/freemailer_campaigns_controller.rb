@@ -8,10 +8,19 @@ class FreemailerCampaignsController < ApplicationController
     redirect_to freemailer_campaigns_url
   end
   
+  def clear_active
+    flash[:notice] = "Active campaign cleared."
+    @session_user.active_campaign = nil
+    @session_user.save
+    redirect_to freemailer_campaigns_url
+  end
+    
   def send_campaign
     campaign = @session_user.active_campaign
     campaign.send_campaign
     flash[:notice] = "Mail Campaign Sent."
+    @session_user.active_campaign = nil
+    @session_user.save
     redirect_to freemailer_campaigns_url
   end
   
