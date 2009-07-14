@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @contact_cart.user_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @contact_cart.name %>
+</p>
+
+<p>
+  <b>Global:</b>
+  <%=h @contact_cart.global %>
+</p>
+
+
+<%= link_to 'Edit', edit_contact_cart_path(@contact_cart) %> |
+<%= link_to 'Back', contact_carts_path %>

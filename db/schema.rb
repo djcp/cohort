@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090701134557) do
+ActiveRecord::Schema.define(:version => 20090714140632) do
 
   create_table "contact_addresses", :force => true do |t|
     t.integer  "contact_id",                                     :null => false
@@ -33,6 +33,21 @@ ActiveRecord::Schema.define(:version => 20090701134557) do
   add_index "contact_addresses", ["street1"], :name => "index_contact_addresses_on_street1"
   add_index "contact_addresses", ["street2"], :name => "index_contact_addresses_on_street2"
   add_index "contact_addresses", ["zip"], :name => "index_contact_addresses_on_zip"
+
+  create_table "contact_cart_entries", :force => true do |t|
+    t.integer  "contact_cart_id"
+    t.integer  "contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contact_carts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.boolean  "global", :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contact_emails", :force => true do |t|
     t.integer  "contact_id",                                   :null => false
@@ -94,6 +109,8 @@ ActiveRecord::Schema.define(:version => 20090701134557) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "freemailer_campaign_contacts", ["contact_id", "freemailer_campaign_id"], :name => "index_freemailer_campaign_contacts_on_contact_id_and_freemailer", :unique => true
 
   create_table "freemailer_campaigns", :force => true do |t|
     t.string   "subject"
@@ -205,6 +222,11 @@ ActiveRecord::Schema.define(:version => 20090701134557) do
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   add_foreign_key "contact_addresses", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_addresses_contact_id_fkey"
+
+  add_foreign_key "contact_cart_entries", ["contact_cart_id"], "contact_carts", ["id"], :name => "contact_cart_entries_contact_cart_id_fkey"
+  add_foreign_key "contact_cart_entries", ["contact_id"], "contacts", ["id"], :name => "contact_cart_entries_contact_id_fkey"
+
+  add_foreign_key "contact_carts", ["user_id"], "users", ["id"], :name => "contact_carts_user_id_fkey"
 
   add_foreign_key "contact_emails", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_emails_contact_id_fkey"
 

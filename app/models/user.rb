@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :freemailer_campaigns, :foreign_key => 'sender_id'
-
   include CohortArInstanceMixin
   # Many validations are handled by the redhill schema_validations plugin.
   has_many :notes
@@ -8,7 +6,10 @@ class User < ActiveRecord::Base
 
   before_destroy :allow_delete_of_removable_objects
 
+  # mail campaign assoc.
   belongs_to :active_campaign, :class_name => "FreemailerCampaign"
+  has_many :freemailer_campaigns, :foreign_key => 'sender_id'
+  has_one :contact_cart
   
   attr_accessor :current_campaign
   def self.get_import_user
