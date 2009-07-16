@@ -55,8 +55,8 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
   <% end %>
 </div>
 
-  <h4 id="flyout-bulk-create-mail-campaign" class="toggle hidden tags sub-action"><%= icon(:email_add) %> <%= if @session_user.active_campaign.nil?; 'Create'; else; 'Update'; end %> Mail Campaign</h4>
-  <div id="flyout-bulk-create-mail-campaign-actions" class="toggle-target tags sub-action" style="display: none;">
+<h4 id="flyout-bulk-create-mail-campaign" class="toggle hidden tags sub-action"><%= icon(:email_add) %> <%= if @session_user.active_campaign.nil?; 'Create'; else; 'Update'; end %> Mail Campaign</h4>
+<div id="flyout-bulk-create-mail-campaign-actions" class="toggle-target tags sub-action" style="display: none;">
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_create_campaign), :id => 'bulk-create-campaign') do %>
     <% if @session_user.active_campaign.nil? %>
       <label for="title">Title:</label> <%= text_field_tag 'title',"#{@session_user.username} - #{Date.today}" %>
@@ -69,5 +69,20 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
     <% end%>
   <% end %>
 </div>
+
+<h4 id="flyout-bulk-contact-cart" class="toggle hidden tags sub-action"><%= icon(:cart) %>Contact Cart</h4>
+<div id="flyout-bulk-contact-cart-actions" class="toggle-target tags sub-action" style="display: none;">
+  <% form_tag(url_for(:controller=>'/admin/contact_cart',:action=>:create), :id => 'bulk-contact-cart') do %>
+    <% if @session_user.active_contact_cart.nil? %>
+      <label for="title">Title:</label> <%= text_field_tag 'title',"#{@session_user.username} - #{Date.today}" %>
+      <br/>
+      <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+      <%= submit_tag 'Add Selected Contacts to Cart' %><br/>
+    <% else %>
+      <%= link_to 'Delete my Active Contact Cart', @session_user.active_contact_cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => '/admin/contact_cart' %>
+    <% end %>
+  <% end %>
+</div>
+
 
 </div>

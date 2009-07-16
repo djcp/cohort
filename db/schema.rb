@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090714140632) do
+ActiveRecord::Schema.define(:version => 20090716190453) do
 
   create_table "contact_addresses", :force => true do |t|
     t.integer  "contact_id",                                     :null => false
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(:version => 20090714140632) do
 
   create_table "contact_carts", :force => true do |t|
     t.integer  "user_id"
-    t.string   "name"
-    t.boolean  "global", :default => false
+    t.boolean  "global",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "contact_emails", :force => true do |t|
@@ -253,5 +253,9 @@ ActiveRecord::Schema.define(:version => 20090714140632) do
   add_foreign_key "tags", ["parent_id"], "tags", ["id"], :name => "tags_parent_id_fkey"
 
   add_foreign_key "users", ["active_campaign_id"], "freemailer_campaigns", ["id"], :name => "users_active_campaign_id_fkey"
+
+  create_view "pg_buffercache", "SELECT p.bufferid, p.relfilenode, p.reltablespace, p.reldatabase, p.relblocknumber, p.isdirty, p.usagecount FROM pg_buffercache_pages() p(bufferid integer, relfilenode oid, reltablespace oid, reldatabase oid, relblocknumber bigint, isdirty boolean, usagecount smallint);"
+  create_view "pg_freespacemap_pages", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.relblocknumber, p.bytes FROM pg_freespacemap_pages() p(reltablespace oid, reldatabase oid, relfilenode oid, relblocknumber bigint, bytes integer);"
+  create_view "pg_freespacemap_relations", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.avgrequest, p.interestingpages, p.storedpages, p.nextpage FROM pg_freespacemap_relations() p(reltablespace oid, reldatabase oid, relfilenode oid, avgrequest integer, interestingpages integer, storedpages integer, nextpage integer);"
 
 end

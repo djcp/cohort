@@ -29,6 +29,10 @@ document.observe("dom:loaded", function() {
     bulk_actions_create_campaign();
   }
 
+  if ($$('bulk-contact-cart')) {
+    bulk_actions_contact_cart();
+  }
+
   if($('contact-edit-form')){
     observe_is_primary_radio_buttons();
   }
@@ -92,6 +96,17 @@ function count_selected_contacts(formId){
         }         
         });
       return select_count;
+}
+
+function bulk_actions_contact_cart(){
+  $('bulk-contact-cart').observe('submit', function(form) {
+    var select_count = count_selected_contacts('bulk-contact-cart');
+    
+ //   if(select_count == 0){
+ //     $('flyout-bulk-contact-cart').insert(new Element('p', { 'class': 'notification'} ).update('Please select some contacts to add to the email campaign.'));
+ //     Event.stop(form);
+ //   }
+  });
 }
 
 function bulk_actions_create_campaign(){

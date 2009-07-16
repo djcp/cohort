@@ -81,7 +81,7 @@ class Admin::BulkActionController < Admin::BaseController
     end
     redirect_to params[:return_to] and return 
   end
-  
+ 
   protected
 
   def parse_bulk_tag_list(param)

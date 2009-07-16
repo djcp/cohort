@@ -11,6 +11,14 @@ class User < ActiveRecord::Base
   has_many :freemailer_campaigns, :foreign_key => 'sender_id'
   has_one :contact_cart
   
+  def active_contact_cart
+    contact_cart
+  end
+  
+  def active_contact_cart=(cart)
+    contact_cart = cart
+  end
+  
   attr_accessor :current_campaign
   def self.get_import_user
     self.find_by_username('importer')
