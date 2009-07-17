@@ -1,5 +1,4 @@
-class FreemailerCampaignsController < ApplicationController
-  before_filter :is_admin
+class FreemailerCampaignsController < Admin::BaseController
   before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit, :make_active, :send]
   
   def make_active

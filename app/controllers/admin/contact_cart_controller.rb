@@ -1,5 +1,4 @@
-class Admin::ContactCartController < ApplicationController
-  before_filter :is_admin
+class ContactCartsController < Admin::BaseController
   # GET /contact_carts
   # GET /contact_carts.xml
   def index

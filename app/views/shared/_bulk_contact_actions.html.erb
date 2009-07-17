@@ -79,7 +79,7 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
       <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
       <%= submit_tag 'Add Selected Contacts to Cart' %><br/>
     <% else %>
-      <%= link_to 'Delete my Active Contact Cart', @session_user.active_contact_cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => '/admin/contact_cart' %>
+      <%= link_to 'Delete my Active Contact Cart', @session_user.active_contact_cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => 'admin/contact_carts' %>
     <% end %>
   <% end %>
 </div>

@@ -1,5 +1,4 @@
-class FreemailerCampaignContactsController < ApplicationController
-  before_filter :is_admin
+class FreemailerCampaignContactsController < Admin::BaseController
   # GET /freemailer_campaign_contacts
   # GET /freemailer_campaign_contacts.xml
   def index
