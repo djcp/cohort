@@ -97,3 +97,5 @@ class ContactCartsController < Admin::BaseController
     end
   end
 end
+
+Admin::ContactCartController = ContactCartsController
