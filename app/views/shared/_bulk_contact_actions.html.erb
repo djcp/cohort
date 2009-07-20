@@ -72,13 +72,16 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
 
 <h4 id="flyout-bulk-contact-cart" class="toggle hidden tags sub-action"><%= icon(:cart) %>Contact Cart</h4>
 <div id="flyout-bulk-contact-cart-actions" class="toggle-target tags sub-action" style="display: none;">
+  <%= render :partial => 'contact_carts/contacts', :locals => { :cart => @session_user.active_contact_cart } %>
   <% form_tag(url_for(:controller=>'/admin/contact_cart',:action=>:create), :id => 'bulk-contact-cart') do %>
     <% if @session_user.active_contact_cart.nil? %>
       <label for="title">Title:</label> <%= text_field_tag 'title',"#{@session_user.username} - #{Date.today}" %>
       <br/>
-      <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
-      <%= submit_tag 'Add Selected Contacts to Cart' %><br/>
-    <% else %>
+    <% end %>
+    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= submit_tag 'Add Selected Contacts to Cart' %><br/>
+
+    <%- if !@session_user.active_contact_cart.nil? %>
       <%= link_to 'Delete my Active Contact Cart', @session_user.active_contact_cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => 'admin/contact_carts' %>
     <% end %>
   <% end %>

@@ -1,0 +1,8 @@
+%ul#contact_cart_listings
+  - cart.contacts.each do |contact|
+    %li.contact_cart_listing
+      = contact.name_for_display
+      - form_tag(contact_cart_remove_contact_path(cart), :class => 'contact_cart_remove_contact') do
+        = hidden_field_tag 'contact_to_remove_id', contact.id
+        = hidden_field_tag 'return_to', url_for(sanitized_url_params)
+        = submit_tag 'X'
