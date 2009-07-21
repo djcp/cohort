@@ -25,19 +25,32 @@ document.observe("dom:loaded", function() {
     observe_dashboard_lists();
   }
   
-  if ($$('bulk-create-campaign')){
+  if ($('bulk-create-campaign')){
     bulk_actions_create_campaign();
   }
 
-  if ($$('bulk-contact-cart')) {
+  if ($('bulk-contact-cart')) {
     bulk_actions_contact_cart();
   }
 
   if($('contact-edit-form')){
     observe_is_primary_radio_buttons();
   }
-
+//  if($('contact-cart-remove-submit')){
+//    observe_and_transform_contact_cart_submit_button();
+//  }
 });
+// TODO: Ajaxify submit button
+// function observe_and_transform_contact_cart_submit_button(){
+//  $('.contact-cart-remove-submit').each(function(el){
+//      el.replace('<img border="0" align="bottom" src="/images/../icons/vcard_delete.png" alt="Vcard_delete" id="contact-cart-remove-submit"/>');
+//    });
+//  $$('.contact-cart-remove-submit').each(function(el){
+//      el.observe('click', function(form) {
+//        
+//      });
+//    });
+// }
 
 function observe_is_primary_radio_buttons(){
   $('contact-edit-form').select('[id*="is_primary_true"]').each(
