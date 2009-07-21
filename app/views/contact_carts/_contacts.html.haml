@@ -2,7 +2,4 @@
   - cart.contacts.each do |contact|
     %li.contact_cart_listing
       = contact.name_for_display
-      - form_tag(contact_cart_remove_contact_path(cart), :class => 'contact-cart-remove-contact') do
-        = hidden_field_tag 'contact_to_remove_id', contact.id
-        = hidden_field_tag 'return_to', url_for(sanitized_url_params)
-        = submit_tag 'X', :class => 'contact-cart-remove-submit'
+      = link_to icon (:vcard_delete), contact_cart_remove_contact_path(cart, :contact_to_remove_id => contact.id, :return_to => url_for(sanitized_url_params) )

@@ -29,13 +29,12 @@ class ContactCartsController < Admin::BaseController
     redirect_to params[:return_to] and return     
   end
 
-  def remove
-    if request.post?
-      @contact_cart = @session_user.active_contact_cart
-      @contact_cart.contacts.delete( Contact.find(params[:contact_to_remove_id]))
-      @contact_cart.save
-      redirect_to params[:return_to] and return
-    end
+  def remove_contact
+    debugger
+    @contact_cart = @session_user.active_contact_cart
+    @contact_cart.contacts.delete( Contact.find(params[:contact_to_remove_id]))
+    @contact_cart.save
+    redirect_to params[:return_to] and return
   end
   # DELETE /contact_carts/1
   # DELETE /contact_carts/1.xml
