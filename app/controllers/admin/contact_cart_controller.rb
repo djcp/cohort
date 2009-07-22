@@ -30,16 +30,19 @@ class ContactCartsController < Admin::BaseController
   end
 
   def remove_contact
-    debugger
-    @contact_cart = @session_user.active_contact_cart
-    @contact_cart.contacts.delete( Contact.find(params[:contact_to_remove_id]))
-    @contact_cart.save
-    redirect_to params[:return_to] and return
+    if request.post?
+      @contact_cart = @session_user.active_contact_cart
+      @contact_cart.contacts.delete( Contact.find(params[:contact_to_remove_id]))
+      @contact_cart.save
+      redirect_to params[:return_to] and return
+    end
   end
   # DELETE /contact_carts/1
   # DELETE /contact_carts/1.xml
   def destroy
     @contact_cart = ContactCart.find(params[:id])
+    @contact_cart.user.active_contact_cart = nil
+    @contact_cart.user.save
     @contact_cart.destroy
 
     respond_to do |format|
