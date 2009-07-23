@@ -82,11 +82,12 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
     <% end %>
     <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
     <%= submit_tag 'Add Selected Contacts to Cart' %><br/>
-    <%= link_to icon(:cart_remove, "Restore Saved"), 'do_it'%>
-    <%= link_to icon(:briefcase, "Manage Saved"), 'do_it'%>
+    <%= link_to show_icon_with_text(:cart_remove, "Restore Saved"), 'do_it'%>
+    <%= link_to show_icon_with_text(:briefcase, "Manage Saved"), 'do_it'%>
     <%- if !@session_user.active_contact_cart.nil? %>
-      <%= link_to icon(:cart_put, "Save Active"), 'do_it'%>
-      <%= link_to icon(:cart_delete, 'Delete Active'), @session_user.active_contact_cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => 'admin/contact_carts' %>
+      <br/>
+      <%= link_to show_icon_with_text(:cart_put, "Save Active"), 'do_it'%>
+      <%= link_to show_icon_with_text(:cart_delete, 'Delete Active'), @session_user.active_contact_cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => 'admin/contact_carts' %>
     <% end %>
   <% end %>
 </div>

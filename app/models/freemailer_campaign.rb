@@ -73,7 +73,7 @@ class FreemailerCampaign < ActiveRecord::Base
 
   def fill_template(user_hash)
     user_hash.default = ''
-    body_template.gsub(/\[\[(.*?)\]\]/) do |item|
+    (body_template || "-- Body is empty --").gsub(/\[\[(.*?)\]\]/) do |item|
       user_hash[$1].to_s
     end
   end

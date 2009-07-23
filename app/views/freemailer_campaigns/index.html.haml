@@ -36,7 +36,7 @@
           = link_to 'Send?', freemailer_campaign_send_campaign_path(freemailer_campaign)
       %td
         - if @session_user.active_campaign == freemailer_campaign
-          = link_to 'Clear Active)', freemailer_campaign_clear_active_path 
+          = link_to 'Clear Active', freemailer_campaign_clear_active_path 
         - else
           = link_to 'Make Active', freemailer_campaign_make_active_path(freemailer_campaign)
       %td

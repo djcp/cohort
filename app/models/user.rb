@@ -9,15 +9,8 @@ class User < ActiveRecord::Base
   # mail campaign assoc.
   belongs_to :active_campaign, :class_name => "FreemailerCampaign"
   has_many :freemailer_campaigns, :foreign_key => 'sender_id'
-  has_one :contact_cart
-  
-  def active_contact_cart
-    contact_cart
-  end
-  
-  def active_contact_cart=(cart)
-    contact_cart = cart
-  end
+  belongs_to :active_contact_cart, :class_name => "ContactCart"
+  has_many :contact_carts
   
   attr_accessor :current_campaign
   def self.get_import_user

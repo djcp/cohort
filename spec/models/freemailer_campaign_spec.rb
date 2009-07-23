@@ -42,9 +42,9 @@ describe FreemailerCampaign do
   it { should respond_to :preview }
   it "should produce a preview with \"John Doe\" contact information merged in" do
     campaign = FreemailerCampaign.new( :body_template => 
-                           "{last name}!\n" + 
-                           "{name}\n" +
-                           "{address}\n" )
+                           "[[last name]]!\n" + 
+                           "[[name]]\n" +
+                           "[[address]]\n" )
     campaign.preview.should == <<-EOS
 Doe!
 John Doe
