@@ -2,14 +2,25 @@ class ContactCartsController < Admin::BaseController
   # GET /contact_carts
   # GET /contact_carts.xml
   def index
-    @contact_carts = ContactCart.all
-
+    carts = ContactCart.all(:conditions => ["user_id = ? or global = true",@session_user.id]).group_by {|cart| cart.user == @session_user}
+    @my_contact_carts = carts[true]
+    @global_contact_carts = carts[false]
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @contact_carts }
     end
   end
 
+  # GET /freemailer_campaigns/1
+  # GET /freemailer_campaigns/1.xml
+  def show
+    @contact_cart = ContactCart.find_by_id(params[:id], :conditions => ["user_id = ? or global = true",@session_user.id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @contact_cart }
+    end
+  end
+  
   # POST /contact_carts
   # POST /contact_carts.xml
   def create

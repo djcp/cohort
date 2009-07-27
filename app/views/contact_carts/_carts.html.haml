@@ -1,0 +1,24 @@
+.carts
+  %p
+    - contact_carts.each do |cart|
+      %b Title:
+      = "#{cart.title || " -- None Given --"}"
+      %br
+      - if cart.user != @session_user
+        %b Owner:
+        = cart.user.username
+        %br
+      %b Users:
+      = cart.contact_names
+      %br
+      
+      = link_to 'Make Active', 'contact_cart_make_active_path'
+      |
+      = link_to 'Show', cart
+      - if cart.user == @session_user
+        |
+        = link_to 'Edit', edit_contact_cart_path(cart)
+        |
+        = link_to 'Destroy', cart, :confirm => 'Are you sure?', :method => :delete
+      %br
+      %br

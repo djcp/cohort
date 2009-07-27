@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   def self.get_import_user
     self.find_by_username('importer')
   end
-
+  
   protected
   def self.authenticate(username,password)
     if CohortAuthDummy.authenticate(username,password)
