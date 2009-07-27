@@ -4,6 +4,10 @@ class ContactCart < ActiveRecord::Base
   has_many :contacts, :through => :contact_cart_entries
 
   def contact_names
-    contacts.map(&:name_for_display).join(', ').squeeze(' ')
+    contacts.count == 0 ? ' -- None Added -- ' : contacts.map(&:name_for_display).join(', ').squeeze(' ')
+  end
+  
+  def title
+    self[:title] || ' -- None Given -- '
   end
 end

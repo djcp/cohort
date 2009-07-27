@@ -7,6 +7,13 @@ class ContactCartsController < Admin::BaseController
     redirect_to contact_carts_url
   end
 
+  def clear_active
+    flash[:notice] = "Active contact cart cleared."
+    @session_user.active_contact_cart = nil
+    @session_user.save
+    redirect_to contact_carts_url
+  end
+  
   def index
     carts = ContactCart.all(:conditions => ["user_id = ? or global = true",@session_user.id]).group_by {|cart| cart.user == @session_user}
     @my_contact_carts = carts[true]

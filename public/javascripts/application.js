@@ -36,21 +36,8 @@ document.observe("dom:loaded", function() {
   if($('contact-edit-form')){
     observe_is_primary_radio_buttons();
   }
-//  if($('contact-cart-remove-submit')){
-//    observe_and_transform_contact_cart_submit_button();
-//  }
+
 });
-// TODO: Ajaxify submit button
-// function observe_and_transform_contact_cart_submit_button(){
-//  $('.contact-cart-remove-submit').each(function(el){
-//      el.replace('<img border="0" align="bottom" src="/images/../icons/vcard_delete.png" alt="Vcard_delete" id="contact-cart-remove-submit"/>');
-//    });
-//  $$('.contact-cart-remove-submit').each(function(el){
-//      el.observe('click', function(form) {
-//        
-//      });
-//    });
-// }
 
 function observe_is_primary_radio_buttons(){
   $('contact-edit-form').select('[id*="is_primary_true"]').each(

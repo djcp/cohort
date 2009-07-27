@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.contact_cart_clear_active 'contact_cart/clear_active', :path_prefix => '/admin', :controller => 'contact_carts', :action => 'clear_active', :method => 'get'
   map.resources :contact_carts, :path_prefix => '/admin' do |cart|
     cart.remove_contact 'remove_contact', :method => 'put', 
       :controller => 'contact_carts', :action => 'remove_contact'
@@ -7,8 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :freemailer_campaign_contacts, :path_prefix => '/admin'
-  map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', :path_prefix => '/admin', :controller => 'freemailer_campaigns', 
-    :action => 'clear_active', :method => 'get'
+  map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', :path_prefix => '/admin', :controller => 'freemailer_campaigns', :action => 'clear_active', :method => 'get'
   map.resources :freemailer_campaigns, :path_prefix => '/admin' do |campaign|
     campaign.make_active 'make_active', :controller => 'freemailer_campaigns', 
       :action => 'make_active', :method => 'get'

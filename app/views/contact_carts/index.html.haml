@@ -1,8 +1,16 @@
-%h1
-  Contact Carts
-%h3 Active Cart
-= render :partial => 'carts', :locals => {:contact_carts => [@session_user.active_contact_cart] }
-%h3 My Carts
-= render :partial => 'carts', :locals => {:contact_carts => @my_contact_carts}
-%h3 Global Carts
-= render :partial => 'carts', :locals => {:contact_carts => @global_contact_carts}
+%h1 Contact Carts
+- if @session_user.active_contact_cart
+  %h3 
+    Active Cart
+    = link_to '(clear active)', contact_cart_clear_active_path
+  = render :partial => 'carts', :locals => {:contact_carts => [@session_user.active_contact_cart] }
+- if @my_contact_carts
+  %h3 My Carts
+  = render :partial => 'carts', :locals => {:contact_carts => @my_contact_carts}
+- if @global_contact_carts
+  %h3 Global Carts
+  = render :partial => 'carts', :locals => {:contact_carts => @global_contact_carts ||[]}
+- if !@my_contact_carts and !@global_contact_carts and !@session_user.active_contact_cart
+  %h3
+    Create a contact cart on the 
+    = link_to 'Contact Page',  :controller => '/admin/dashboard', :action => :contacts

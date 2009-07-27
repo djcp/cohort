@@ -2,7 +2,7 @@
   %p
     - contact_carts.each do |cart|
       %b Title:
-      = "#{cart.title || " -- None Given --"}"
+      = cart.title
       %br
       - if cart.user != @session_user
         %b Owner:
@@ -12,8 +12,9 @@
       = cart.contact_names
       %br
       
-      = link_to 'Make Active', contact_cart_make_active_path(cart)
-      |
+      - if cart != @session_user.active_contact_cart
+        = link_to 'Make Active', contact_cart_make_active_path(cart)
+        |
       = link_to 'Show', cart
       - if cart.user == @session_user
         |

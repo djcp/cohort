@@ -1,10 +1,10 @@
 class Contact < ActiveRecord::Base
   
   # Mail campaign Assoc.
-  has_many :freemailer_campaign_contacts
+  has_many :freemailer_campaign_contacts, :dependent => :destroy
   has_many :freemailer_campaigns, :through => :freemailer_campaign_contacts
   
-  has_many :contact_cart_entries
+  has_many :contact_cart_entries, :dependent => :destroy
   has_many :contact_carts, :through => :contact_cart_entries
     
   # Many validations are handled by the redhill schema_validations plugin.
