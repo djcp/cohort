@@ -1,5 +1,7 @@
 %h1
   Contact Carts
+%h3 Active Cart
+= render :partial => 'carts', :locals => {:contact_carts => [@session_user.active_contact_cart] }
 %h3 My Carts
 = render :partial => 'carts', :locals => {:contact_carts => @my_contact_carts}
 %h3 Global Carts

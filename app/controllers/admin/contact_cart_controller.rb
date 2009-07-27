@@ -1,6 +1,12 @@
 class ContactCartsController < Admin::BaseController
-  # GET /contact_carts
-  # GET /contact_carts.xml
+
+  def make_active
+    @session_user.active_contact_cart = ContactCart.find(params[:contact_cart_id], :conditions => ["user_id = ? or global = true",@session_user.id])
+    @session_user.save
+    flash[:notice] = "Contact Cart has been made active."
+    redirect_to contact_carts_url
+  end
+
   def index
     carts = ContactCart.all(:conditions => ["user_id = ? or global = true",@session_user.id]).group_by {|cart| cart.user == @session_user}
     @my_contact_carts = carts[true]
@@ -51,11 +57,14 @@ class ContactCartsController < Admin::BaseController
   # DELETE /contact_carts/1
   # DELETE /contact_carts/1.xml
   def destroy
-    @contact_cart = ContactCart.find(params[:id])
-    @contact_cart.user.active_contact_cart = nil
-    @contact_cart.user.save
-    @contact_cart.destroy
-
+    if @contact_cart = ContactCart.find_by_id(params[:id], :conditions => ["user_id = ?",@session_user.id])
+      @contact_cart.user.active_contact_cart = nil
+      @contact_cart.user.save
+      @contact_cart.destroy
+      flash[:notice] = 'Contact cart destroyed.'
+    else
+      flash[:error] = 'Contact cart not destroyed. Are you trying to delete someone else\'s cart?'
+    end
     respond_to do |format|
       format.html { redirect_to(params[:return_to] || contact_carts_url) }
       format.xml  { head :ok }

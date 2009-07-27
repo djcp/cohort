@@ -14,7 +14,7 @@
   %b Contacts:
   = render :partial => "contacts", :locals => {:cart => @contact_cart}
 
-= link_to 'Make Active', 'contact_cart_make_active_path'
+= link_to 'Make Active', contact_cart_make_active_path(@contact_cart)
 |
 - if @session_user == @contact_cart.user  
   = link_to 'Edit', edit_contact_cart_path(@contact_cart)

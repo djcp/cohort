@@ -63,7 +63,7 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
       <br/>
     <% end %>
     <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
-    <%= submit_tag 'Add Selected Contacts to Mail Campaign' %><br/>
+    <%= submit_tag 'Add Cart and Selected Contacts to Mail Campaign' %><br/>
     <% if !@session_user.active_campaign.nil? %>
       <%= link_to 'Delete my Active Mail Campaign', @session_user.active_campaign, :confirm => "Are you sure you want to delete \"#{@session_user.active_campaign.title}\"?", :method => :delete %>
     <% end%>
@@ -81,10 +81,11 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
       <br/>
     <% end %>
     <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
-    <%= submit_tag 'Add Selected Contacts to Cart' %><br/>
-    <%= link_to show_icon_with_text(:cart_remove, "Restore Saved"), contact_carts_path %>
-    <%= link_to show_icon_with_text(:briefcase, "Manage Saved"), contact_carts_path %>
-    <%- if !@session_user.active_contact_cart.nil? %>
+    <%- if @session_user == @session_user.active_contact_cart.user %>
+      <%= submit_tag 'Add Selected Contacts to Cart' %><br/>
+    <% end %>
+    <%= link_to show_icon_with_text(:briefcase, "Manage Saved Carts"), contact_carts_path %>
+    <%- if !@session_user.active_contact_cart.nil? && @session_user == @session_user.active_contact_cart.user %>
       <br/>
       <%= link_to show_icon_with_text(:cart_put, "Save Active"), 'do_it'%>
       <%= link_to show_icon_with_text(:cart_delete, 'Delete Active'), @session_user.active_contact_cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => 'admin/contact_carts' %>
