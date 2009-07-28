@@ -1,0 +1,23 @@
+<% form_tag contacts_url do %>
+  <%= text_field_tag :q, params[:q] %>
+  <%= submit_tag 'Go' %>
+<% end %>
+
+<table border="0" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>all these words:</th>
+    <td><%= text_field_tag :all_words, params[:all_words], :size => 50 %></td>
+  </tr>
+  <tr>
+    <th>this exact phrase:</th>
+    <td><%= text_field_tag :exact_phrase, params[:exact_phrase], :size => 50 %></td>
+  </tr>
+  <tr>
+    <th>one or more of these words:</th>
+    <td>
+      <%= text_field_tag 'ors[]', (params[:ors] ? params[:ors][0] : ''), :size => 15 %>
+      <%= text_field_tag 'ors[]', (params[:ors] ? params[:ors][1] : ''), :size => 15 %>
+      <%= text_field_tag 'ors[]', (params[:ors] ? params[:ors][2] : ''), :size => 15 %>
+    </td>
+  </tr>
+</table>

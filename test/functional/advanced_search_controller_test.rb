@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::ModelAbstractControllerTest < ActionController::TestCase
+class AdvancedSearchControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

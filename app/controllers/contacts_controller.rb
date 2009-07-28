@@ -16,7 +16,7 @@ class ContactsController < ApplicationController
         (new_tags and new_tags.collect{|t|t.to_i}),
         (current_tags and current_tags.collect{|t|t.to_i})
       ].flatten.uniq.compact
-      logger.warn('Deduped Tags: ' + deduped_tags.inspect)
+      #logger.warn('Deduped Tags: ' + deduped_tags.inspect)
       @object.tag_ids = deduped_tags || []
       @object.save
     end
@@ -62,7 +62,7 @@ class ContactsController < ApplicationController
       end
     end
 
-    logger.warn("Ferret search string: " + ferret_fields)
+    #logger.warn("Ferret search string: " + ferret_fields)
 
     if params[:export].blank?
       if ferret_fields == '* '
@@ -137,7 +137,7 @@ class ContactsController < ApplicationController
       flash[:notice] = 'Saved!'
       redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
     else
-      logger.warn('update failed.')
+      #logger.warn('update failed.')
       render :template => 'contacts/edit' and return
     end
   end
@@ -149,7 +149,7 @@ class ContactsController < ApplicationController
       flash[:notice] = 'Gone!'
       redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
     rescue Exception => exc
-      logger.error "Destroy failed #{exc.message}"
+      #logger.error "Destroy failed #{exc.message}"
       flash[:error] = 'There was an error deleting that item. Sorry!'
     end
   end

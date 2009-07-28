@@ -32,7 +32,7 @@ class SavedSearchesController < ApplicationController
   def show
     @saved_search = SavedSearch.find(params[:id])
   rescue Exception => exc
-    flash[:error] = "There was an error when we looked for that tag: #{exc.message}"
+    flash[:error] = "There was an error when we looked for that saved search: #{exc.message}"
     redirect_to :action => :index and return
   end
 
