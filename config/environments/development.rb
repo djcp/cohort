@@ -17,13 +17,14 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = true
 
 require 'smtp-tls'
+load 'config/secret.rb'
 config.action_mailer.smtp_settings = {
  # :enable_starttls_auto => true,
   :address => 'smtp.gmail.com',
   :port => 587,
   :domain => 'gmail.com',
   :authentication => :plain,
-  :user_name => 'cohort.crm',
+  :user_name => SECRET_PASSWORD,
   :password => 'goocohort',
   :dev_mailto => 'neufelry+cohort@gmail.com'
 }

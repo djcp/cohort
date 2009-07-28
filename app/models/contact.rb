@@ -33,7 +33,7 @@ class Contact < ActiveRecord::Base
     :reject_if => proc { |attributes| attributes['phone'].blank? }
 
   def name_for_display
-    dname = [self.first_name, self.middle_name, self.last_name].flatten.reject(&:nil?).join(' ')
+    dname = [self.first_name, self.middle_name, self.last_name].flatten.compact.join(' ')
     (dname.blank?) ? 'unknown' : dname
   end
 
