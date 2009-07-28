@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(:version => 20090723190304) do
 
   create_table "contact_carts", :force => true do |t|
     t.integer  "user_id"
+    t.string   "title"
     t.boolean  "global",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title"
   end
 
   create_table "contact_emails", :force => true do |t|
@@ -117,10 +117,10 @@ ActiveRecord::Schema.define(:version => 20090723190304) do
     t.string   "title"
     t.text     "body_template"
     t.integer  "sender_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "sent",          :default => false
     t.string   "from"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "log_items", :force => true do |t|
