@@ -24,7 +24,7 @@ config.action_mailer.smtp_settings = {
   :port => 587,
   :domain => 'gmail.com',
   :authentication => :plain,
-  :user_name => SECRET_PASSWORD,
-  :password => 'goocohort',
+  :user_name => 'cohort.crm',
+  :password => SECRET_PASSWORD,
   :dev_mailto => 'neufelry+cohort@gmail.com'
 }
