@@ -17,7 +17,7 @@ class FreemailerCampaignsController < Admin::BaseController
   def send_campaign
     campaign = @session_user.active_campaign
     campaign.send_campaign
-    flash[:notice] = "Mail Campaign Sent."
+    flash[:notice] = "Mailing Campaign will be sent shortly."
     @session_user.active_campaign = nil
     @session_user.save
     redirect_to freemailer_campaigns_url

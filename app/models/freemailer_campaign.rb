@@ -35,19 +35,28 @@ class FreemailerCampaign < ActiveRecord::Base
   def send_campaign
     if not self[:sent]
       freemailer_campaign_contacts.each do |contact_join|
-        begin
-          Freemailer.deliver_from_template(self,contact_join.contact)
-          contact_join.delivery_status = "Successful"; contact_join.save
-        rescue Net::SMTPError => e
-          debugger
-          contact_join.delivery_status = e.to_s
-        end
+        self.send_later(:send_individual_mail,contact_join)
       end
       self[:sent] = true; self.save
-      puts sent
     end
   end
 
+  def send_individual_mail(contact_join)
+    begin
+      if contact_join.delivery_status !~ /Success/
+        raise Net::SMTPFatalError if rand[2] == 1
+        Freemailer.deliver_from_template(self,contact_join.contact)
+        contact_join.delivery_status = "Successful"
+        contact_join.save
+      end
+    rescue Net::SMTPError => e
+      puts "Delivery error rescued!"
+      debugger
+      contact_join.delivery_status = e.to_s
+      contact_join.save
+    end
+  end
+  
   def preview_user
     {
       'first name' => 'John',
@@ -73,17 +82,16 @@ class FreemailerCampaign < ActiveRecord::Base
 
   def fill_template(user_hash)
     user_hash.default = ''
-    (body_template || "-- Body is empty --").gsub(/\[\[(.*?)\]\]/) do |item|
+    (body_template ||  "-- Body is empty -- ").gsub(/\[\[(.*?)\]\]/) do |item|
       user_hash[$1].to_s
     end
   end
   
   def successfully_sent
-    freemailer_campaign_contacts.reject {|sending| sending.delivery_status != "Successful"}.count
+    freemailer_campaign_contacts.count( :conditions => { :delivery_status => "Successful" })
   end
 
   def remove_active_campaign
-    debugger
     if sender.active_campaign == self
       sender.active_campaign = nil
       sender.save
