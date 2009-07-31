@@ -1,19 +1,21 @@
 ActionController::Routing::Routes.draw do |map|
-  map.contact_cart_clear_active 'contact_cart/clear_active', :path_prefix => '/admin', :controller => 'contact_carts', :action => 'clear_active', :method => 'get'
+  map.contact_cart_clear_active 'contact_cart/clear_active', :path_prefix => '/admin', 
+      :controller => 'contact_carts', :action => 'clear_active', :method => 'get'
   map.resources :contact_carts, :path_prefix => '/admin' do |cart|
-    cart.remove_contact 'remove_contact', :method => 'put', 
-      :controller => 'contact_carts', :action => 'remove_contact'
-    cart.make_active 'make_active', :controller => 'contact_carts', 
-      :action => 'make_active', :method => 'get'
+    cart.remove_contact 'remove_contact',  :controller => 'contact_carts', :action => 'remove_contact',
+        :method => 'put'
+    cart.make_active 'make_active', :controller => 'contact_carts', :action => 'make_active', 
+        :method => 'get'
   end
 
-  map.resources :freemailer_campaign_contacts, :path_prefix => '/admin'
-  map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', :path_prefix => '/admin', :controller => 'freemailer_campaigns', :action => 'clear_active', :method => 'get'
+  map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', :path_prefix => '/admin',
+      :controller => 'freemailer_campaigns', :action => 'clear_active', :method => 'get'
   map.resources :freemailer_campaigns, :path_prefix => '/admin' do |campaign|
-    campaign.make_active 'make_active', :controller => 'freemailer_campaigns', 
-      :action => 'make_active', :method => 'get'
-    campaign.send_campaign      'send', :controller => 'freemailer_campaigns', 
-      :action => 'send_campaign',        :method => 'get'
+    campaign.resources :campaign_contacts, :controller => 'freemailer_campaign_contact'
+    campaign.make_active 'make_active', :controller => 'freemailer_campaigns', :action => 'make_active',
+        :method => 'get'
+    campaign.send_campaign      'send', :controller => 'freemailer_campaigns', :action => 'send_campaign',
+        :method => 'get'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

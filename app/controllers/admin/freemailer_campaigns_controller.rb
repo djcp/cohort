@@ -26,8 +26,8 @@ class FreemailerCampaignsController < Admin::BaseController
   # GET /freemailer_campaigns
   # GET /freemailer_campaigns.xml
   def index
-    @freemailer_campaigns = FreemailerCampaign.find(:all,
-      :conditions => { :sender_id => @session_user.id })
+    @freemailer_campaigns = FreemailerCampaign.paginate(:page => params[:page], :order => 'created_at DESC',
+      :conditions => { :sender_id => @session_user.id }, :per_page => 7)
 
     respond_to do |format|
       format.html # index.html.erb
