@@ -11,13 +11,20 @@
     %br
     = text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :cols => 40
   = will_paginate @freemailer_campaigns  
-%table
-  %tr
-    %th Title
-    %th Subject
-    %th Contacts
-    %th From
-    %th Status
-  - @freemailer_campaigns.each do |freemailer_campaign|
-    = render :partial => 'campaign', :locals => {:freemailer_campaign => freemailer_campaign}
+- if !@freemailer_campaigns.empty?
+  %table
+    %tr
+      %th Title
+      %th Subject
+      %th Contacts
+      %th From
+      %th Status
+    - @freemailer_campaigns.each do |freemailer_campaign|
+      = render :partial => 'campaign', :locals => {:freemailer_campaign => freemailer_campaign}
+- else
+  %h3 
+    You have none. Create one on the 
+    = link_to('Contact Page',  :controller => '/admin/dashboard', :action => :contacts) + '.'
+    
 = will_paginate @freemailer_campaigns
+

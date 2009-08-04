@@ -6,4 +6,4 @@
         - form_tag(contact_cart_remove_contact_path(cart), :class => 'contact-cart-remove-contact') do
           = hidden_field_tag 'contact_to_remove_id', contact.id
           = hidden_field_tag 'return_to', url_for(sanitized_url_params)
-          = icon_submit_tag (:vcard_delete, "Remove", :class => 'contact-cart-remove-submit')
+          = icon_submit_tag(:vcard_delete, "Remove", :class => 'contact-cart-remove-submit')

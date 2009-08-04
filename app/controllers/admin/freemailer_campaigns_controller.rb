@@ -26,7 +26,7 @@ class FreemailerCampaignsController < Admin::BaseController
   def statuses
     statuses = FreemailerCampaignContact.paginate(:page => params[:page], :order => 'created_at DESC')
     render :partial => 'statuses', :locals => { :statuses => statuses, 
-      :campaign =>     @freemailer_campaign }
+      :campaign =>  @freemailer_campaign, :per_page => 10 }
   end
   
   # ############## Restful Actions ##############################

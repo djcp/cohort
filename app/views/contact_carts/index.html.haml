@@ -12,5 +12,6 @@
   = render :partial => 'carts', :locals => {:contact_carts => @global_contact_carts ||[]}
 - if !@my_contact_carts and !@global_contact_carts and !@session_user.active_contact_cart
   %h3
-    Create a contact cart on the 
+    You have none. Create a contact cart on the 
     = link_to 'Contact Page',  :controller => '/admin/dashboard', :action => :contacts
+    = '.'
