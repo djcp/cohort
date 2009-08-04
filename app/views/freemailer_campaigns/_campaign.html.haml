@@ -11,7 +11,7 @@
     - if freemailer_campaign.sent
       Sent
       - totals = "(#{freemailer_campaign.successfully_sent}/#{freemailer_campaign.contacts.count})"
-      = link_to_function(totals,"Modalbox.show('#{url_for(:controller=> 'freemailer_campaign_contact', :action => :modalbox)}',{title: 'Mailing Statuses', width: '400'})")
+      = link_to_function(totals, "Modalbox.show('#{freemailer_campaign_statuses_path(freemailer_campaign)}',{title: 'Mailing Statuses for  \"#{freemailer_campaign.title}\"', width: '400'})")
     - else
       Unsent.
       = link_to 'Send?', freemailer_campaign_send_campaign_path(freemailer_campaign)

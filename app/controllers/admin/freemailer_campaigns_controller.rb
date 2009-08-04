@@ -1,5 +1,5 @@
 class FreemailerCampaignsController < Admin::BaseController
-  before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit, :make_active, :send]
+  before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit, :make_active, :send, :statuses]
   
   def make_active
     @freemailer_campaign.make_active_for_sender
@@ -23,8 +23,13 @@ class FreemailerCampaignsController < Admin::BaseController
     redirect_to freemailer_campaigns_url
   end
   
-  # GET /freemailer_campaigns
-  # GET /freemailer_campaigns.xml
+  def statuses
+    statuses = FreemailerCampaignContact.paginate(:page => params[:page], :order => 'created_at DESC')
+    render :partial => 'statuses', :locals => { :statuses => statuses, 
+      :campaign =>     @freemailer_campaign }
+  end
+  
+  # ############## Restful Actions ##############################
   def index
     @freemailer_campaigns = FreemailerCampaign.paginate(:page => params[:page], :order => 'created_at DESC',
       :conditions => { :sender_id => @session_user.id }, :per_page => 7)
@@ -35,8 +40,6 @@ class FreemailerCampaignsController < Admin::BaseController
     end
   end
 
-  # GET /freemailer_campaigns/1
-  # GET /freemailer_campaigns/1.xml
   def show
     respond_to do |format|
       format.html # show.html.erb
@@ -44,12 +47,8 @@ class FreemailerCampaignsController < Admin::BaseController
     end
   end
 
-  # GET /freemailer_campaigns/1/edit
-  def edit
-  end
-
-  # POST /freemailer_campaigns
-  # POST /freemailer_campaigns.xml
+  def edit; end
+  
   def create
     @freemailer_campaign = FreemailerCampaign.new(params[:freemailer_campaign])
 
@@ -65,8 +64,6 @@ class FreemailerCampaignsController < Admin::BaseController
     end
   end
 
-  # PUT /freemailer_campaigns/1
-  # PUT /freemailer_campaigns/1.xml
   def update
     respond_to do |format|
       if @freemailer_campaign.update_attributes(params[:freemailer_campaign])
@@ -80,8 +77,6 @@ class FreemailerCampaignsController < Admin::BaseController
     end
   end
 
-  # DELETE /freemailer_campaigns/1
-  # DELETE /freemailer_campaigns/1.xml
   def destroy
     @freemailer_campaign.destroy
 

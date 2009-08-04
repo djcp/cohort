@@ -1,0 +1,11 @@
+%table
+  %tr
+    %th Contact
+    %th Email
+    %th Status
+  - statuses.each do |status|
+    %tr
+      %td= status.contact.name_for_display
+      %td= status.contact.primary_email
+      %td= status.delivery_status || "No Delivery Attempted"
+= will_paginate(statuses)
