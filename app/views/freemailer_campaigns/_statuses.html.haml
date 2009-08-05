@@ -1,11 +1,12 @@
-%table
-  %tr
-    %th Contact
-    %th Email
-    %th Status
-  - statuses.each do |status|
+#delivery_statuses
+  %table
     %tr
-      %td= status.contact.name_for_display
-      %td= status.contact.primary_email
-      %td= status.delivery_status || "Pending"
-= will_paginate(statuses)
+      %th Contact
+      %th Email
+      %th Status
+    - statuses.each do |status|
+      %tr
+        %td= status.contact.name_for_display
+        %td= status.contact.primary_email
+        %td= status.delivery_status || "Pending"
+  = will_paginate(statuses, :renderer => StatusPaginationModalSwitchRenderer)
