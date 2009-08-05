@@ -35,11 +35,10 @@ protected
     }else{
       new_page=old_page.gsub(/(\d+)$/,#{page});
     }
-    alert(new_page);
   EOS
  
   <<-EOS
-      <a onclick="#{onclick}; Modalbox.show(text,new_page,{title: Modalbox.title, width: '450'});" href="#">#{text}</a>
+      <a onclick="#{onclick}; Modalbox.show(new_page,{title: Modalbox.title, width: '450'});" href="#">#{text}</a>
     EOS
   end
 
