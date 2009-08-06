@@ -361,3 +361,11 @@ span.tag-display span {
   padding-bottom: 2px;
 }
 
+#campaign_template {
+  float: left;
+}
+#campaign_legend {
+  float: left;
+  padding: 2em;
+}
+
