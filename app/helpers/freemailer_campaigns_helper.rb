@@ -1,4 +1,7 @@
 module FreemailerCampaignsHelper
+  def campaign_statuses(title, freemailer_campaign)
+    link_to_function(title, "Modalbox.show('#{freemailer_campaign_statuses_path(freemailer_campaign)}',{title: 'Mailing Statuses for  \"#{freemailer_campaign.title}\"', width: '450'})")
+  end
 end
 
 class StatusPaginationModalSwitchRenderer < WillPaginate::LinkRenderer
@@ -27,18 +30,19 @@ protected
   end
 
   def page_link(page, text, attributes = {})
+
     onclick = <<-EOS
     var old_page=Modalbox.content;
     var new_page;
     if(old_page.endsWith('statuses')){
       new_page=old_page+'?page='+#{page};
     }else{
-      new_page=old_page.gsub(/(\d+)$/,#{page});
+      new_page=old_page.gsub(/(\\d+)$/,#{page});
     }
   EOS
- 
+  puts "#{page}: #{onclick}"
   <<-EOS
-      <a onclick="#{onclick}; Modalbox.show(new_page,{title: Modalbox.title, width: '450'});" href="#">#{text}</a>
+      <a onclick="#{onclick}; Modalbox.show(new_page,{title: Modalbox.options.title, width: '450'});" href="#">#{text}</a>
     EOS
   end
 

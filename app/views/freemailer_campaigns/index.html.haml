@@ -6,9 +6,8 @@
     = link_to '(clear active)', freemailer_campaign_clear_active_path
   %p
     %b= @session_user.active_campaign.title
-  %p
-    %b= @session_user.active_campaign.subject
     %br
+    %b= @session_user.active_campaign.subject
     = text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :cols => 40
   = will_paginate @freemailer_campaigns  
 - if !@freemailer_campaigns.empty?

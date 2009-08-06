@@ -17,7 +17,7 @@
     Body template:
   = h @freemailer_campaign.body_template
 - if @freemailer_campaign.sent
-  = link_to 'Status', :action => 'status'
+  = link_to 'Status', :action => 'statuses'
 - else
   = link_to 'Send', freemailer_campaign_send_campaign_path(@freemailer_campaign)
 |
