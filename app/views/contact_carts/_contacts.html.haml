@@ -1,7 +1,7 @@
 %ul#contact_cart_listings
   - cart.contacts.each do |contact|
-    %li.contact_cart_listing
-      = contact.name_for_display
+    %li.contact_cart_listing{:style => 'clear:left;'}
+      %span.contact-cart-name= contact.name_for_display
       - if @session_user == cart.user
         - form_tag(contact_cart_remove_contact_path(cart), :class => 'contact-cart-remove-contact') do
           = hidden_field_tag 'contact_to_remove_id', contact.id

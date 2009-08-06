@@ -369,3 +369,15 @@ span.tag-display span {
   padding: 2em;
 }
 
+#campaign_legend li {
+  list-style: none;
+  margin-left: -2.5em;
+}
+
+.contact-cart-remove-contact {
+  float: left;
+}
+
+.contact-cart-name {
+  float: left;
+}
