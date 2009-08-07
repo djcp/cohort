@@ -1,5 +1,6 @@
+- contacts = cart.contacts.paginate(:page => (params[:contact_cart_page] || 1), :per_page => 5)
 %ul#contact_cart_listings
-  - cart.contacts.each do |contact|
+  - contacts.each do |contact|
     %li.contact_cart_listing{:style => 'clear:left;'}
       %span.contact-cart-name= contact.name_for_display
       - if @session_user == cart.user
@@ -7,3 +8,5 @@
           = hidden_field_tag 'contact_to_remove_id', contact.id
           = hidden_field_tag 'return_to', url_for(sanitized_url_params)
           = icon_submit_tag(:vcard_delete, "Remove", :class => 'contact-cart-remove-submit')
+  %br
+  = will_paginate contacts, :param_name => :contact_cart_page

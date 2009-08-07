@@ -9,7 +9,9 @@
         = cart.user.username
         %br
       %b== Contacts (#{cart.contacts.count}):
-      = cart.contact_names
+      %ul
+        - cart.contacts.each do |contact|
+          %li= contact.name_for_display
       %br
       
       - if cart != @session_user.active_contact_cart

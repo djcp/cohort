@@ -1,0 +1,23 @@
+%h4#flyout-bulk-contact-cart{:class=>"toggle hidden tags sub-action"}
+  = icon(:cart)
+  Contact Cart
+#flyout-bulk-contact-cart-actions{:class=>"toggle-target tags sub-action", :style=>"display: none;"}
+  - cart = @session_user.active_contact_cart
+  - if !cart.nil?
+    %b== #{cart.title} (#{cart.contacts.count} )
+    = render :partial => 'contact_carts/contacts', :locals => { :cart => cart }
+  - form_tag(url_for(:controller=>'/admin/contact_cart',:action=>:create), :id => 'bulk-contact-cart') do
+    - if cart.nil?
+      %label{:for=>"title"} Title:
+      = text_field_tag 'title', "#{@session_user.username} - #{Date.today}"
+      %br
+
+    = hidden_field_tag 'return_to', url_for(sanitized_url_params)
+    - if cart.nil? || (cart && @session_user == cart.user)
+      = submit_tag 'Add Selected Contacts to Cart'
+      %br
+
+    = link_to show_icon_with_text(:briefcase, "Manage Saved Carts"), contact_carts_path
+    - if !cart.nil? && @session_user == cart.user
+      = link_to show_icon_with_text(:cart_delete, 'Delete Active'), cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => 'admin/contact_carts'
+
