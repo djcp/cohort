@@ -2,6 +2,12 @@ module FreemailerCampaignsHelper
   def campaign_statuses(title, freemailer_campaign)
     link_to_function(title, "Modalbox.show('#{freemailer_campaign_statuses_path(freemailer_campaign)}',{title: 'Mailing Statuses for  \"#{freemailer_campaign.title}\"', width: '450'})")
   end
+  
+  def size_for_text_area_tag(string, cols = 40)
+    lines = string.split("\n")
+    rows = lines.map(&:length).inject(0) {|sum,len| sum + ( (len/cols > 0) ? (len/cols) : 1) }
+    "#{cols}x#{rows+2}"
+  end
 end
 
 class StatusPaginationModalSwitchRenderer < WillPaginate::LinkRenderer

@@ -8,7 +8,8 @@
     %b= @session_user.active_campaign.title
     %br
     %b= @session_user.active_campaign.subject
-    = text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :cols => 40
+    %br
+    = text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :size => size_for_text_area_tag(@session_user.active_campaign.preview)
   = will_paginate @freemailer_campaigns  
 - if !@freemailer_campaigns.empty?
   %table
