@@ -64,6 +64,12 @@ class Admin::BulkActionController < Admin::BaseController
     redirect_to params[:return_to] and return
   end
 
+  # Add selected contacts to a user's active campaign or create a new one with selected contacts.
+  #
+  # At present also adds whatever contacts are contained in the user's active_contact_cart. The intention is that this will later be a selection: 
+  # * ContactCartContacts
+  # * Selected contacts or
+  # * Both
   def bulk_create_campaign
     if request.post?
       @campaign = @session_user.active_campaign || FreemailerCampaign.new(:sender => @session_user, :title => params[:title])

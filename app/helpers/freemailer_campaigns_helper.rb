@@ -1,15 +1,29 @@
 module FreemailerCampaignsHelper
+  # Create a link with +title+ (for campaign) that will open a Modalbox with that campaigns statuses (paginated, of course).
   def campaign_statuses(title, freemailer_campaign)
     link_to_function(title, "Modalbox.show('#{freemailer_campaign_statuses_path(freemailer_campaign)}',{title: 'Mailing Statuses for  \"#{freemailer_campaign.title}\"', width: '450'})")
   end
   
+  # Calculate a minimum size to display the entire contents of a body of text in a text_area_tag.
+  #
+  # For example, given the following
+  #   str = "This is a test\n\nBacon!\n\nChunky Bacon."
+  # when we call <tt>size_for_text_area(str,6) it would return <tt>"6x6"</tt>. 
+  # The first +6+ is because we said there were 6 columns. The second +6+ is because "Chunky" takes two rows, an empty space takes one, "Chunky Bacon." takes two, totalling four, plus two for good measure.
   def size_for_text_area_tag(string, cols = 40)
     lines = string.split("\n")
-    rows = lines.map(&:length).inject(0) {|sum,len| sum + ( (len/cols > 0) ? (len/cols) : 1) }
+    rows = lines.map(&:length).inject(0)  do |sum,len| 
+      sum + if len/cols > 0 
+              len/cols
+            else
+              1
+            end
+    end
     "#{cols}x#{rows+2}"
   end
 end
 
+# A link rendered for will_paginate to be used on a freemailer campaign. This class lets links produced open additional Modalboxes and not replace the whole page with a partial
 class StatusPaginationModalSwitchRenderer < WillPaginate::LinkRenderer
   def to_html
     links = @options[:page_links] ? windowed_links : []

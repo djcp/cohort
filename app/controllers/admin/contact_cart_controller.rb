@@ -1,5 +1,6 @@
 class ContactCartsController < Admin::BaseController
 
+  # (GET) make_active assigns a user's active contact cart by finding the contact cart with id <tt>params[:contact_cart_id]</tt> so long as it belongs to the user or is set as global.
   def make_active
     @session_user.active_contact_cart = ContactCart.find(params[:contact_cart_id], :conditions => ["user_id = ? or global = true",@session_user.id])
     @session_user.save
@@ -7,6 +8,7 @@ class ContactCartsController < Admin::BaseController
     redirect_to contact_carts_url
   end
 
+  # (GET) clear_active sets the user's active contact cart to <tt>nil</tt>.
   def clear_active
     flash[:notice] = "Active contact cart cleared."
     @session_user.active_contact_cart = nil
@@ -14,6 +16,9 @@ class ContactCartsController < Admin::BaseController
     redirect_to contact_carts_url
   end
   
+  # (GET) index is different from a normal index in that it provides two sets of ContactCarts to the user: 
+  # * Those owned by the user and
+  # * those not owned by the user, but marked global
   def index
     carts = ContactCart.all(:conditions => ["user_id = ? or global = true",@session_user.id]).group_by {|cart| cart.user == @session_user}
     @my_contact_carts = carts[true]
@@ -24,8 +29,6 @@ class ContactCartsController < Admin::BaseController
     end
   end
 
-  # GET /freemailer_campaigns/1
-  # GET /freemailer_campaigns/1.xml
   def show
     @contact_cart = ContactCart.find_by_id(params[:id], :conditions => ["user_id = ? or global = true",@session_user.id])
     respond_to do |format|
@@ -34,8 +37,13 @@ class ContactCartsController < Admin::BaseController
     end
   end
   
-  # POST /contact_carts
-  # POST /contact_carts.xml
+  # (POST) create is different from the normal RESTful create in that it handles both creation and updates.
+  #
+  # create will either
+  # * Update the current user's active contact cart, or
+  # * Create a new cart for the user (and set it as active)
+  # 
+  # create will then add all selected contacts (populated via Javascript)
   def create
     if request.post?
       @contact_cart = @session_user.active_contact_cart || ContactCart.new(:user => @session_user, :title => params[:title])
@@ -53,6 +61,7 @@ class ContactCartsController < Admin::BaseController
     redirect_to params[:return_to] and return     
   end
 
+  # (POST) remove_contact removes the contact with id of <tt>params[:contact_to_remove_id]</tt> from the user's active contact cart
   def remove_contact
     if request.post?
       @contact_cart = @session_user.active_contact_cart
@@ -61,8 +70,7 @@ class ContactCartsController < Admin::BaseController
       redirect_to params[:return_to] and return
     end
   end
-  # DELETE /contact_carts/1
-  # DELETE /contact_carts/1.xml
+  
   def destroy
     if @contact_cart = ContactCart.find_by_id(params[:id], :conditions => ["user_id = ?",@session_user.id])
       @contact_cart.user.active_contact_cart = nil
