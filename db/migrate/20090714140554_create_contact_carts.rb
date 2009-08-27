@@ -2,7 +2,7 @@ class CreateContactCarts < ActiveRecord::Migration
   def self.up
     create_table :contact_carts do |t|
       t.integer :user_id
-      t.string :name
+      t.string :title
       t.boolean :global, :default => false
 
       t.timestamps

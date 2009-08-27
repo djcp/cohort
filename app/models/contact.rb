@@ -1,10 +1,10 @@
 class Contact < ActiveRecord::Base
   
   # Mail campaign Assoc.
-  has_many :freemailer_campaign_contacts
+  has_many :freemailer_campaign_contacts, :dependent => :destroy
   has_many :freemailer_campaigns, :through => :freemailer_campaign_contacts
   
-  has_many :contact_cart_entries
+  has_many :contact_cart_entries, :dependent => :destroy
   has_many :contact_carts, :through => :contact_cart_entries
     
   # Many validations are handled by the redhill schema_validations plugin.
@@ -33,7 +33,7 @@ class Contact < ActiveRecord::Base
     :reject_if => proc { |attributes| attributes['phone'].blank? }
 
   def name_for_display
-    dname = [self.first_name, self.middle_name, self.last_name].flatten.reject(&:nil?).join(' ')
+    dname = [self.first_name, self.middle_name, self.last_name].flatten.compact.join(' ')
     (dname.blank?) ? 'unknown' : dname
   end
 

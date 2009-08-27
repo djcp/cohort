@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090716190453) do
+ActiveRecord::Schema.define(:version => 20090730182227) do
 
   create_table "contact_addresses", :force => true do |t|
     t.integer  "contact_id",                                     :null => false
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(:version => 20090716190453) do
 
   create_table "contact_carts", :force => true do |t|
     t.integer  "user_id"
+    t.string   "title"
     t.boolean  "global",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title"
   end
 
   create_table "contact_emails", :force => true do |t|
@@ -102,6 +102,19 @@ ActiveRecord::Schema.define(:version => 20090716190453) do
   add_index "contacts", ["first_name"], :name => "index_contacts_on_first_name"
   add_index "contacts", ["last_name"], :name => "index_contacts_on_last_name"
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "freemailer_campaign_contacts", :force => true do |t|
     t.integer  "freemailer_campaign_id"
     t.integer  "contact_id"
@@ -117,10 +130,10 @@ ActiveRecord::Schema.define(:version => 20090716190453) do
     t.string   "title"
     t.text     "body_template"
     t.integer  "sender_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "sent",          :default => false
     t.string   "from"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "log_items", :force => true do |t|
@@ -209,12 +222,13 @@ ActiveRecord::Schema.define(:version => 20090716190453) do
   add_index "tags", ["title"], :name => "index_tags_on_title"
 
   create_table "users", :force => true do |t|
-    t.string   "username",           :limit => 100,                    :null => false
-    t.boolean  "superadmin",                        :default => false
-    t.boolean  "removable",                         :default => true
+    t.string   "username",               :limit => 100,                    :null => false
+    t.boolean  "superadmin",                            :default => false
+    t.boolean  "removable",                             :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "active_campaign_id"
+    t.integer  "active_contact_cart_id"
   end
 
   add_index "users", ["removable"], :name => "index_users_on_removable"
@@ -253,6 +267,7 @@ ActiveRecord::Schema.define(:version => 20090716190453) do
   add_foreign_key "tags", ["parent_id"], "tags", ["id"], :name => "tags_parent_id_fkey"
 
   add_foreign_key "users", ["active_campaign_id"], "freemailer_campaigns", ["id"], :name => "users_active_campaign_id_fkey"
+  add_foreign_key "users", ["active_contact_cart_id"], "contact_carts", ["id"], :name => "users_active_contact_cart_id_fkey"
 
   create_view "pg_buffercache", "SELECT p.bufferid, p.relfilenode, p.reltablespace, p.reldatabase, p.relblocknumber, p.isdirty, p.usagecount FROM pg_buffercache_pages() p(bufferid integer, relfilenode oid, reltablespace oid, reldatabase oid, relblocknumber bigint, isdirty boolean, usagecount smallint);"
   create_view "pg_freespacemap_pages", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.relblocknumber, p.bytes FROM pg_freespacemap_pages() p(reltablespace oid, reldatabase oid, relfilenode oid, relblocknumber bigint, bytes integer);"

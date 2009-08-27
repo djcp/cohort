@@ -18,13 +18,45 @@
     = f.label :subject
     %br
     = f.text_field :subject
-  %p
+  %p#campaign_template
     = f.label :body_template
     %br
     = f.text_area :body_template
-  %p
+  %div#campaign_legend
+    %h3 Available Merges
+    %ul
+      %li 
+        %b [[first name]]
+        yields 
+        %i John
+      %li 
+        %b [[last name]]
+        yields 
+        %i Doe
+      %li 
+        %b [[middle name]]
+        yields 
+        %i H.
+      %li 
+        %b [[name]]
+        yields 
+        %i John H. Doe
+      %li 
+        %b [[email]]
+        yields 
+        %i me@johndoe.com
+      %li 
+        %b [[address]]
+        yields:
+        %br
+        %i 
+          123 Some Pl.
+          %br
+          My Town, USA  12345           
+  
+  %p{:style => 'clear:left'}
     = f.submit 'Update'
-    = f.submit 'Send (implement)'
+    / = f.submit 'Send (implement)'
 = link_to 'Show', @freemailer_campaign
 |
 = link_to 'All Campaigns', freemailer_campaigns_path

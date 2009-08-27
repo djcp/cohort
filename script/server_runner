@@ -16,7 +16,7 @@ end
 
 while true  
   changed = []  
-  Dir["./**/**/*rb", "./**/**/**/*rb", "./**/*rb","./**/*.yml"].each do |f|  
+  Dir["./**/**/*rb", "./**/**/**/*rb", "./**/*rb","./**/*.yml", "./**/**/*haml", "./**/**/*erb"].each do |f|  
     modified_at = File.stat(f).mtime  
     changed << f  if timestamps[f] and modified_at != timestamps[f]  
 

@@ -1,0 +1,22 @@
+%p
+  %b
+    Title:
+  = h @contact_cart.title || ' -- None Given -- '
+%p
+  %b
+    User:
+  = h @contact_cart.user.username
+%p
+  %b
+    Global:
+  = h @contact_cart.global
+%p
+  %b Contacts:
+  = render :partial => "contacts", :locals => {:cart => @contact_cart}
+
+= link_to 'Make Active', contact_cart_make_active_path(@contact_cart)
+|
+- if @session_user == @contact_cart.user  
+  = link_to 'Edit', edit_contact_cart_path(@contact_cart)
+  |
+= link_to 'Back', contact_carts_path
