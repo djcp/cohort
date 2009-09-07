@@ -32,6 +32,14 @@ class Contact < ActiveRecord::Base
   accepts_nested_attributes_for :contact_phones, :allow_destroy => true, 
     :reject_if => proc { |attributes| attributes['phone'].blank? }
 
+  def hash_for_duplicate_detection
+    hash = { 
+      :addresses => get_primary_address(:all),
+      :emails => get_primary_email(:all),
+      :phone_numbers => get_primary_phone(:all)
+    }
+  end
+
   def name_for_display
     dname = [self.first_name, self.middle_name, self.last_name].flatten.compact.join(' ')
     (dname.blank?) ? 'unknown' : dname
@@ -43,27 +51,25 @@ class Contact < ActiveRecord::Base
       "#{pa.city}, #{pa.state}  #{pa.zip}\n#{pa.country}"
   end
 
-  def get_primary_address
-    pa = self.contact_addresses.find(:first, :order => 'is_primary desc, id')
+  def get_primary_address(amount=:first)
+    pa = self.contact_addresses.find(amount, :order => 'is_primary desc, id')
   end
 
-  def primary_email
-    pe = get_primary_email
-    return pe && pe.email
-  end
-
-  def get_primary_email
-    pe = self.contact_emails.find(:first, :order => 'is_primary desc, id')
-  end
-
-  def get_non_primary_emails
-    pe = get_primary_email
-    npes = self.contact_emails.collect do|npe|
-      if npe != pe
-        npe
+  def email(which=:primary)
+    if which == :primary
+      self.contact_emails.find(:first, :order => 'is_primary desc, id')
+    else
+      all = self.contact_emails.find(:all, :order => 'is_primary desc, id')
+      if which == :non_primaries
+        all.shift
+      elsif which == :all
+        all
       end
     end
-    npes.compact!
+  end
+
+  def get_primary_email(amount=:first)
+    pe = self.contact_emails.find(amount, :order => 'is_primary desc, id')
   end
 
   def primary_phone 
@@ -71,7 +77,7 @@ class Contact < ActiveRecord::Base
     return pp && pp.phone
   end
 
-  def get_primary_phone
+  def get_primary_phone(amount=:first)
     pp = self.contact_phones.find(:first, :order => 'is_primary desc, id')
   end
 
@@ -82,7 +88,6 @@ class Contact < ActiveRecord::Base
   def my_notes
     self.notes.collect{|n| n.note}.join(' ')
   end
-
 
   def my_tag_ids
     self.tags.collect{|t| t.id}.join(' ')
