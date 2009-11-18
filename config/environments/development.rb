@@ -16,10 +16,10 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = true
 
-load 'config/secret.rb'
-require 'smtp-tls'
-config.action_mailer.delivery_method = :smtp
+#load 'config/secret.rb'
+#require 'smtp-tls'
+config.action_mailer.delivery_method = :sendmail
 config.action_mailer.perform_deliveries = true
 config.action_mailer.default_charset = "utf-8"
 config.action_mailer.default_content_type = "text/plain"
-config.action_mailer.smtp_settings = MY_SMTP_SETTINGS 
+#config.action_mailer.smtp_settings = MY_SMTP_SETTINGS 

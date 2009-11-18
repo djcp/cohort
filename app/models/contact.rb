@@ -68,6 +68,11 @@ class Contact < ActiveRecord::Base
     end
   end
 
+  def primary_email 
+    pe = get_primary_email
+    return pe && pe.email
+  end
+
   def get_primary_email(amount=:first)
     pe = self.contact_emails.find(amount, :order => 'is_primary desc, id')
   end
