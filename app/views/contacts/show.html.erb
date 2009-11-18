@@ -10,7 +10,7 @@
       <% end %>
       <% unless @contact.contact_emails.blank? %>
         <dt>Primary email:</dt>
-        <dd><strong><%= mail_to(@contact.get_primary_email.email) %>, <%= @contact.get_primary_email.email_type %></strong></dd>
+        <dd><strong><%= mail_to(@contact.email.email) %>, <%= @contact.email.email_type %></strong></dd>
       <% end %>
       <% unless @contact.contact_phones.blank? %>
         <dt>Primary phone:</dt>
@@ -55,11 +55,11 @@
             <% end %>
           </dl>
         <% end %>
-        <% unless @contact.get_non_primary_emails.blank? %>
+        <% unless @contact.email(:non_primaries).blank? %>
           <h3>Email Addresses</h3>
           <dl>
             <dt>Other Email addresses:</dt>
-            <% @contact.get_non_primary_emails.each do|ce| %>
+            <% @contact.email(:non_primaries).each do|ce| %>
               <dd><%= mail_to(ce.email) %>, <%= ce.email_type %></dd>
             <% end %>
           </dl>

@@ -55,4 +55,21 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
   <% end %>
 </div>
 
+<h4 id="flyout-bulk-create-mail-campaign" class="toggle hidden tags sub-action"><%= icon(:email_add) %> <%= if @session_user.active_campaign.nil?; 'Create'; else; 'Update'; end %> Mail Campaign</h4>
+<div id="flyout-bulk-create-mail-campaign-actions" class="toggle-target tags sub-action" style="display: none;">
+  <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_create_campaign), :id => 'bulk-create-campaign') do %>
+    <% if @session_user.active_campaign.nil? %>
+      <label for="title">Title:</label> <%= text_field_tag 'title',"#{@session_user.username} - #{Date.today}" %>
+      <br/>
+    <% end %>
+    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= submit_tag 'Add Cart and Selected Contacts to Mail Campaign' %><br/>
+    <% if !@session_user.active_campaign.nil? %>
+      <%= link_to show_icon_with_text(:email_delete, 'Delete my Active Mail Campaign'), @session_user.active_campaign, :confirm => "Are you sure you want to delete \"#{@session_user.active_campaign.title}\"?", :method => :delete %>
+    <% end%>
+  <% end %>
+</div>
+
+<%= render :partial => 'contact_carts/bulk_action' %>
+
 </div>

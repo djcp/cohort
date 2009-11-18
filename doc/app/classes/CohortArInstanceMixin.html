@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: CohortArInstanceMixin</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">CohortArInstanceMixin</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/cohort_ar_instance_mixin_rb.html">
+                lib/cohort_ar_instance_mixin.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000134">allow_delete_of_removable_objects</a>&nbsp;&nbsp;
+      <a href="#M000136">created_at_for_display</a>&nbsp;&nbsp;
+      <a href="#M000137">diff_two_objects</a>&nbsp;&nbsp;
+      <a href="#M000135">updated_at_for_display</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000134" class="method-detail">
+        <a name="M000134"></a>
+
+        <div class="method-heading">
+          <a href="#M000134" class="method-signature">
+          <span class="method-name">allow_delete_of_removable_objects</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000134-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000134-source">
+<pre>
+   <span class="ruby-comment cmt"># File lib/cohort_ar_instance_mixin.rb, line 3</span>
+3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_delete_of_removable_objects</span>
+4:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">removable</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span>
+5:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add_to_base</span>(<span class="ruby-node">&quot;This #{self.class.to_s.downcase} can't be deleted.&quot;</span>)
+6:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+7:     <span class="ruby-keyword kw">end</span>
+8:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000136" class="method-detail">
+        <a name="M000136"></a>
+
+        <div class="method-heading">
+          <a href="#M000136" class="method-signature">
+          <span class="method-name">created_at_for_display</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000136-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000136-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/cohort_ar_instance_mixin.rb, line 14</span>
+14:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">created_at_for_display</span>
+15:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">'%b %d at %I:%M%p'</span>)
+16:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000137" class="method-detail">
+        <a name="M000137"></a>
+
+        <div class="method-heading">
+          <a href="#M000137" class="method-signature">
+          <span class="method-name">diff_two_objects</span><span class="method-args">(object1 = self.new,object2 = self.new)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000137-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000137-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/cohort_ar_instance_mixin.rb, line 18</span>
+18:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">diff_two_objects</span>(<span class="ruby-identifier">object1</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>,<span class="ruby-identifier">object2</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>)
+19: 
+20:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000135" class="method-detail">
+        <a name="M000135"></a>
+
+        <div class="method-heading">
+          <a href="#M000135" class="method-signature">
+          <span class="method-name">updated_at_for_display</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000135-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000135-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/cohort_ar_instance_mixin.rb, line 10</span>
+10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">updated_at_for_display</span>
+11:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">updated_at</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">'%b %d at %I:%M%p'</span>)
+12:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,4 +1,24 @@
 ActionController::Routing::Routes.draw do |map|
+  map.contact_cart_clear_active 'contact_cart/clear_active', :path_prefix => '/admin', 
+      :controller => 'contact_carts', :action => 'clear_active', :method => 'get'
+  map.resources :contact_carts, :path_prefix => '/admin' do |cart|
+    cart.remove_contact 'remove_contact',  :controller => 'contact_carts', :action => 'remove_contact',
+        :method => 'put'
+    cart.make_active 'make_active', :controller => 'contact_carts', :action => 'make_active', 
+        :method => 'get'
+  end
+
+  map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', :path_prefix => '/admin',
+      :controller => 'freemailer_campaigns', :action => 'clear_active', :method => 'get'
+  map.resources :freemailer_campaigns, :path_prefix => '/admin' do |campaign|
+    campaign.make_active 'make_active', :action => 'make_active', :method => 'get', 
+      :controller => 'freemailer_campaigns'
+    campaign.send_campaign      'send', :action => 'send_campaign', :method => 'get',
+      :controller => 'freemailer_campaigns'
+    campaign.statuses       'statuses', :action => 'statuses',
+      :controller => 'freemailer_campaigns'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

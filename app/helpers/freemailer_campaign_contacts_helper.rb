@@ -1,0 +1,2 @@
+module FreemailerCampaignContactsHelper
+end

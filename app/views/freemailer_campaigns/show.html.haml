@@ -1,0 +1,26 @@
+%h1
+  == #{h @freemailer_campaign.title} (#{@freemailer_campaign.status})
+%p
+  %b
+    Contacts:
+  = h @freemailer_campaign.contact_names
+%p
+  %b
+    From:
+  = h @freemailer_campaign.from
+%p
+  %b
+    Subject:
+  = h @freemailer_campaign.subject
+%p
+  %b
+    Body template:
+  = h @freemailer_campaign.body_template
+- if @freemailer_campaign.sent
+  = link_to 'Status', :action => 'statuses'
+- else
+  = link_to 'Send', freemailer_campaign_send_campaign_path(@freemailer_campaign)
+|
+= link_to 'Edit', edit_freemailer_campaign_path(@freemailer_campaign)
+|
+= link_to 'Back', freemailer_campaigns_path

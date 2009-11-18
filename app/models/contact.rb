@@ -1,4 +1,12 @@
 class Contact < ActiveRecord::Base
+  
+  # Mail campaign Assoc.
+  has_many :freemailer_campaign_contacts, :dependent => :destroy
+  has_many :freemailer_campaigns, :through => :freemailer_campaign_contacts
+  
+  has_many :contact_cart_entries, :dependent => :destroy
+  has_many :contact_carts, :through => :contact_cart_entries
+    
   # Many validations are handled by the redhill schema_validations plugin.
   acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_tag_ids, :my_emails, :my_notes, :my_addresses, :my_urls], :remote => true)
   acts_as_freetaggable
@@ -24,38 +32,44 @@ class Contact < ActiveRecord::Base
   accepts_nested_attributes_for :contact_phones, :allow_destroy => true, 
     :reject_if => proc { |attributes| attributes['phone'].blank? }
 
+  def hash_for_duplicate_detection
+    hash = { 
+      :addresses => get_primary_address(:all),
+      :emails => get_primary_email(:all),
+      :phone_numbers => get_primary_phone(:all)
+    }
+  end
+
   def name_for_display
-    dname = [self.first_name, self.middle_name, self.last_name].flatten.join(' ')
+    dname = [self.first_name, self.middle_name, self.last_name].flatten.compact.join(' ')
     (dname.blank?) ? 'unknown' : dname
   end
 
-  def primary_email
-    pe = get_primary_email
-    return pe && pe.email
+  def primary_address
+    pa = get_primary_address
+    return pa && "#{pa.street1}\n" + "#{if !pa.street2.squeeze.empty?; pa.street2 + "\n"; end;}" + 
+      "#{pa.city}, #{pa.state}  #{pa.zip}\n#{pa.country}"
   end
 
-  def get_primary_email
-    pe = nil
-
-    self.contact_emails.collect do |ce| 
-      if ce.is_primary == true 
-        return ce
-      end
-      pe = ce
-    end
-
-    return pe
+  def get_primary_address(amount=:first)
+    pa = self.contact_addresses.find(amount, :order => 'is_primary desc, id')
   end
 
-  def get_non_primary_emails
-    #seems tortured, but will skip running additional SQL when the contact_email object have already been populated.
-    pe = get_primary_email
-    npes = self.contact_emails.collect do|npe|
-      if npe != pe
-        npe
+  def email(which=:primary)
+    if which == :primary
+      self.contact_emails.find(:first, :order => 'is_primary desc, id')
+    else
+      all = self.contact_emails.find(:all, :order => 'is_primary desc, id')
+      if which == :non_primaries
+        all.shift
+      elsif which == :all
+        all
       end
     end
-    npes.compact!
+  end
+
+  def get_primary_email(amount=:first)
+    pe = self.contact_emails.find(amount, :order => 'is_primary desc, id')
   end
 
   def primary_phone 
@@ -63,15 +77,8 @@ class Contact < ActiveRecord::Base
     return pp && pp.phone
   end
 
-  def get_primary_phone
-    pp = nil
-    self.contact_phones.collect do |cp| 
-      if cp.is_primary == true 
-        return cp
-      end
-      pp = cp
-    end
-    return pp
+  def get_primary_phone(amount=:first)
+    pp = self.contact_phones.find(:first, :order => 'is_primary desc, id')
   end
 
   def my_tags

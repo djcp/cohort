@@ -1,4 +1,5 @@
 log/*
+*.swp
 .gitignore*
 config/database.yml
 .rake_tasks
@@ -8,4 +9,4 @@ tmp
 *~
 *.log
 tmp
-*.swp
+config/secret.rb

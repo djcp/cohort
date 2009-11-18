@@ -1,0 +1,39 @@
+SafeDevEmail
+============
+
+SafeDevEmail allows you to set an email address that will recieve all emails sent 
+from your development environment. This is done by telling the mail server 
+(sendmail/smtp) the destination when sending the email, which leaves the headers 
+in the email intact so the developer can tell that the email would have actually
+gone to the correct address.
+
+
+
+Setup
+=====
+
+To set this up you just need to add an additional setting to your mail server 
+settings in environment.rb
+
+Example Configs
+===============
+
+
+SMTP
+====
+
+ActionMailer::Base.smtp_settings = {
+  :address  => "smtp.example.com",
+  :port  => 25, 
+  :domain  => "www.mywebsite.com",
+	:dev_mailto => "developer@mywebsite.com"
+} 
+
+Sendmail
+========
+
+ActionMailer::Base.sendmail_settings = {
+	:dev_mailto => "developer@mywebsite.com"
+} 
+
+Copyright (c) 2008 Nathan Humbert and Micheal Goff, released under the BSD license

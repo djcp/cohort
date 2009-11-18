@@ -1,0 +1,16 @@
+Hey Daniel, my git-fu is very weak and I realized I commited the rdocs along with all the commenting I did to make them. So the diffs aren't as useful now. Here is a list of all the stuff I did RDocs on:
+
+Controllers:
+  contact_cart_controller
+  freemailer_campaigns_controller
+  bulk_action_controller
+Helpers:
+  freemailer_campaigns_helper
+Models:
+  contact_cart
+  freemailer
+  freemailer_campaign
+  freemailer_campaign_contact
+Views I worked on:
+  *.haml
+  _bulk_contact_actions.html.erb

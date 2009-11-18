@@ -9,7 +9,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090605202730) do
+ActiveRecord::Schema.define(:version => 20090730182227) do
+
+  create_table "contact_addresses", :force => true do |t|
+    t.integer  "contact_id",                                     :null => false
+    t.string   "street1",      :limit => 100
+    t.string   "street2",      :limit => 100
+    t.string   "city",         :limit => 100
+    t.string   "state",        :limit => 50
+    t.string   "zip",          :limit => 30
+    t.string   "country",      :limit => 100
+    t.string   "address_type", :limit => 100
+    t.boolean  "is_primary",                  :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_addresses", ["address_type"], :name => "index_contact_addresses_on_address_type"
+  add_index "contact_addresses", ["city"], :name => "index_contact_addresses_on_city"
+  add_index "contact_addresses", ["country"], :name => "index_contact_addresses_on_country"
+  add_index "contact_addresses", ["is_primary"], :name => "index_contact_addresses_on_is_primary"
+  add_index "contact_addresses", ["state"], :name => "index_contact_addresses_on_state"
+  add_index "contact_addresses", ["street1"], :name => "index_contact_addresses_on_street1"
+  add_index "contact_addresses", ["street2"], :name => "index_contact_addresses_on_street2"
+  add_index "contact_addresses", ["zip"], :name => "index_contact_addresses_on_zip"
+
+  create_table "contact_cart_entries", :force => true do |t|
+    t.integer  "contact_cart_id"
+    t.integer  "contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contact_carts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.boolean  "global",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contact_emails", :force => true do |t|
     t.integer  "contact_id",                                   :null => false
@@ -25,33 +63,78 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
   add_index "contact_emails", ["email_type"], :name => "index_contact_emails_on_email_type"
   add_index "contact_emails", ["is_primary"], :name => "index_contact_emails_on_is_primary"
 
-  create_table "contacts", :force => true do |t|
-    t.string   "first_name",   :limit => 100
-    t.string   "last_name",    :limit => 100
-    t.string   "organization", :limit => 100
-    t.string   "title",        :limit => 100
-    t.string   "work_url",     :limit => 300
-    t.string   "personal_url", :limit => 300
-    t.string   "street1",      :limit => 100
-    t.string   "street2",      :limit => 100
-    t.string   "city",         :limit => 100
-    t.string   "state",        :limit => 2
-    t.string   "zip",          :limit => 15
-    t.string   "country",      :limit => 2
-    t.string   "phone",        :limit => 25
+  create_table "contact_phones", :force => true do |t|
+    t.integer  "contact_id",                                   :null => false
+    t.string   "phone",      :limit => 100,                    :null => false
+    t.string   "phone_type", :limit => 100
+    t.boolean  "is_primary",                :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "contacts", ["city"], :name => "index_contacts_on_city"
-  add_index "contacts", ["country"], :name => "index_contacts_on_country"
+  add_index "contact_phones", ["is_primary"], :name => "index_contact_phones_on_is_primary"
+  add_index "contact_phones", ["phone"], :name => "index_contact_phones_on_phone"
+  add_index "contact_phones", ["phone_type"], :name => "index_contact_phones_on_phone_type"
+
+  create_table "contact_urls", :force => true do |t|
+    t.integer  "contact_id",                                    :null => false
+    t.string   "url",        :limit => 1000,                    :null => false
+    t.string   "url_type",   :limit => 100
+    t.boolean  "is_primary",                 :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_urls", ["is_primary"], :name => "index_contact_urls_on_is_primary"
+  add_index "contact_urls", ["url"], :name => "index_contact_urls_on_url"
+  add_index "contact_urls", ["url_type"], :name => "index_contact_urls_on_url_type"
+
+  create_table "contacts", :force => true do |t|
+    t.string   "first_name",   :limit => 100
+    t.string   "middle_name",  :limit => 100
+    t.string   "last_name",    :limit => 100
+    t.string   "organization", :limit => 250
+    t.string   "title",        :limit => 250
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   add_index "contacts", ["first_name"], :name => "index_contacts_on_first_name"
   add_index "contacts", ["last_name"], :name => "index_contacts_on_last_name"
-  add_index "contacts", ["phone"], :name => "index_contacts_on_phone"
-  add_index "contacts", ["state"], :name => "index_contacts_on_state"
-  add_index "contacts", ["street1"], :name => "index_contacts_on_street1"
-  add_index "contacts", ["street2"], :name => "index_contacts_on_street2"
-  add_index "contacts", ["zip"], :name => "index_contacts_on_zip"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "freemailer_campaign_contacts", :force => true do |t|
+    t.integer  "freemailer_campaign_id"
+    t.integer  "contact_id"
+    t.string   "delivery_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "freemailer_campaign_contacts", ["contact_id", "freemailer_campaign_id"], :name => "index_freemailer_campaign_contacts_on_contact_id_and_freemailer", :unique => true
+
+  create_table "freemailer_campaigns", :force => true do |t|
+    t.string   "subject"
+    t.string   "title"
+    t.text     "body_template"
+    t.integer  "sender_id"
+    t.boolean  "sent",          :default => false
+    t.string   "from"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "log_items", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -139,18 +222,36 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
   add_index "tags", ["title"], :name => "index_tags_on_title"
 
   create_table "users", :force => true do |t|
-    t.string   "username",   :limit => 100,                    :null => false
-    t.boolean  "superadmin",                :default => false
-    t.boolean  "immutable",                 :default => false
+    t.string   "username",               :limit => 100,                    :null => false
+    t.boolean  "superadmin",                            :default => false
+    t.boolean  "removable",                             :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "active_campaign_id"
+    t.integer  "active_contact_cart_id"
   end
 
-  add_index "users", ["immutable"], :name => "index_users_on_immutable"
+  add_index "users", ["removable"], :name => "index_users_on_removable"
   add_index "users", ["superadmin"], :name => "index_users_on_superadmin"
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
+  add_foreign_key "contact_addresses", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_addresses_contact_id_fkey"
+
+  add_foreign_key "contact_cart_entries", ["contact_cart_id"], "contact_carts", ["id"], :name => "contact_cart_entries_contact_cart_id_fkey"
+  add_foreign_key "contact_cart_entries", ["contact_id"], "contacts", ["id"], :name => "contact_cart_entries_contact_id_fkey"
+
+  add_foreign_key "contact_carts", ["user_id"], "users", ["id"], :name => "contact_carts_user_id_fkey"
+
   add_foreign_key "contact_emails", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_emails_contact_id_fkey"
+
+  add_foreign_key "contact_phones", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_phones_contact_id_fkey"
+
+  add_foreign_key "contact_urls", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_urls_contact_id_fkey"
+
+  add_foreign_key "freemailer_campaign_contacts", ["freemailer_campaign_id"], "freemailer_campaigns", ["id"], :name => "freemailer_campaign_contacts_freemailer_campaign_id_fkey"
+  add_foreign_key "freemailer_campaign_contacts", ["contact_id"], "contacts", ["id"], :name => "freemailer_campaign_contacts_contact_id_fkey"
+
+  add_foreign_key "freemailer_campaigns", ["sender_id"], "users", ["id"], :name => "freemailer_campaigns_sender_id_fkey"
 
   add_foreign_key "log_items", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "log_items_user_id_fkey"
 
@@ -164,5 +265,12 @@ ActiveRecord::Schema.define(:version => 20090605202730) do
   add_foreign_key "taggings", ["tag_id"], "tags", ["id"], :name => "taggings_tag_id_fkey"
 
   add_foreign_key "tags", ["parent_id"], "tags", ["id"], :name => "tags_parent_id_fkey"
+
+  add_foreign_key "users", ["active_campaign_id"], "freemailer_campaigns", ["id"], :name => "users_active_campaign_id_fkey"
+  add_foreign_key "users", ["active_contact_cart_id"], "contact_carts", ["id"], :name => "users_active_contact_cart_id_fkey"
+
+  create_view "pg_buffercache", "SELECT p.bufferid, p.relfilenode, p.reltablespace, p.reldatabase, p.relblocknumber, p.isdirty, p.usagecount FROM pg_buffercache_pages() p(bufferid integer, relfilenode oid, reltablespace oid, reldatabase oid, relblocknumber bigint, isdirty boolean, usagecount smallint);"
+  create_view "pg_freespacemap_pages", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.relblocknumber, p.bytes FROM pg_freespacemap_pages() p(reltablespace oid, reldatabase oid, relfilenode oid, relblocknumber bigint, bytes integer);"
+  create_view "pg_freespacemap_relations", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.avgrequest, p.interestingpages, p.storedpages, p.nextpage FROM pg_freespacemap_relations() p(reltablespace oid, reldatabase oid, relfilenode oid, avgrequest integer, interestingpages integer, storedpages integer, nextpage integer);"
 
 end

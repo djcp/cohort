@@ -6,10 +6,17 @@ class User < ActiveRecord::Base
 
   before_destroy :allow_delete_of_removable_objects
 
+  # mail campaign assoc.
+  belongs_to :active_campaign, :class_name => "FreemailerCampaign"
+  has_many :freemailer_campaigns, :foreign_key => 'sender_id'
+  belongs_to :active_contact_cart, :class_name => "ContactCart"
+  has_many :contact_carts
+  
+  attr_accessor :current_campaign
   def self.get_import_user
     self.find_by_username('importer')
   end
-
+  
   protected
   def self.authenticate(username,password)
     if CohortAuthDummy.authenticate(username,password)
