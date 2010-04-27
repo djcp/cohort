@@ -7,7 +7,7 @@ class CreateFreemailerCampaignContacts < ActiveRecord::Migration
  
       t.timestamps
     end
-    add_index :freemailer_campaign_contacts, [:contact_id, :freemailer_campaign_id], :unique => true
+    add_index :freemailer_campaign_contacts, [:contact_id, :freemailer_campaign_id], :unique => true, :name => 'freemailer_name_index'
   end
 
   def self.down

@@ -18,7 +18,7 @@ class DoSpecialDbMagic < ActiveRecord::Migration
     #   t.timestamps
     # end
 
-    add_index :taggings, ['freetaggable_id','freetaggable_type', 'tag_id'], :unique => true
+    add_index :taggings, ['freetaggable_id','freetaggable_type', 'tag_id'], :unique => true, :name => 'freetaggables_index'
     %W|freetaggable_id freetaggable_type tag_id created_at updated_at|.each do |column|
       add_index :taggings, column
     end

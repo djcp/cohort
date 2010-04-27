@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20090730182227) do
     t.datetime "updated_at"
   end
 
-  add_index "freemailer_campaign_contacts", ["contact_id", "freemailer_campaign_id"], :name => "index_freemailer_campaign_contacts_on_contact_id_and_freemailer", :unique => true
+  add_index "freemailer_campaign_contacts", ["contact_id", "freemailer_campaign_id"], :name => "freemailer_name_index", :unique => true
 
   create_table "freemailer_campaigns", :force => true do |t|
     t.string   "subject"
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(:version => 20090730182227) do
   add_index "notes", ["priority"], :name => "index_notes_on_priority"
   add_index "notes", ["updated_at"], :name => "index_notes_on_updated_at"
   add_index "notes", ["user_id"], :name => "index_notes_on_user_id"
-  add_index "notes", ["note"], :name => "lower_note", :case_sensitive => false
+  add_index "notes", [nil], :name => "lower_note"
 
   create_table "saved_search_runs", :force => true do |t|
     t.integer  "saved_search_id", :null => false
@@ -195,8 +195,8 @@ ActiveRecord::Schema.define(:version => 20090730182227) do
   end
 
   add_index "taggings", ["created_at"], :name => "index_taggings_on_created_at"
+  add_index "taggings", ["freetaggable_id", "freetaggable_type", "tag_id"], :name => "freetaggables_index", :unique => true
   add_index "taggings", ["freetaggable_id"], :name => "index_taggings_on_freetaggable_id"
-  add_index "taggings", ["freetaggable_id", "freetaggable_type", "tag_id"], :name => "index_taggings_on_freetaggable_id_and_freetaggable_type_and_tag", :unique => true
   add_index "taggings", ["freetaggable_type"], :name => "index_taggings_on_freetaggable_type"
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
   add_index "taggings", ["updated_at"], :name => "index_taggings_on_updated_at"
@@ -234,43 +234,5 @@ ActiveRecord::Schema.define(:version => 20090730182227) do
   add_index "users", ["removable"], :name => "index_users_on_removable"
   add_index "users", ["superadmin"], :name => "index_users_on_superadmin"
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
-
-  add_foreign_key "contact_addresses", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_addresses_contact_id_fkey"
-
-  add_foreign_key "contact_cart_entries", ["contact_cart_id"], "contact_carts", ["id"], :name => "contact_cart_entries_contact_cart_id_fkey"
-  add_foreign_key "contact_cart_entries", ["contact_id"], "contacts", ["id"], :name => "contact_cart_entries_contact_id_fkey"
-
-  add_foreign_key "contact_carts", ["user_id"], "users", ["id"], :name => "contact_carts_user_id_fkey"
-
-  add_foreign_key "contact_emails", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_emails_contact_id_fkey"
-
-  add_foreign_key "contact_phones", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_phones_contact_id_fkey"
-
-  add_foreign_key "contact_urls", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "contact_urls_contact_id_fkey"
-
-  add_foreign_key "freemailer_campaign_contacts", ["freemailer_campaign_id"], "freemailer_campaigns", ["id"], :name => "freemailer_campaign_contacts_freemailer_campaign_id_fkey"
-  add_foreign_key "freemailer_campaign_contacts", ["contact_id"], "contacts", ["id"], :name => "freemailer_campaign_contacts_contact_id_fkey"
-
-  add_foreign_key "freemailer_campaigns", ["sender_id"], "users", ["id"], :name => "freemailer_campaigns_sender_id_fkey"
-
-  add_foreign_key "log_items", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "log_items_user_id_fkey"
-
-  add_foreign_key "notes", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "notes_user_id_fkey"
-  add_foreign_key "notes", ["contact_id"], "contacts", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "notes_contact_id_fkey"
-
-  add_foreign_key "saved_search_runs", ["saved_search_id"], "saved_searches", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "saved_search_runs_saved_search_id_fkey"
-
-  add_foreign_key "saved_searches", ["user_id"], "users", ["id"], :on_update => :cascade, :on_delete => :cascade, :name => "saved_searches_user_id_fkey"
-
-  add_foreign_key "taggings", ["tag_id"], "tags", ["id"], :name => "taggings_tag_id_fkey"
-
-  add_foreign_key "tags", ["parent_id"], "tags", ["id"], :name => "tags_parent_id_fkey"
-
-  add_foreign_key "users", ["active_campaign_id"], "freemailer_campaigns", ["id"], :name => "users_active_campaign_id_fkey"
-  add_foreign_key "users", ["active_contact_cart_id"], "contact_carts", ["id"], :name => "users_active_contact_cart_id_fkey"
-
-  create_view "pg_buffercache", "SELECT p.bufferid, p.relfilenode, p.reltablespace, p.reldatabase, p.relblocknumber, p.isdirty, p.usagecount FROM pg_buffercache_pages() p(bufferid integer, relfilenode oid, reltablespace oid, reldatabase oid, relblocknumber bigint, isdirty boolean, usagecount smallint);"
-  create_view "pg_freespacemap_pages", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.relblocknumber, p.bytes FROM pg_freespacemap_pages() p(reltablespace oid, reldatabase oid, relfilenode oid, relblocknumber bigint, bytes integer);"
-  create_view "pg_freespacemap_relations", "SELECT p.reltablespace, p.reldatabase, p.relfilenode, p.avgrequest, p.interestingpages, p.storedpages, p.nextpage FROM pg_freespacemap_relations() p(reltablespace oid, reldatabase oid, relfilenode oid, avgrequest integer, interestingpages integer, storedpages integer, nextpage integer);"
 
 end
