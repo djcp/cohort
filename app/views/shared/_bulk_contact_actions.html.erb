@@ -5,7 +5,7 @@
 <div id="flyout-apply-bulk-tags-actions" class="toggle-target tags sub-action" style="display: none;">
   <p>Apply tags to checked contacts.</p>
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_tag), :id => 'apply-tags-form') do %>
-    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= hidden_field_tag '_redirect_to', url_for(sanitized_url_params) %>
     <%= text_field_tag 'bulk_apply_tags' %>
     <%= submit_tag 'Apply Tags' %><br/>
   <% end %>
@@ -22,7 +22,7 @@
 <div id="flyout-remove-bulk-tags-actions" class="toggle-target tags sub-action" style="display: none;">
   <p>Remove tags from the checked contacts.</p>
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_tag_remove), :id => 'remove-tags-form') do %>
-    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= hidden_field_tag '_redirect_to', url_for(sanitized_url_params) %>
     <%= text_field_tag 'bulk_remove_tags' %><%= submit_tag 'Remove tags' %><br/>
   <% end %>
 <script type="text/javascript" language="javascript">
@@ -37,7 +37,7 @@
   <div id="flyout-bulk-note-actions" class="toggle-target tags sub-action" style="display: none;">
     <p>Add a note to the checked contacts.</p>
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_note), :id => 'bulk-note') do %>
-    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= hidden_field_tag '_redirect_to', url_for(sanitized_url_params) %>
 <p class="field"><label for="note">Note:</label><br/> 
 <%= text_area_tag 'note', '', :size => '35x5' %><br />
 Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_interval => 15 %><br />
@@ -50,7 +50,7 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
   <h4 id="flyout-bulk-contact-delete" class="toggle hidden tags sub-action"><%= icon(:user) %> Delete checked contacts</h4>
   <div id="flyout-bulk-contact-delete-actions" class="toggle-target tags sub-action" style="display: none;">
   <% form_tag(url_for(:controller => '/admin/bulk_action', :action => :bulk_contact_delete), :id => 'bulk-delete-contacts') do %>
-    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= hidden_field_tag '_redirect_to', url_for(sanitized_url_params) %>
     <%= submit_tag 'Delete checked contacts.' %><br/>
   <% end %>
 </div>
@@ -62,7 +62,7 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
       <label for="title">Title:</label> <%= text_field_tag 'title',"#{@session_user.username} - #{Date.today}" %>
       <br/>
     <% end %>
-    <%= hidden_field_tag 'return_to', url_for(sanitized_url_params) %>
+    <%= hidden_field_tag '_redirect_to', url_for(sanitized_url_params) %>
     <%= submit_tag 'Add Cart and Selected Contacts to Mail Campaign' %><br/>
     <% if !@session_user.active_campaign.nil? %>
       <%= link_to show_icon_with_text(:email_delete, 'Delete my Active Mail Campaign'), @session_user.active_campaign, :confirm => "Are you sure you want to delete \"#{@session_user.active_campaign.title}\"?", :method => :delete %>

@@ -63,7 +63,7 @@ class ContactCartsController < ApplicationController
         flash[:error] = "We couldn't create the cart."
       end
     end
-    redirect_to params[:return_to] and return     
+    manage_destination 
   end
 
   # (POST) remove_contact removes the contact with id of <tt>params[:contact_to_remove_id]</tt> from the user's active contact cart
@@ -72,7 +72,7 @@ class ContactCartsController < ApplicationController
       @contact_cart = @session_user.active_contact_cart
       @contact_cart.contacts.delete( Contact.find(params[:contact_to_remove_id]))
       @contact_cart.save
-      redirect_to params[:return_to] and return
+      manage_destination 
     end
   end
   
@@ -86,7 +86,7 @@ class ContactCartsController < ApplicationController
       flash[:error] = 'Contact cart not destroyed. Are you trying to delete someone else\'s cart?'
     end
     respond_to do |format|
-      format.html { redirect_to(params[:return_to] || contact_carts_url) }
+      format.html { manage_destination }
       format.xml  { head :ok }
     end
   end

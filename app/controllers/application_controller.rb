@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   filter_parameter_logging :password, :passwd
 
-  def manage_destination(default_url_hash)
+  def manage_destination(default_url_hash = {})
     if params[:_redirect_to]
       redirect_to params[:_redirect_to] and return
     elsif ! default_url_hash.blank?

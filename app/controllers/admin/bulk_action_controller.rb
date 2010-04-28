@@ -12,7 +12,7 @@ class Admin::BulkActionController < Admin::BaseController
         flash[:error] = "There was an error creating some notes: #{exc.message}"
       end
     end
-    redirect_to params[:return_to] and return
+    manage_destination
   end
 
   def bulk_tag_remove
@@ -30,7 +30,7 @@ class Admin::BulkActionController < Admin::BaseController
       Contact.bulk_index(contact_ids)
       flash[:notice] = 'Those tags have been removed.'
     end
-    redirect_to params[:return_to] and return
+    manage_destination
   end
 
   def bulk_contact_delete
@@ -45,7 +45,7 @@ class Admin::BulkActionController < Admin::BaseController
       end
       flash[:notice] = 'Those contacts have been permanently deleted.'
     end
-    redirect_to params[:return_to] and return
+    manage_destination
   end
 
   def bulk_tag
@@ -61,7 +61,7 @@ class Admin::BulkActionController < Admin::BaseController
       Contact.bulk_index(contact_ids)
       flash[:notice] = 'Those contacts have been tagged.'
     end
-    redirect_to params[:return_to] and return
+    manage_destination
   end
 
   # Add selected contacts to a user's active campaign or create a new one with selected contacts.
@@ -86,7 +86,7 @@ class Admin::BulkActionController < Admin::BaseController
         flash[:error] = "We couldn't create the campaign. Perhaps a more unique title?"
       end
     end
-    redirect_to params[:return_to] and return 
+    manage_destination
   end
  
   protected
