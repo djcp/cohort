@@ -8,9 +8,9 @@ ActionController::Routing::Routes.draw do |map|
       :method => 'get'
   end
 
-  map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', :path_prefix => '/admin',
+  map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', 
     :controller => 'freemailer_campaigns', :action => 'clear_active', :method => 'get'
-  map.resources :freemailer_campaigns, :path_prefix => '/admin' do |campaign|
+  map.resources :freemailer_campaigns  do |campaign|
     campaign.make_active 'make_active', :action => 'make_active', :method => 'get', 
       :controller => 'freemailer_campaigns'
     campaign.send_campaign      'send', :action => 'send_campaign', :method => 'get',

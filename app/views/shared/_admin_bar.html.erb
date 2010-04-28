@@ -3,7 +3,7 @@
   <%= link_to 'Contacts', :controller => '/admin/dashboard', :action => :contacts %>
   <%= link_to 'Tags', :controller => '/admin/dashboard', :action => :tags %>
   <%= link_to 'Notes', :controller => '/notes', :action => :my, :id => 'show' %>
-  <%= link_to 'Carts', :controller => '/contact_carts' %>
-  <%= link_to 'Search', :controller => '/saved_searches' %>
+  <%= link_to 'Carts', contact_carts_path %>
+  <%= link_to 'Search', saved_searches_path %>
   <%= link_to 'Mail Campaigns', freemailer_campaigns_path %>
 </div>

@@ -1,5 +1,6 @@
-class FreemailerCampaignsController < Admin::BaseController
-  before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit, :make_active, :send, :statuses]
+class FreemailerCampaignsController < ApplicationController
+  before_filter :is_admin
+  before_filter :only_load_campaigns_user_owns , :only => [:destroy,:update,:show, :edit, :make_active, :send, :statuses, :send_campaign]
   
   # Set the current campaign (in the route) as active for the sending user. 
   #
@@ -22,8 +23,7 @@ class FreemailerCampaignsController < Admin::BaseController
   #
   # Daniel, this should be added to the <tt>before_filter :only_load_campaigns_user_owns</tt> and not loaded from <tt>@session_user.active_campaign</tt> but I didn't have the chance to test this.
   def send_campaign
-    campaign = @session_user.active_campaign
-    campaign.send_campaign
+    @freemailer_campaign.send_campaign
     flash[:notice] = "Mailing Campaign will be sent shortly."
     @session_user.active_campaign = nil
     @session_user.save

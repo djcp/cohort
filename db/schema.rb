@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090730182227) do
+ActiveRecord::Schema.define(:version => 20100428181216) do
 
   create_table "contact_addresses", :force => true do |t|
     t.integer  "contact_id",                                     :null => false
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(:version => 20090730182227) do
 
   create_table "contact_carts", :force => true do |t|
     t.integer  "user_id"
-    t.string   "title"
     t.boolean  "global",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "contact_emails", :force => true do |t|
@@ -123,17 +123,17 @@ ActiveRecord::Schema.define(:version => 20090730182227) do
     t.datetime "updated_at"
   end
 
-  add_index "freemailer_campaign_contacts", ["contact_id", "freemailer_campaign_id"], :name => "freemailer_name_index", :unique => true
+  add_index "freemailer_campaign_contacts", ["contact_id", "freemailer_campaign_id"], :name => "index_freemailer_campaign_contacts_on_contact_id_and_freemailer", :unique => true
 
   create_table "freemailer_campaigns", :force => true do |t|
     t.string   "subject"
     t.string   "title"
     t.text     "body_template"
     t.integer  "sender_id"
-    t.boolean  "sent",          :default => false
-    t.string   "from"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "sent",          :default => false
+    t.string   "from"
   end
 
   create_table "log_items", :force => true do |t|
@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(:version => 20090730182227) do
   end
 
   add_index "taggings", ["created_at"], :name => "index_taggings_on_created_at"
-  add_index "taggings", ["freetaggable_id", "freetaggable_type", "tag_id"], :name => "freetaggables_index", :unique => true
+  add_index "taggings", ["freetaggable_id", "freetaggable_type", "tag_id"], :name => "index_taggings_on_freetaggable_id_and_freetaggable_type_and_tag", :unique => true
   add_index "taggings", ["freetaggable_id"], :name => "index_taggings_on_freetaggable_id"
   add_index "taggings", ["freetaggable_type"], :name => "index_taggings_on_freetaggable_type"
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
