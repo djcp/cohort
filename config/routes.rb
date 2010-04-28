@@ -1,15 +1,15 @@
 ActionController::Routing::Routes.draw do |map|
-  map.contact_cart_clear_active 'contact_cart/clear_active', :path_prefix => '/admin', 
-      :controller => 'contact_carts', :action => 'clear_active', :method => 'get'
-  map.resources :contact_carts, :path_prefix => '/admin' do |cart|
+  map.contact_cart_clear_active 'contact_cart/clear_active',
+    :controller => 'contact_carts', :action => 'clear_active', :method => 'get'
+  map.resources :contact_carts do |cart|
     cart.remove_contact 'remove_contact',  :controller => 'contact_carts', :action => 'remove_contact',
-        :method => 'put'
+      :method => 'put'
     cart.make_active 'make_active', :controller => 'contact_carts', :action => 'make_active', 
-        :method => 'get'
+      :method => 'get'
   end
 
   map.freemailer_campaign_clear_active 'freemailer_campaigns/clear_active', :path_prefix => '/admin',
-      :controller => 'freemailer_campaigns', :action => 'clear_active', :method => 'get'
+    :controller => 'freemailer_campaigns', :action => 'clear_active', :method => 'get'
   map.resources :freemailer_campaigns, :path_prefix => '/admin' do |campaign|
     campaign.make_active 'make_active', :action => 'make_active', :method => 'get', 
       :controller => 'freemailer_campaigns'
@@ -60,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
 
   map.resources :contacts
+  map.resources :contact_carts
   map.resources :tags
   map.resources :notes
   map.resources :saved_searches

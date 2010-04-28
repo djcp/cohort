@@ -1,0 +1,34 @@
+<h1>Edit your mail campaign</h1>
+
+<% form_for(@freemailer_campaign) do |f| %>
+  <%= f.error_messages %>
+  <p><%= f.label :title %><br/><%= f.text_field :title %>
+  </p>
+  <p>Contacts:<br/>
+  <%= @freemailer_campaign.contact_names %>
+  </p>
+  <p><%= f.label :from %><br/>
+  <%= f.text_field :from %>
+  </p>
+  <p><%= f.label :subject %><br/>
+  <%= f.text_field :subject %>
+  </p>
+  <p id="campaign_template"><%= f.label :body_template %><br/>
+  <%= f.text_area :body_template %>
+  </p>
+  <div id="campaign_legend">
+    <h3>Available Merges</h3>
+    <ul>
+      <li><b>[[first name]]</b> yields <i>John</i></li>
+      <li><b>[[last name]]</b> yields <i>Doe</i></li>
+      <li><b>[[middle name]]</b> yields <i>H.</i></li>
+      <li><b>[[name]]</b> yields <i>John H. Doe</i> </li>
+      <li><b>[[email]]</b> yields <i>me@johndoe.com</i></li>
+      <li><b>[[address]]</b> yields:<br/>
+      <i>123 Some Pl.<br/>
+      My Town, USA  12345</i></li>
+    </ul>
+  </div>
+  <p style='clear:left'><%= f.submit 'Update' %> <%= f.submit 'Send (implement)' %></p>
+<% end %>
+<%= link_to 'Show', @freemailer_campaign %> | <%= link_to 'All Campaigns', freemailer_campaigns_path %>

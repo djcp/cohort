@@ -1,6 +1,6 @@
 <div class="contact-details">
 
-  <h1><%= @contact.name_for_display %> <span style="font-size: smaller;"><%= link_to('edit', edit_contact_url(@contact) ) %></h1>
+  <h1><%= @contact.name_for_display %> <span style="font-size: smaller;"><%= link_to('edit', edit_contact_url(@contact, :_redirect_to => url_for()) ) %></h1>
     <dl>
       <% ['organization','title'].each do |field| %>
         <% unless @contact.send(field).blank? %>

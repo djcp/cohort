@@ -1,0 +1,20 @@
+<h1><%= "#{h @freemailer_campaign.title} (#{@freemailer_campaign.status})" %></h1>
+<p><b>Contacts:</b>
+<%= h @freemailer_campaign.contact_names %>
+</p>
+<p><b>From:</b>
+<%= h @freemailer_campaign.from %>
+</p>
+<p><b>Subject:</b>
+<%= h @freemailer_campaign.subject %>
+</p>
+<p><b>Body template:</b>
+<%= h @freemailer_campaign.body_template %>
+</p>
+<% if @freemailer_campaign.sent %>
+  <%= link_to('Status', :action => 'statuses') %>
+<% else %>
+  <%= link_to('Send', freemailer_campaign_send_campaign_path(@freemailer_campaign)) %>
+<% end %>
+| <%= link_to('Edit', edit_freemailer_campaign_path(@freemailer_campaign)) %> 
+| <%= link_to('Back', freemailer_campaigns_path) %>

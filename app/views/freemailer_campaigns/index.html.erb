@@ -1,0 +1,37 @@
+<h1>Your Mailing Campaigns</h1>
+<% if @session_user.active_campaign %>
+  <h3>
+    Active Campaign
+    <%= link_to '(clear active)', freemailer_campaign_clear_active_path %>
+  </h3>
+  <p>
+  <b><%= @session_user.active_campaign.title %></b>
+  <br>
+  </br>
+  <b><%= @session_user.active_campaign.subject %></b>
+  <br>
+  </br>
+  <%= text_area_tag 'Preview', @session_user.active_campaign.preview, :disabled => true, :size => size_for_text_area_tag(@session_user.active_campaign.preview) %>
+  </p>
+  <%= will_paginate @freemailer_campaigns %>
+<% end %>
+<% if !@freemailer_campaigns.empty? %>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Subject</th>
+      <th>Contacts</th>
+      <th>From</th>
+      <th>Status</th>
+    </tr>
+    <% @freemailer_campaigns.each do |freemailer_campaign| %>
+      <%= render :partial => 'campaign', :locals => {:freemailer_campaign => freemailer_campaign} %>
+    <% end %>
+  </table>
+  <%= will_paginate @freemailer_campaigns %>
+<% else %>
+  <h3>
+    You have none. Create one on the
+    <%= link_to('Contact Page',  :controller => '/admin/dashboard', :action => :contacts) + '.' %>
+  </h3>
+<% end %>

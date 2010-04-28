@@ -1,8 +1,9 @@
 <%= error_messages_for :contact %>
-<fieldset class="form contact" id="contact-edit-form">
+<fieldset class="form contact" class="<%= (@contact.new_record?) ? 'new-' : 'edit-' %>contact-form" id="contact-edit-form">
 
   <legend><%= @contact.new_record? ? "Add Contact" : "Edit Contact \"#{h @contact.name_for_display}\"" %></legend>
 <% form_for @contact do|f| %>
+  <%= hidden_field_tag :_redirect_to, params[:_redirect_to] %>
   <h2 id="flyout-contact-personal-info" class="toggle shown">Personal Info</h2>
   <div id="flyout-contact-personal-info-actions" class="toggle-target defaultopen">
     <% %W|first_name middle_name last_name title organization|.each do|field| %>

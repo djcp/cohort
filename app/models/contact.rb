@@ -1,12 +1,12 @@
 class Contact < ActiveRecord::Base
-  
+
   # Mail campaign Assoc.
   has_many :freemailer_campaign_contacts, :dependent => :destroy
   has_many :freemailer_campaigns, :through => :freemailer_campaign_contacts
-  
+
   has_many :contact_cart_entries, :dependent => :destroy
   has_many :contact_carts, :through => :contact_cart_entries
-    
+
   # Many validations are handled by the redhill schema_validations plugin.
   acts_as_ferret(:single_index => true, :additional_fields => [:my_tags, :my_tag_ids, :my_emails, :my_notes, :my_addresses, :my_urls], :remote => true)
   acts_as_freetaggable
@@ -22,7 +22,7 @@ class Contact < ActiveRecord::Base
 
   accepts_nested_attributes_for :contact_emails, :allow_destroy => true, 
     :reject_if => proc { |attributes| attributes['email'].blank? }
- 
+
   accepts_nested_attributes_for :contact_addresses, :allow_destroy => true, 
     :reject_if => proc { |attributes| (attributes['city'].blank? or attributes['country'].blank?) ? true : false }
 
@@ -47,21 +47,21 @@ class Contact < ActiveRecord::Base
 
   def primary_address
     pa = get_primary_address
-    return pa && "#{pa.street1}\n" + "#{if !pa.street2.squeeze.empty?; pa.street2 + "\n"; end;}" + 
-      "#{pa.city}, #{pa.state}  #{pa.zip}\n#{pa.country}"
+    pa && ("#{pa.street1}\n #{if !pa.street2.squeeze.empty?; pa.street2 + "\n"; end;} #{pa.city}, #{pa.state}  #{pa.zip}\n#{pa.country}")
   end
-
-  def get_primary_address(amount=:first)
+  
+  def get_primary_address(amount = :first)
     pa = self.contact_addresses.find(amount, :order => 'is_primary desc, id')
   end
 
-  def email(which=:primary)
+  def email(which = :primary)
     if which == :primary
       self.contact_emails.find(:first, :order => 'is_primary desc, id')
     else
       all = self.contact_emails.find(:all, :order => 'is_primary desc, id')
       if which == :non_primaries
         all.shift
+        all
       elsif which == :all
         all
       end

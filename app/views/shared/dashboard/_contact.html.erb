@@ -1,7 +1,7 @@
 <li class="item">
 <%= check_box_tag 'contact_ids[]', contact.id, false, :class=> 'contact-selector' %> <%= link_to(contact.name_for_display, contact_url(contact) )%>
 <% unless contact.primary_email.blank? %>, <%= mail_to(contact.primary_email) %><% end %><br />
-  <div class="details" style="display: none;"><%= link_to('edit', edit_contact_url(contact) ) %> |
+  <div class="details" style="display: none;"><%= link_to('edit', edit_contact_url(contact, :_redirect_to => url_for()) ) %> |
     <%= create_compact_object_widget('note',contact,:manage_notes) %>
     <%= create_compact_object_widget('tag',contact,:manage_tags) %>
     <%= h contact.send(display_method) %>

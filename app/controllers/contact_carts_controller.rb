@@ -1,4 +1,5 @@
-class ContactCartsController < Admin::BaseController
+class ContactCartsController < ApplicationController
+  before_filter :is_admin
 
   # (GET) make_active assigns a user's active contact cart by finding the contact cart with id <tt>params[:contact_cart_id]</tt> so long as it belongs to the user or is set as global.
   def make_active
@@ -16,6 +17,10 @@ class ContactCartsController < Admin::BaseController
     redirect_to contact_carts_url
   end
   
+  def edit
+    @contact_cart = ContactCart.find(params[:id])
+  end
+
   # (GET) index is different from a normal index in that it provides two sets of ContactCarts to the user: 
   # * Those owned by the user and
   # * those not owned by the user, but marked global
@@ -86,5 +91,3 @@ class ContactCartsController < Admin::BaseController
     end
   end
 end
-
-Admin::ContactCartController = ContactCartsController

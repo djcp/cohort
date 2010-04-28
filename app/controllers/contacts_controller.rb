@@ -107,7 +107,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new
     @contact.attributes = params[:contact]
     if @contact.save
-      redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
+      manage_destination(:controller => '/admin/dashboard', :action => :dashboard)
     else
       render :template => 'contacts/edit' and return
     end
@@ -117,7 +117,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
   rescue Exception => exc
     flash[:error] = "There was an error when we looked for that contact: #{exc.message}"
-    redirect_to :action => :dashboard and return
+    manage_destination(:controller => '/admin/dashboard', :action => :dashboard)
   end
 
   def edit
@@ -135,7 +135,7 @@ class ContactsController < ApplicationController
     @contact.attributes = params[:contact]
     if @contact.save
       flash[:notice] = 'Saved!'
-      redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
+      manage_destination(:controller => '/admin/dashboard', :action => :dashboard)
     else
       #logger.warn('update failed.')
       render :template => 'contacts/edit' and return
@@ -147,7 +147,7 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
       @contact.destroy
       flash[:notice] = 'Gone!'
-      redirect_to :controller => '/admin/dashboard', :action => :dashboard and return
+      manage_destination(:controller => '/admin/dashboard', :action => :dashboard)
     rescue Exception => exc
       #logger.error "Destroy failed #{exc.message}"
       flash[:error] = 'There was an error deleting that item. Sorry!'
