@@ -16,7 +16,7 @@ class CreateTagModels < ActiveRecord::Migration
     end
 
     create_table :taggings do |t|
-      t.references :freetaggable, :polymorphic => true, :references => nil
+      t.references :freetaggable, :polymorphic => true
       t.references :tag
       t.timestamps
     end
