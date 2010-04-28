@@ -1,16 +1,18 @@
-<h1>Contact Carts</h1>
-<% if @session_user.active_contact_cart %>
-  <h3>Active Cart <%= link_to '(clear active)', contact_cart_clear_active_path %></h3>
-  <%= render :partial => 'carts', :locals => {:contact_carts => [@session_user.active_contact_cart] } %>
-<% end %>
-<% if @my_contact_carts %>
-  <h3>My Carts</h3>
-  <%= render :partial => 'carts', :locals => {:contact_carts => @my_contact_carts} %>
-<% end %>
-<% if @global_contact_carts %>
-  <h3>Global Carts</h3>
-  <%= render :partial => 'carts', :locals => {:contact_carts => @global_contact_carts ||[]} %>
-<% end %>
-<% if !@my_contact_carts and !@global_contact_carts and !@session_user.active_contact_cart %>
-  <h3>You have none. Create a contact cart on the <%= link_to 'Contact Page',  :controller => '/admin/dashboard', :action => :contacts %>.</h3>
-<% end %>
+<div class="dashboard-list fullwidth">
+  <h2>Contact Carts</h2>
+  <% if @session_user.active_contact_cart %>
+    <h3>Active Cart <%= link_to '(clear active)', contact_cart_clear_active_path %></h3>
+    <%= render :partial => 'carts', :locals => {:contact_carts => [@session_user.active_contact_cart] } %>
+  <% end %>
+  <% if @my_contact_carts %>
+    <h3>My Carts</h3>
+    <%= render :partial => 'carts', :locals => {:contact_carts => @my_contact_carts} %>
+  <% end %>
+  <% if @global_contact_carts %>
+    <h3>Global Carts</h3>
+    <%= render :partial => 'carts', :locals => {:contact_carts => @global_contact_carts ||[]} %>
+  <% end %>
+  <% if !@my_contact_carts and !@global_contact_carts and !@session_user.active_contact_cart %>
+    <h3>You have none. Create a contact cart on the <%= link_to 'Contact Page',  :controller => '/admin/dashboard', :action => :contacts %>.</h3>
+  <% end %>
+</div>
