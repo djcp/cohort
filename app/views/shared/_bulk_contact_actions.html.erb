@@ -61,11 +61,13 @@ Due Date: <%= calendar_date_select_tag "follow_up", '', :time => true, :minute_i
     <% if @session_user.active_campaign.nil? %>
       <label for="title">Title:</label> <%= text_field_tag 'title',"#{@session_user.username} - #{Date.today}" %>
       <br/>
+    <% else %>
+      <h4><%= h @session_user.active_campaign.title %> (<%= @session_user.active_campaign.contacts.length %>)</h4>
     <% end %>
     <%= hidden_field_tag '_redirect_to', url_for(sanitized_url_params) %>
-    <%= submit_tag 'Add Cart and Selected Contacts to Mail Campaign' %><br/>
+    <%= submit_tag 'Add Cart and Contacts' %><br/>
     <% if !@session_user.active_campaign.nil? %>
-      <%= link_to show_icon_with_text(:email_delete, 'Delete my Active Mail Campaign'), @session_user.active_campaign, :confirm => "Are you sure you want to delete \"#{@session_user.active_campaign.title}\"?", :method => :delete %>
+      <%= link_to show_icon_with_text(:email_delete, 'Deactivate'), freemailer_campaign_clear_active_path(:_redirect_to => url_for(sanitized_url_params)) %>
     <% end%>
   <% end %>
 </div>

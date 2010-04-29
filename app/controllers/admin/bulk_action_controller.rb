@@ -17,13 +17,13 @@ class Admin::BulkActionController < Admin::BaseController
 
   def bulk_tag_remove
     if request.post?
-    tags = []
+      tags = []
       parse_bulk_tag_list(:tags => params[:bulk_remove_tags], :tag_list => tags, :autocreate => false)
       contact_ids = params[:contact_ids]
       Contact.find_all_by_id(contact_ids).each do |c|
         ctids = c.tag_ids
         tags.each do |t|
-          ctids.delete(t)
+          ctids.delete(t.to_i)
         end
         c.tag_ids = ctids
       end
@@ -54,9 +54,7 @@ class Admin::BulkActionController < Admin::BaseController
       parse_bulk_tag_list(:tags => params[:bulk_apply_tags], :tag_list => new_tags, :autocreate => true)
       contact_ids = params[:contact_ids]
       Contact.find_all_by_id(contact_ids, :include => :tags).each do |c|
-        tag_ids = c.tag_ids
-        tag_ids << new_tags
-        c.tag_ids = tag_ids.uniq.compact
+        c.tag_ids = [c.tag_ids, new_tags].flatten.uniq.compact
       end
       Contact.bulk_index(contact_ids)
       flash[:notice] = 'Those contacts have been tagged.'
@@ -83,7 +81,7 @@ class Admin::BulkActionController < Admin::BaseController
         flash[:notice] = 'Campaign created. Now just fill in the rest!'
         redirect_to edit_freemailer_campaign_url @campaign and return
       else
-        flash[:error] = "We couldn't create the campaign. Perhaps a more unique title?"
+        flash[:error] = "We couldn't create the campaign. Please select some contacts and ensure that the title of this campaign is unique."
       end
     end
     manage_destination
@@ -95,7 +93,7 @@ class Admin::BulkActionController < Admin::BaseController
     param[:tags].split(',').each do |tag|
       matchval = tag.match(/\(id\:(\d+)\)$/)
       if matchval
-        param[:tag_list] << matchval[1].to_i
+        param[:tag_list] << matchval[1]
       elsif param[:autocreate] && param[:autocreate] == true
         begin
           unless tag.blank?

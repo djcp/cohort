@@ -38,6 +38,15 @@ h1 {
   font-weight: normal;
 }
 
+#error{
+  margin: .5em auto;
+  padding: .5em;
+  background: red;
+  color: white;
+  font-weight: bold;
+  width: 90%;
+}
+
 h2 {
   font-size: 220%;
 }
@@ -289,9 +298,12 @@ dt {
 }
 
 #right-column .pui-autocomplete-holder{
-  width: 300px !important;
+  width: 250px !important;
 }
 
+.pui-autocomplete-input{
+  width: 300px;
+}
 
 span.tag-display a{
   text-decoration: none;

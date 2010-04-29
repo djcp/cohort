@@ -8,7 +8,7 @@ class FreemailerCampaignsController < ApplicationController
   def make_active
     @freemailer_campaign.make_active_for_sender
     flash[:notice] = "Campaign has been made active."
-    redirect_to freemailer_campaigns_url
+    manage_destination(freemailer_campaigns_url)
   end
   
   # Clear user's current active campaign
@@ -16,7 +16,7 @@ class FreemailerCampaignsController < ApplicationController
     flash[:notice] = "Active campaign cleared."
     @session_user.active_campaign = nil
     @session_user.save
-    redirect_to freemailer_campaigns_url
+    manage_destination(freemailer_campaigns_url)
   end
     
   # Tell the Campaign that it should send the user's active campaign
@@ -27,7 +27,7 @@ class FreemailerCampaignsController < ApplicationController
     flash[:notice] = "Mailing Campaign will be sent shortly."
     @session_user.active_campaign = nil
     @session_user.save
-    redirect_to freemailer_campaigns_url
+    manage_destination(freemailer_campaigns_url)
   end
   
   # Renders a partial displaying mail delivery status for the given campaign. Used in conjuction with Modalbox for display - see app/views/_campaign.html.haml
@@ -69,7 +69,7 @@ class FreemailerCampaignsController < ApplicationController
     respond_to do |format|
       if @freemailer_campaign.save
         flash[:notice] = 'Mailing Campaign was successfully created.'
-        format.html { redirect_to(@freemailer_campaign) }
+        format.html { manage_destination(@freemailer_campaign) }
         format.xml  { render :xml => @freemailer_campaign, :status => :created, :location => @freemailer_campaign }
       else
         format.html { render :action => "new" }
@@ -82,7 +82,7 @@ class FreemailerCampaignsController < ApplicationController
     respond_to do |format|
       if @freemailer_campaign.update_attributes(params[:freemailer_campaign])
         flash[:notice] = 'Mailing Campaign was successfully updated.'
-        format.html { redirect_to(@freemailer_campaign) }
+        format.html { manage_destination(@freemailer_campaign) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -95,7 +95,7 @@ class FreemailerCampaignsController < ApplicationController
     @freemailer_campaign.destroy
 
     respond_to do |format|
-      format.html { redirect_to(freemailer_campaigns_url) }
+      format.html { manage_destination(freemailer_campaigns_url) }
       format.xml  { head :ok }
     end
   end
@@ -109,7 +109,7 @@ class FreemailerCampaignsController < ApplicationController
     @freemailer_campaign = FreemailerCampaign.find(params[:id])
     if @freemailer_campaign.sender != @session_user
       flash[:error] = "You do not own the freemailer campaign you are trying to access"
-      redirect_to freemailer_campaigns_url
+      manage_destination(freemailer_campaigns_url)
     end
   end
 end

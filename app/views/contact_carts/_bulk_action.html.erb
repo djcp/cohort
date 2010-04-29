@@ -1,9 +1,8 @@
 <h4 id="flyout-bulk-contact-cart" class="toggle hidden tags sub-action"><%= icon(:cart) %>Contact Cart</h4>
-
 <div id="flyout-bulk-contact-cart-actions" class="toggle-target tags sub-action" style="display: none;">
   <% cart = @session_user.active_contact_cart %>
   <% if !cart.nil? %>
-    <b><%= "#{cart.title} (#{cart.contacts.count} )" %></b>
+    <h4><%= "#{cart.title} (#{cart.contacts.count})" %></h4>
     <%= render :partial => 'contact_carts/contacts', :locals => { :cart => cart } %>
   <% end %>
   <% form_tag(url_for(:controller=>'/contact_carts',:action=>:create), :id => 'bulk-contact-cart') do %>
@@ -14,12 +13,11 @@
     <% end %>
     <%= hidden_field_tag '_redirect_to', url_for(sanitized_url_params) %>
     <% if cart.nil? || (cart && @session_user == cart.user) %>
-      <%= submit_tag 'Add Selected Contacts to Cart' %>
+      <%= submit_tag 'Add Contacts' %>
       <br/>
     <% end %>
-    <%= link_to show_icon_with_text(:briefcase, "Manage Saved Carts"), contact_carts_path %>
     <% if !cart.nil? && @session_user == cart.user %>
-      <%= link_to show_icon_with_text(:cart_delete, 'Delete Active'), cart, :confirm => "Are you sure you want to delete your active contact cart?", :method => :delete, :controller => 'admin/contact_carts' %>
+      <%= link_to show_icon_with_text(:cart_delete, 'Deactivate'), contact_cart_clear_active_path(:_redirect_to => url_for(sanitized_url_params)) %>
     <% end %>
   <% end %>
 </div>

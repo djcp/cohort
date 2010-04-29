@@ -4,6 +4,8 @@ class FreemailerCampaign < ActiveRecord::Base
   has_many :freemailer_campaign_contacts, :dependent => :destroy
   has_many :contacts, :through => :freemailer_campaign_contacts
 
+  validates_presence_of :contact_ids
+
   validates_uniqueness_of :title, :scope => :sender_id, :on => :create, :message => "must be unique" #JS me
 
   before_destroy :remove_active_campaign

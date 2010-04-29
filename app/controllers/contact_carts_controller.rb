@@ -6,7 +6,7 @@ class ContactCartsController < ApplicationController
     @session_user.active_contact_cart = ContactCart.find(params[:contact_cart_id], :conditions => ["user_id = ? or global = true",@session_user.id])
     @session_user.save
     flash[:notice] = "Contact Cart has been made active."
-    redirect_to contact_carts_url
+    manage_destination contact_carts_url
   end
 
   # (GET) clear_active sets the user's active contact cart to <tt>nil</tt>.
@@ -14,7 +14,7 @@ class ContactCartsController < ApplicationController
     flash[:notice] = "Active contact cart cleared."
     @session_user.active_contact_cart = nil
     @session_user.save
-    redirect_to contact_carts_url
+    manage_destination contact_carts_url
   end
   
   def edit
@@ -60,10 +60,10 @@ class ContactCartsController < ApplicationController
         @session_user.save
         flash[:notice] = 'Contact cart created/updated.'
       else
-        flash[:error] = "We couldn't create the cart."
+        flash[:error] = "We couldn't create the cart. Be sure to select some contacts."
       end
     end
-    manage_destination 
+    manage_destination contact_carts_url
   end
 
   # (POST) remove_contact removes the contact with id of <tt>params[:contact_to_remove_id]</tt> from the user's active contact cart
@@ -72,7 +72,7 @@ class ContactCartsController < ApplicationController
       @contact_cart = @session_user.active_contact_cart
       @contact_cart.contacts.delete( Contact.find(params[:contact_to_remove_id]))
       @contact_cart.save
-      manage_destination 
+      manage_destination contact_carts_url
     end
   end
   
@@ -86,7 +86,7 @@ class ContactCartsController < ApplicationController
       flash[:error] = 'Contact cart not destroyed. Are you trying to delete someone else\'s cart?'
     end
     respond_to do |format|
-      format.html { manage_destination }
+      format.html { manage_destination(contact_carts_url) }
       format.xml  { head :ok }
     end
   end
