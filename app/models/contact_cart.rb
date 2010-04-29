@@ -6,8 +6,6 @@ class ContactCart < ActiveRecord::Base
   has_many :contact_cart_entries, :dependent => :destroy
   has_many :contacts, :through => :contact_cart_entries
 
-  validates_presence_of :contact_ids
-
   # Provides a list of contacts in the cart joined by ", " or " -- None Added -- " if there are no contacts.
   def contact_names
     contacts.count == 0 ? ' -- None Added -- ' : contacts.map(&:name_for_display).join(', ').squeeze(' ')

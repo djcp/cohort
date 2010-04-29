@@ -78,8 +78,7 @@ class Admin::BulkActionController < Admin::BaseController
         @campaign.save
         @session_user.active_campaign = @campaign
         @session_user.save
-        flash[:notice] = 'Campaign created. Now just fill in the rest!'
-        redirect_to edit_freemailer_campaign_url @campaign and return
+        flash[:notice] = (@campaign.new_record?) ? 'Campaign created.' : 'Campaign updated.'
       else
         flash[:error] = "We couldn't create the campaign. Please select some contacts and ensure that the title of this campaign is unique."
       end
